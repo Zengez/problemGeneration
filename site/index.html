@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>Tagged File Browser</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="page-width">
+        <h1>Tagged File Browser</h1>
+
+        <p>
+            Select tags to require or exclude, then browse the
+            matching files.
+        </p>
+    </div>
+</header>
+
+<main class="page-width">
+
+    <section class="controls">
+
+        <div class="search-row">
+            <label for="search">
+                Search
+            </label>
+
+            <input
+                id="search"
+                type="search"
+                placeholder="Search titles, filenames, or tags..."
+                autocomplete="off"
+            >
+
+            <button
+                id="clearFilters"
+                type="button"
+            >
+                Clear filters
+            </button>
+        </div>
+
+        <div class="filter-explanation">
+            <strong>Include</strong> means a result must have that tag.
+            <strong>Exclude</strong> means a result must not have that tag.
+            If several tags are included, a file must have all of them.
+        </div>
+
+        <div class="tag-filter-columns">
+
+            <section class="tag-panel">
+                <h2>Must include</h2>
+
+                <div
+                    id="includeTags"
+                    class="tag-list"
+                ></div>
+            </section>
+
+            <section class="tag-panel">
+                <h2>Must exclude</h2>
+
+                <div
+                    id="excludeTags"
+                    class="tag-list"
+                ></div>
+            </section>
+
+        </div>
+
+    </section>
+
+    <section class="results-section">
+
+        <div class="results-heading">
+            <h2>Results</h2>
+
+            <div
+                id="resultCount"
+                class="result-count"
+                aria-live="polite"
+            ></div>
+        </div>
+
+        <div
+            id="results"
+            class="results"
+        ></div>
+
+        <div
+            id="noResults"
+            class="no-results"
+            hidden
+        >
+            No files match the selected filters.
+        </div>
+
+    </section>
+
+</main>
+
+<script src="filter.js"></script>
+
+</body>
+</html>
