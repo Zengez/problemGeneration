@@ -1,21 +1,53 @@
 {
   "files": [
     {
-      "title": "Factoring by AC Method",
-      "file": "factoringByACMethod.txt",
+      "title": "factorByACMethod",
+      "file": "polynomials/factorByACMethod.txt",
       "tags": [
         "Polynomials",
-        "Factoring",
-        "AC-Method"
+        "AC Method",
+        "Factoring"
       ],
-      "url": "files/factoringByACMethod.txt"
+      "url": "files/polynomials/factorByACMethod.txt"
+    },
+    {
+      "title": "factorByCoefficients",
+      "file": "polynomials/factorByCoefficients.txt",
+      "tags": [
+        "Polynomials",
+        "Coefficients Method",
+        "Factoring"
+      ],
+      "url": "files/polynomials/factorByCoefficients.txt"
+    },
+    {
+      "title": "factorByGrouping",
+      "file": "polynomials/factorByGrouping.txt",
+      "tags": [
+        "Polynomials",
+        "Grouping Method",
+        "Factoring"
+      ],
+      "url": "files/polynomials/factorByGrouping.txt"
+    },
+    {
+      "title": "factorByRationalRootTheorem",
+      "file": "polynomials/factorByRationalRootTheorem.txt",
+      "tags": [
+        "Polynomials",
+        "Rational Root Theorem"
+      ],
+      "url": "files/polynomials/factorByRationalRootTheorem.txt"
     }
   ],
   "tags": [
-    "AC-Method",
+    "AC Method",
+    "Coefficients Method",
     "Factoring",
-    "Polynomials"
+    "Grouping Method",
+    "Polynomials",
+    "Rational Root Theorem"
   ],
-  "fileCount": 1,
-  "tagCount": 3
+  "fileCount": 4,
+  "tagCount": 6
 }
