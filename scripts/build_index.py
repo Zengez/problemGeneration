@@ -22,20 +22,24 @@ def parse_file(path: Path, base_dir: Path):
 
         Body...
 
-    TITLE must come before TAGS when present.
+    Files without a TAGS: metadata line are ignored.
+
+    TITLE is optional and must immediately precede TAGS when present.
     """
 
     text = path.read_text(encoding="utf-8")
     lines = text.splitlines()
 
+    # Empty files are placeholders; ignore them.
+    if not lines:
+        return None
+
     title = path.stem
     tags = []
 
-    if not lines:
-        raise ValueError("file is empty")
-
     i = 0
 
+    # Optional TITLE metadata.
     if lines[i].startswith("TITLE:"):
         explicit_title = lines[i][len("TITLE:"):].strip()
 
@@ -44,11 +48,9 @@ def parse_file(path: Path, base_dir: Path):
 
         i += 1
 
+    # No TAGS metadata means this file is not yet part of the published index.
     if i >= len(lines) or not lines[i].startswith("TAGS:"):
-        raise ValueError(
-            "expected TAGS: line"
-            + (" after TITLE:" if i > 0 else " as first line")
-        )
+        return None
 
     raw_tags = lines[i][len("TAGS:"):].strip()
 
@@ -110,7 +112,11 @@ def main():
 
     for path in sorted(source.rglob("*.txt")):
         try:
-            records.append(parse_file(path, source))
+            record = parse_file(path, source)
+
+            if record is not None:
+                records.append(record)
+
         except Exception as exc:
             errors.append(f"{path}: {exc}")
 
