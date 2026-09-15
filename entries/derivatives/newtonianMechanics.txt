@@ -1,0 +1,67 @@
+TITLE: Newtonian Mechanics
+TAGS: Derivatives, Word Problem
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def newtonianMechanics():
+    var('t,x,y,z,X,Y,Z')
+    f1 = NonZeroInt(-10,10)*t^3 + RandInt(-10,10)*t^2 + RandInt(-10,10)*t + RandInt(-10,10) + RandInt(-5,5)*e^(RandInt(-5,5)*t-RandInt(-5,5)) + RandInt(-5,5)*log(RandInt(-5,5)*t - RandInt(-5,5))
+    ans1 = derivative(f1,t)
+    ans2 = derivative(ans1,t)
+    return [f1, ans1, ans2]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def newtonianMechanics():
+    var('t,x,y,z,X,Y,Z')
+    f1 = NonZeroInt(-10,10)*t^3 + RandInt(-10,10)*t^2 + RandInt(-10,10)*t + RandInt(-10,10) + RandInt(-5,5)*e^(RandInt(-5,5)*t-RandInt(-5,5)) + RandInt(-5,5)*log(RandInt(-5,5)*t - RandInt(-5,5))
+    ans1 = derivative(f1,t)
+    ans2 = derivative(ans1,t)
+    return [f1, ans1, ans2]
+
+##### Problem p1
+p1gen = newtonianMechanics()
+p1f1 = p1gen[0]
+p1ans1 = p1gen[1]
+p1ans2 = p1gen[2]
+\end{sagesilent}
+
+\begin{problem}
+A particle's position in space along a straight path is modeled by the function $s(t) = \sage{p1f1}$. Calculate:
+\begin{itemize}
+\item The particle's velocity at any time $t$: $v(t) = \answer{\sage{p1ans1}}$
+\item The particle's acceleration at any time $t$: $a(t) = \answer{\sage{p1ans2}}$
+\end{itemize}
+\end{problem}

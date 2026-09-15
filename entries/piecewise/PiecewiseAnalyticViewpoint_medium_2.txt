@@ -1,0 +1,71 @@
+TITLE: Piecewise Functions: Analytic Viewpoint (medium)
+TAGS: Piecewise Functions, Functions, medium
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def piecewiseAnalyticViewpointMedium():
+    funcvec=[x,x^2,x^3,sqrt(abs(x)),ln(abs(x)+1),e^x]
+    f1pick=RandInt(0,5);f2pick=RandInt(0,5);f3pick=RandInt(0,5);f1=NonZeroInt(-5,5)*funcvec[f1pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f2=NonZeroInt(-5,5)*funcvec[f2pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f3=NonZeroInt(-5,5)*funcvec[f3pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);l1=RandInt(-15,15);r1=l1+RandInt(1,7);l2=RandInt(l1+1,r1+5);r2=l2+RandInt(1,7);l3=RandInt(l2+1,r2+5);r3=l3+RandInt(1,7);ans=1
+    if l2<r1:ans=0
+    if l3<r2:ans=0
+    return [f1, l1, r1, f2, l2, r2, f3, l3, r3, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def piecewiseAnalyticViewpointMedium():
+    funcvec=[x,x^2,x^3,sqrt(abs(x)),ln(abs(x)+1),e^x]
+    f1pick=RandInt(0,5);f2pick=RandInt(0,5);f3pick=RandInt(0,5);f1=NonZeroInt(-5,5)*funcvec[f1pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f2=NonZeroInt(-5,5)*funcvec[f2pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f3=NonZeroInt(-5,5)*funcvec[f3pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);l1=RandInt(-15,15);r1=l1+RandInt(1,7);l2=RandInt(l1+1,r1+5);r2=l2+RandInt(1,7);l3=RandInt(l2+1,r2+5);r3=l3+RandInt(1,7);ans=1
+    if l2<r1:ans=0
+    if l3<r2:ans=0
+    return [f1, l1, r1, f2, l2, r2, f3, l3, r3, ans]
+
+##### Problem p2
+p2gen = piecewiseAnalyticViewpointMedium()
+p2f1 = p2gen[0]
+p2l1 = p2gen[1]
+p2r1 = p2gen[2]
+p2f2 = p2gen[3]
+p2l2 = p2gen[4]
+p2r2 = p2gen[5]
+p2f3 = p2gen[6]
+p2l3 = p2gen[7]
+p2r3 = p2gen[8]
+p2ans = p2gen[9]
+\end{sagesilent}
+
+\begin{problem}$f(x)=\begin{cases}\sage{p2f1}&\sage{p2l1}\leq x\leq\sage{p2r1}\\\sage{p2f2}&\sage{p2l2}<x\leq\sage{p2r2}\\\sage{p2f3}&\sage{p2l3}<x\leq\sage{p2r3}\end{cases}$ is a function? $\answer{\sage{p2ans}}$.\end{problem}

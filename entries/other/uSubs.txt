@@ -1,0 +1,104 @@
+TITLE: U-Substitution
+TAGS: Integration, U-Substitution
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def uSubs():
+    var('C,x,y,z,X,Y,Z')
+    base = RandInt(2,10)
+    pwr = RandInt(2,10)
+    funcvec = [x^3,e^x,base^x,x^(1/pwr)]
+    sel1 = RandInt(0,3)
+    sel2 = NonZeroInt(0,3,[sel1])
+    finside = NonZeroInt(-5,5)*funcvec[sel1] + RandInt(-5,5)
+    foutside = NonZeroInt(-5,5)*funcvec[sel2]
+    f1 = foutside(x=(finside)) + C
+    fdisp = derivative(f1,x)
+    return [fdisp, f1]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def uSubs():
+    var('C,x,y,z,X,Y,Z')
+    base = RandInt(2,10)
+    pwr = RandInt(2,10)
+    funcvec = [x^3,e^x,base^x,x^(1/pwr)]
+    sel1 = RandInt(0,3)
+    sel2 = NonZeroInt(0,3,[sel1])
+    finside = NonZeroInt(-5,5)*funcvec[sel1] + RandInt(-5,5)
+    foutside = NonZeroInt(-5,5)*funcvec[sel2]
+    f1 = foutside(x=(finside)) + C
+    fdisp = derivative(f1,x)
+    return [fdisp, f1]
+
+##### Problem p1
+p1gen = uSubs()
+p1fdisp = p1gen[0]
+p1f1 = p1gen[1]
+\end{sagesilent}
+
+\begin{javascript}
+var x
+sameDerivative = function(a,b) {
+    return (
+    a.derivative('a').equals( b.derivative('a') ) &&
+    a.derivative('b').equals( b.derivative('b') ) &&
+    a.derivative('c').equals( b.derivative('c') ) &&
+    a.derivative('d').equals( b.derivative('d') ) &&
+    a.derivative('j').equals( b.derivative('j') ) &&
+    a.derivative('k').equals( b.derivative('k') ) &&
+    a.derivative('l').equals( b.derivative('l') ) &&
+    a.derivative('m').equals( b.derivative('m') ) &&
+    a.derivative('n').equals( b.derivative('n') ) &&
+    a.derivative('o').equals( b.derivative('o') ) &&
+    a.derivative('p').equals( b.derivative('p') ) &&
+    a.derivative('q').equals( b.derivative('q') ) &&
+    a.derivative('r').equals( b.derivative('r') ) &&
+    a.derivative('s').equals( b.derivative('s') ) &&
+    a.derivative('t').equals( b.derivative('t') ) &&
+    a.derivative('u').equals( b.derivative('u') ) &&
+    a.derivative('v').equals( b.derivative('v') ) &&
+    a.derivative('w').equals( b.derivative('w') ) &&
+    a.derivative('x').equals( b.derivative('x') ) &&
+    a.derivative('y').equals( b.derivative('y') ) &&
+    a.derivative('z').equals( b.derivative('z') ) &&
+    a.derivative('C').equals( b.derivative('C') )) ;
+};
+\end{javascript}
+
+\begin{problem}
+Compute the indefinite integral of $f(x) = \sage{p1fdisp}$:
+\[\int \sage{p1fdisp}dx = \answer[validator=sameDerivative]{\sage{p1f1}}\]
+\end{problem}

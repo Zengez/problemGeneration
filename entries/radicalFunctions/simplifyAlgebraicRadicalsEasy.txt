@@ -1,0 +1,117 @@
+TITLE: Simplifying Algebraic Radicals (easy)
+TAGS: Radical Functions, Simplifying, easy
+
+EXAMPLE:
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def simplifyAlgebraicRadicalsEasy():
+    rootVal = RandInt(2,9)
+    c1 = 2
+    c2 = 2
+    while gcd(c1,c2)>1:
+        c1 = NonZeroInt(-5,5)
+        c2 = RandInt(-10,10)
+    f1remainPwr = RandInt(0,rootVal-1)
+    f1factorPwr = RandInt(0,5)
+    f1remain = (c1*x-c2)^f1remainPwr
+    f1total = (c1*x-c2)^(f1remainPwr+f1factorPwr*rootVal)
+    fDisp = f1total
+    fRemainder = f1remain
+    if rootVal%2==0:
+        if f1factorPwr%2==0:
+            f1factored = (c1*x-c2)^f1factorPwr
+        else:
+            f1factored = abs(c1*x-c2)^f1factorPwr
+        fFactored = f1factored
+        hint=LatexExpr(r'\text{Since the root-value is even, you need absolute values around the term you simplified out. }')
+        hint2=LatexExpr(r'\text{Then you can remove those absolute values if the power of the outside factor is even.}')
+    else:
+        fFactored = (c1*x-c2)^f1factorPwr
+        hint=LatexExpr(r'\text{Since the root-value is odd, you are all set.}')
+        hint2=LatexExpr(r' ')
+    return [rootVal,fDisp,fFactored,fRemainder,hint,hint2]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def simplifyAlgebraicRadicalsEasy():
+    rootVal = RandInt(2,9)
+    c1 = 2
+    c2 = 2
+    while gcd(c1,c2)>1:
+        c1 = NonZeroInt(-5,5)
+        c2 = RandInt(-10,10)
+    f1remainPwr = RandInt(0,rootVal-1)
+    f1factorPwr = RandInt(0,5)
+    f1remain = (c1*x-c2)^f1remainPwr
+    f1total = (c1*x-c2)^(f1remainPwr+f1factorPwr*rootVal)
+    fDisp = f1total
+    fRemainder = f1remain
+    if rootVal%2==0:
+        if f1factorPwr%2==0:
+            f1factored = (c1*x-c2)^f1factorPwr
+        else:
+            f1factored = abs(c1*x-c2)^f1factorPwr
+        fFactored = f1factored
+        hint=LatexExpr(r'\text{Since the root-value is even, you need absolute values around the term you simplified out. }')
+        hint2=LatexExpr(r'\text{Then you can remove those absolute values if the power of the outside factor is even.}')
+    else:
+        fFactored = (c1*x-c2)^f1factorPwr
+        hint=LatexExpr(r'\text{Since the root-value is odd, you are all set.}')
+        hint2=LatexExpr(r' ')
+    return [rootVal,fDisp,fFactored,fRemainder,hint,hint2]
+
+p1gen = simplifyAlgebraicRadicalsEasy()
+p1rootVal,p1fDisp,p1fFactored,p1fRemainder,p1hint,p1hint2 = p1gen
+\end{sagesilent}
+
+\begin{problem}
+    \begin{hint}
+        Group up the factor(s) in the radicand into the largest multiple of the root-value (that is at most the original power of the term in the radicand) and whatever remainder is left over after you separate out that many of the factor.
+    \end{hint}
+    \begin{hint}
+        Pull the portion of the factor that is a multiple of the root-value outside of the radical, dividing the power by the root-value (the result should be a whole number, since it is a multiple of the root-value).
+    \end{hint}
+    \begin{hint}
+        $\sage{p1hint}$
+
+        $\sage{p1hint2}$
+    \end{hint}
+    Simplify the following radical. Notice that the root symbol is already supplied for you so you only need to supply the inside and outside functions (no need to expand them!)
+    \[
+        \sqrt[\sage{p1rootVal}]{\sage{p1fDisp}} = \left(\answer{\sage{p1fFactored}}\right)\sqrt[\sage{p1rootVal}]{\answer{\sage{p1fRemainder}}}
+    \]
+\end{problem}

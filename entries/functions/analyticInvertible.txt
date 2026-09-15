@@ -1,0 +1,55 @@
+TITLE: Finding Inverse Functions
+TAGS: Functions, Inverse Functions
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def analyticInvertible():
+    funcvec = [x, x^3, x^5]
+    ansvec = [x, x^(1/3), x^(1/5)]
+    choice1 = RandInt(0,2)
+    f1t = funcvec[choice1]
+    c1 = RandInt(-10,10)
+    c2 = RandInt(-10,10)
+    f1 = f1t(x=(x - c1)) + c2
+    invt = ansvec[choice1]
+    ans1 = invt(x=(x-c2)) + c1
+    return [f1, ans1]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def analyticInvertible():
+    funcvec = [x, x^3, x^5]
+    ansvec = [x, x^(1/3), x^(1/5)]
+    choice1 = RandInt(0,2)
+    f1t = funcvec[choice1]
+    c1 = RandInt(-10,10)
+    c2 = RandInt(-10,10)
+    f1 = f1t(x=(x - c1)) + c2
+    invt = ansvec[choice1]
+    ans1 = invt(x=(x-c2)) + c1
+    return [f1, ans1]
+
+##### Problem p1
+p1gen = analyticInvertible()
+p1f1 = p1gen[0]
+p1ans1 = p1gen[1]
+\end{sagesilent}
+
+\begin{problem}Find the inverse for the function $f(x) = \sage{p1f1}$. $f^{-1}(x) = \answer{\sage{p1ans1}}$\end{problem}

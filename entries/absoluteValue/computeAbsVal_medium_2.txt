@@ -1,0 +1,69 @@
+TITLE: Computing Absolute Values (medium)
+TAGS: Functions, Absolute Value, medium
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def computeAbsValMedium():
+    ans = 500
+    while abs(ans)>300:
+        f1 = RandInt(-10,10)*x^2 + NonZeroInt(-5,5)*abs(RandInt(-5,5)*x^2 + NonZeroInt(-5,5)*x + RandInt(-10,10)) + NonZeroInt(-5,5)*x + RandInt(-10,10)
+        target = RandInt(-5,5)
+        ans = f1(x=target)
+    return [f1, target, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def computeAbsValMedium():
+    ans = 500
+    while abs(ans)>300:
+        f1 = RandInt(-10,10)*x^2 + NonZeroInt(-5,5)*abs(RandInt(-5,5)*x^2 + NonZeroInt(-5,5)*x + RandInt(-10,10)) + NonZeroInt(-5,5)*x + RandInt(-10,10)
+        target = RandInt(-5,5)
+        ans = f1(x=target)
+    return [f1, target, ans]
+
+##### Problem p2
+p2gen = computeAbsValMedium()
+p2f1 = p2gen[0]
+p2target = p2gen[1]
+p2ans = p2gen[2]
+\end{sagesilent}
+
+\begin{problem}
+\begin{hint}All we want is to compute a value, so it is ``simply'' (maybe not so simple in practice to actually compute it) a matter of plugging in the value and doing the arithmetic.\end{hint}
+Consider the function $f(x) = \sage{p2f1}$. Compute $f(\sage{p2target}) = \answer{\sage{p2ans}}$.
+\end{problem}

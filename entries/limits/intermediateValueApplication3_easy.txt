@@ -1,0 +1,78 @@
+TITLE: Intermediate Value Theorem Applications (easy)
+TAGS: Limits, Continuity, Intermediate Value Theorem, easy
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def intermediateValueApplication3Easy():
+    fvec = [x, x^3, x^5]
+    pick = RandInt(0,2)
+    f = NonZeroInt(-5,5)*fvec[pick] + RandInt(-10,10)
+    left = RandInt(-4,1)
+    right = RandInt(left+2,left+7)
+    min = min(f(x=left),f(x=right))
+    max = max(f(x=left),f(x=right))
+    target = RandInt(min-10,max+10)
+    if (target<max and target>min): ans=1
+    else: ans=0
+    return [f, left, right, target, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def intermediateValueApplication3Easy():
+    fvec = [x, x^3, x^5]
+    pick = RandInt(0,2)
+    f = NonZeroInt(-5,5)*fvec[pick] + RandInt(-10,10)
+    left = RandInt(-4,1)
+    right = RandInt(left+2,left+7)
+    min = min(f(x=left),f(x=right))
+    max = max(f(x=left),f(x=right))
+    target = RandInt(min-10,max+10)
+    if (target<max and target>min): ans=1
+    else: ans=0
+    return [f, left, right, target, ans]
+
+##### Problem p1
+p1gen = intermediateValueApplication3Easy()
+p1f = p1gen[0]
+p1left = p1gen[1]
+p1right = p1gen[2]
+p1target = p1gen[3]
+p1ans = p1gen[4]
+\end{sagesilent}
+
+\begin{problem}Let $f(x)=\sage{p1f}$. Use IVT to determine whether there exists $x\in[\sage{p1left},\sage{p1right}]$ such that $f(x)=\sage{p1target}$. Enter 1 if yes, 0 if no: $\answer{\sage{p1ans}}$.\end{problem}

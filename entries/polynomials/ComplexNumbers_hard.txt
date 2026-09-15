@@ -1,0 +1,92 @@
+TITLE: Complex Numbers (hard)
+TAGS: Polynomials, Complex Numbers, Functions, hard
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def complexNumbersHard():
+    c1 = NonZeroInt(-10,10)
+    c2 = NonZeroInt(-10,10)
+    c3 = NonZeroInt(-10,10)
+    c4 = NonZeroInt(-10,10)
+
+    f1 = c1 + c2*i
+    f2 = c3 + c4*i
+    Hint = c3 - c4*i
+
+
+    ans = f1/f2
+    ansR=ans.real()
+    ansI=ans.imag()
+    return [Hint, f1, f2, ansR, ansI]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def complexNumbersHard():
+    c1 = NonZeroInt(-10,10)
+    c2 = NonZeroInt(-10,10)
+    c3 = NonZeroInt(-10,10)
+    c4 = NonZeroInt(-10,10)
+
+    f1 = c1 + c2*i
+    f2 = c3 + c4*i
+    Hint = c3 - c4*i
+
+
+    ans = f1/f2
+    ansR=ans.real()
+    ansI=ans.imag()
+    return [Hint, f1, f2, ansR, ansI]
+
+##### Problem p3
+p3gen = complexNumbersHard()
+p3Hint = p3gen[0]
+p3f1 = p3gen[1]
+p3f2 = p3gen[2]
+p3ansR = p3gen[3]
+p3ansI = p3gen[4]
+\end{sagesilent}
+
+\begin{problem}
+            \begin{hint}
+                When simplifying division of complex numbers, you need to multiply the top and bottom of the fraction by the complex conjugate of the bottom number.
+            \end{hint}
+            \begin{hint}
+                To get the complex conjugate of a complex number, you just need to flip the sign in front of the imaginary number.
+            \end{hint}
+            \begin{hint}
+                In this case, we want to multiply the top and bottom by $\sage{p3Hint}$, so we want to compute: $\frac{\sage{p3f1}}{\sage{p3f2}}\cdot\frac{\sage{p3Hint}}{\sage{p3Hint}}$.
+            \end{hint}
+            Simplify the following into $A + B\cdot i$ form: $\frac{\sage{p3f1}}{\sage{p3f2}} = \answer{\sage{p3ansR}} + \answer{\sage{p3ansI}}\cdot i$
+        \end{problem}

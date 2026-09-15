@@ -1,0 +1,106 @@
+TITLE: Condensing Exponentials (medium)
+TAGS: Exponential Functions, Properties of Exponents, Condensing, medium
+
+EXAMPLE:
+
+CODE-SAGE:
+var('x,y')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def condenseExponentialsMedium():
+    b1 = NonZeroInt(2,11,[4,8,9])
+    b2e = RandInt(2,5)
+    while b1^b2e>400:
+        b2e = RandInt(2,5)
+    b2 = b1^b2e
+    c1 = RandInt(0,10)
+    c2 = RandInt(0,10)
+    c3 = RandInt(0,10)
+    c4 = RandInt(0,10)
+    c5 = RandInt(0,10)
+    c6 = RandInt(0,10)
+    f1 = c1*x
+    f2 = c2*y
+    f3 = c3
+    f4 = c4*x + c5*y + c6
+    ans = (c1-b2e*c4)*x + (c2-b2e*c5)*y + (c3-b2e*c6)
+    return [b1,b2e,b2,f1,f2,f3,f4,ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x,y')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def condenseExponentialsMedium():
+    b1 = NonZeroInt(2,11,[4,8,9])
+    b2e = RandInt(2,5)
+    while b1^b2e>400:
+        b2e = RandInt(2,5)
+    b2 = b1^b2e
+    c1 = RandInt(0,10)
+    c2 = RandInt(0,10)
+    c3 = RandInt(0,10)
+    c4 = RandInt(0,10)
+    c5 = RandInt(0,10)
+    c6 = RandInt(0,10)
+    f1 = c1*x
+    f2 = c2*y
+    f3 = c3
+    f4 = c4*x + c5*y + c6
+    ans = (c1-b2e*c4)*x + (c2-b2e*c5)*y + (c3-b2e*c6)
+    return [b1,b2e,b2,f1,f2,f3,f4,ans]
+
+p1gen = condenseExponentialsMedium()
+p1b1 = p1gen[0]
+p1b2e = p1gen[1]
+p1b2 = p1gen[2]
+p1f1 = p1gen[3]
+p1f2 = p1gen[4]
+p1f3 = p1gen[5]
+p1f4 = p1gen[6]
+p1ans = p1gen[7]
+\end{sagesilent}
+
+\begin{problem}
+    \begin{hint}
+        First try combining the numerator terms together using $A^xB^y = A^{x+y}$.
+    \end{hint}
+    \begin{hint}
+        Next, make sure the numerator and denominator are using the same base. This likely means you will need to rewrite one base in terms of the other base to some power. For example, you can rewrite $\sage{p1b2}$ as $\sage{p1b1}^{\sage{p1b2e}}$.
+    \end{hint}
+    \begin{hint}
+        Don't forget that you should rewrite the numerator in the denominator using $A^{B^C} = A^{BC}$ (since you rewrote the exponent in the denominator from the previous hint).
+    \end{hint}
+    Condense the following expression into a single exponential.\\
+    \[
+        \frac{\left(\sage{p1b1}\right)^{\sage{p1f1}}\left(\sage{p1b1}\right)^{\sage{p1f2}}\left(\sage{p1b1}\right)^{\sage{p1f3}} }{\left(\sage{p1b2}\right)^{\sage{p1f4}}} = {\sage{p1b1}}^{\answer{\sage{p1ans}}}
+    \]
+\end{problem}

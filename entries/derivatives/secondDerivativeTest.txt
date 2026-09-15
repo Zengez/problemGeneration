@@ -1,0 +1,112 @@
+TITLE: Second Derivative Test
+TAGS: Derivatives, Extrema
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def secondDerivativeTest():
+    f1der2 = x^2
+    ans2 = (2*3*5*7*11)/(13*17*19*23*29)
+    xgiven = 0
+    while f1der2(x=xgiven)==0 or abs(numerator(ans2))>200 or abs(denominator(ans2))>200:
+        c1 = NonZeroInt(-3,3)
+        c2 = RandInt(-5,5)
+        c3 = NonZeroInt(-3,3)
+        c4 = RandInt(-5,5)
+        c5 = NonZeroInt(-3,3)
+        c6 = RandInt(-5,5)
+        c7 = NonZeroInt(-3,3)
+        c8 = RandInt(-5,5)
+        f1 = e^(c1*x - c2)-1
+        f2 = c3*x - c4
+        f3 = c5*x - c6
+        zeros = [c2/c1, c4/c3, c6/c5]
+        select = RandInt(0,2)
+        f1der = f1*f2*f3
+        f1der2 = derivative(f1der,x)
+        f1disp = expand(integral(f1der,x) + RandInt(-10,10))
+        xgiven = zeros[select]
+        test = f1der2(x=xgiven)
+        ans2 = f1disp(x=xgiven)
+    ans1 = 0
+    if test > 0:
+        ans1 = 1
+    return [f1disp, xgiven, ans1, ans2]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def secondDerivativeTest():
+    f1der2 = x^2
+    ans2 = (2*3*5*7*11)/(13*17*19*23*29)
+    xgiven = 0
+    while f1der2(x=xgiven)==0 or abs(numerator(ans2))>200 or abs(denominator(ans2))>200:
+        c1 = NonZeroInt(-3,3)
+        c2 = RandInt(-5,5)
+        c3 = NonZeroInt(-3,3)
+        c4 = RandInt(-5,5)
+        c5 = NonZeroInt(-3,3)
+        c6 = RandInt(-5,5)
+        c7 = NonZeroInt(-3,3)
+        c8 = RandInt(-5,5)
+        f1 = e^(c1*x - c2)-1
+        f2 = c3*x - c4
+        f3 = c5*x - c6
+        zeros = [c2/c1, c4/c3, c6/c5]
+        select = RandInt(0,2)
+        f1der = f1*f2*f3
+        f1der2 = derivative(f1der,x)
+        f1disp = expand(integral(f1der,x) + RandInt(-10,10))
+        xgiven = zeros[select]
+        test = f1der2(x=xgiven)
+        ans2 = f1disp(x=xgiven)
+    ans1 = 0
+    if test > 0:
+        ans1 = 1
+    return [f1disp, xgiven, ans1, ans2]
+
+##### Problem p1
+p1gen = secondDerivativeTest()
+p1f1disp = p1gen[0]
+p1xgiven = p1gen[1]
+p1ans1 = p1gen[2]
+p1ans2 = p1gen[3]
+\end{sagesilent}
+
+\begin{problem}
+Consider $f(x)=\sage{p1f1disp}$. We know $f$ has some kind of extrema at $x=\sage{p1xgiven}$. Use the second derivative test. If it is a maximum, enter $1$, and if it is a minimum, enter $0$. $\answer{\sage{p1ans1}}$
+\begin{problem}What is the actual value of the extrema? $\answer{\sage{p1ans2}}$\end{problem}
+\end{problem}

@@ -1,0 +1,88 @@
+TITLE: Change of Base Formula (hard)
+TAGS: Logarithmic Functions, Change of Base, hard
+
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def changeOfBaseHard():
+    base = RandInt(2,6)
+    b1Mult = RandInt(2,6)
+    while base^b1Mult>260:
+        b1Mult = RandInt(2,6)
+    b2Mult = NonZeroInt(2,6,[b1Mult])
+    while base^b2Mult>260:
+        b2Mult = NonZeroInt(2,6,[b1Mult,2*b1Mult,3*b1Mult])
+    b1 = base^b1Mult
+    b2 = base^b2Mult
+    ans = b2Mult/b1Mult
+    return [base,b1Mult,b2Mult,b1,b2,ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def changeOfBaseHard():
+    base = RandInt(2,6)
+    b1Mult = RandInt(2,6)
+    while base^b1Mult>260:
+        b1Mult = RandInt(2,6)
+    b2Mult = NonZeroInt(2,6,[b1Mult])
+    while base^b2Mult>260:
+        b2Mult = NonZeroInt(2,6,[b1Mult,2*b1Mult,3*b1Mult])
+    b1 = base^b1Mult
+    b2 = base^b2Mult
+    ans = b2Mult/b1Mult
+    return [base,b1Mult,b2Mult,b1,b2,ans]
+
+p1gen = changeOfBaseHard()
+p1base,p1b1Mult,p1b2Mult,p1b1,p1b2,p1ans = p1gen
+\end{sagesilent}
+
+\begin{problem}
+    \begin{hint}
+        Start by changing the base of the logarithm to a new base which has the old base as a power and the argument as a power.
+    \end{hint}
+    \begin{hint}
+        For a new base, try the base $\sage{p1base}$
+    \end{hint}
+    \begin{hint}
+        Recall the change of base formula, to change a log from base $b$ to base $c$:
+        \[
+            \Log_{b}(A) = \frac{\Log_{c}(A)}{\Log_{c}(b)}
+        \]
+    \end{hint}
+    Compute $\Log_{\sage{p1b1}}\left(\sage{p1b2}\right)$ without using a calculator.
+    \[
+        \Log_{\sage{p1b1}}\left(\sage{p1b2}\right) = \answer{\sage{p1ans}}
+    \]
+\end{problem}

@@ -1,0 +1,78 @@
+TITLE: Solving Absolute Value Equations (easy)
+TAGS: Functions, Absolute Value, easy
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def solveAbsValEasy():
+    c1 = NonZeroInt(-3,3)
+    c2 = NonZeroInt(-10,10)
+    c3 = NonZeroInt(1,10)
+    f1 = abs(c1*x - c2)
+    sol = solve(f1==c3,x,to_poly_solve=True)
+    if len(sol)>0:
+        ans1=0
+    else:
+        ans1=LatexExpr(r'DNE')
+    for i in range(0,len(sol)):
+        ans1 = ans1+sol[i].right()
+    return [f1, c3, ans1]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def solveAbsValEasy():
+    c1 = NonZeroInt(-3,3)
+    c2 = NonZeroInt(-10,10)
+    c3 = NonZeroInt(1,10)
+    f1 = abs(c1*x - c2)
+    sol = solve(f1==c3,x,to_poly_solve=True)
+    if len(sol)>0:
+        ans1=0
+    else:
+        ans1=LatexExpr(r'DNE')
+    for i in range(0,len(sol)):
+        ans1 = ans1+sol[i].right()
+    return [f1, c3, ans1]
+
+##### Problem p1
+p1gen = solveAbsValEasy()
+p1f1 = p1gen[0]
+p1c3 = p1gen[1]
+p1ans1 = p1gen[2]
+\end{sagesilent}
+
+\begin{problem}Solve the equality $\sage{p1f1}=\sage{p1c3}$ for $x$. If there are no solutions, enter DNE. The sum of valid $x$-solutions is: $\answer{\sage{p1ans1}}$\end{problem}

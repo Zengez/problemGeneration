@@ -1,0 +1,57 @@
+TITLE: Applying the Fundamental Theorem of Calculus
+TAGS: Integration, Fundamental Theorem of Calculus
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def applyingFFT():
+    var('C,x,y,z,X,Y,Z')
+    ans = 111111/9999989
+    while abs(numerator(ans))>1000 or abs(denominator(ans))>1000:
+        base = RandInt(2,10)
+        pwr = RandInt(2,10)
+        f1 = RandInt(-3,3)*x^3 + RandInt(-3,3)*x^2 + RandInt(-3,3)*x + RandInt(-3,3) + RandInt(-3,3)*base^x + RandInt(-3,3)*x^(1/pwr)
+        start = RandInt(0,3)
+        end = RandInt(start+1, start+5)
+        ans = integral(f1,x,start,end)
+    return [f1, start, end, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def applyingFFT():
+    var('C,x,y,z,X,Y,Z')
+    ans = 111111/9999989
+    while abs(numerator(ans))>1000 or abs(denominator(ans))>1000:
+        base = RandInt(2,10)
+        pwr = RandInt(2,10)
+        f1 = RandInt(-3,3)*x^3 + RandInt(-3,3)*x^2 + RandInt(-3,3)*x + RandInt(-3,3) + RandInt(-3,3)*base^x + RandInt(-3,3)*x^(1/pwr)
+        start = RandInt(0,3)
+        end = RandInt(start+1, start+5)
+        ans = integral(f1,x,start,end)
+    return [f1, start, end, ans]
+
+##### Problem p1
+p1gen = applyingFFT()
+p1f1 = p1gen[0]
+p1start = p1gen[1]
+p1end = p1gen[2]
+p1ans = p1gen[3]
+\end{sagesilent}
+
+\begin{problem}
+Compute the definite integral of $f(x) = \sage{p1f1}$ from $x=\sage{p1start}$ to $x=\sage{p1end}$.
+\[\int\limits_{\sage{p1start}}^{\sage{p1end}} \sage{p1f1}dx = \answer{\sage{p1ans}}\]
+\end{problem}

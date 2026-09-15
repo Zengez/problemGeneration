@@ -1,0 +1,68 @@
+TITLE: Chain Rule
+TAGS: Derivatives
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def chainRule():
+    var('x,y,z,X,Y,Z')
+    funcvec = [x, x^2, x^3, sqrt(x)]
+    select1 = RandInt(0,3)
+    select2 = RandInt(0,3)
+    f1 = NonZeroInt(-2,2)*funcvec[select1](x=(NonZeroInt(-2,2)*x - RandInt(-5,5))) + RandInt(-5,5)
+    f2 = NonZeroInt(-2,2)*funcvec[select2](x=(NonZeroInt(-2,2)*x - RandInt(-5,5))) + RandInt(-5,5)
+    f3 = f2(x=f1)
+    ans = derivative(f3,x)
+    return [f3, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def chainRule():
+    var('x,y,z,X,Y,Z')
+    funcvec = [x, x^2, x^3, sqrt(x)]
+    select1 = RandInt(0,3)
+    select2 = RandInt(0,3)
+    f1 = NonZeroInt(-2,2)*funcvec[select1](x=(NonZeroInt(-2,2)*x - RandInt(-5,5))) + RandInt(-5,5)
+    f2 = NonZeroInt(-2,2)*funcvec[select2](x=(NonZeroInt(-2,2)*x - RandInt(-5,5))) + RandInt(-5,5)
+    f3 = f2(x=f1)
+    ans = derivative(f3,x)
+    return [f3, ans]
+
+##### Problem p1
+p1gen = chainRule()
+p1f3 = p1gen[0]
+p1ans = p1gen[1]
+\end{sagesilent}
+
+\begin{problem}Compute the derivative of $f(x)=\sage{p1f3}$. $f'(x)=\answer{\sage{p1ans}}$.\end{problem}

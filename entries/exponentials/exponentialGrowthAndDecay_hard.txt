@@ -1,0 +1,37 @@
+TITLE: Exponential Growth and Decay (hard)
+TAGS: Exponential Functions, Growth and Decay, Modeling, Word Problem, hard
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def exponentialGrowthAndDecayHard():
+    numCycles=1000
+    while numCycles>50: interest=5;termchoice=1;term=[[LatexExpr(r'\text{annually}'),1],[LatexExpr(r'\text{monthly}'),12],[LatexExpr(r'\text{quarterly}'),4]];years=RandInt(1,25);initial=RandInt(4,15)*100;numCycles=term[termchoice][1]*years;ans=initial*(1+interest/(100*term[termchoice][1]))^numCycles
+    return [ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def exponentialGrowthAndDecayHard():
+    numCycles=1000
+    while numCycles>50: interest=5;termchoice=1;term=[[LatexExpr(r'\text{annually}'),1],[LatexExpr(r'\text{monthly}'),12],[LatexExpr(r'\text{quarterly}'),4]];years=RandInt(1,25);initial=RandInt(4,15)*100;numCycles=term[termchoice][1]*years;ans=initial*(1+interest/(100*term[termchoice][1]))^numCycles
+    return [ans]
+
+##### Problem p3
+p3gen = exponentialGrowthAndDecayHard()
+p3ans = p3gen[0]
+\end{sagesilent}
+
+\begin{problem}Compound interest result: $\answer{\sage{p3ans}}$.\end{problem}

@@ -1,0 +1,75 @@
+TITLE: Implicit Differentiation
+TAGS: Derivatives, Implicit Differentiation
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def implicit():
+    var('x,y,z,X,Y,Z')
+    fvec = [e^x,x,x^2,ln(x)]
+    choice1 = RandInt(0,3); choice2 = RandInt(0,3); choice3 = RandInt(0,3); choice4 = RandInt(0,3)
+    f1T = fvec[choice1] + RandInt(-3,3); f1 = NonZeroInt(-3,3)*f1T(x=(NonZeroInt(-3,3)*x+RandInt(-3,3)))
+    f2T = fvec[choice2] + RandInt(-3,3); f2 = RandInt(-3,3)*f2T(x=(NonZeroInt(-3,3)*x+RandInt(-3,3)))
+    g1T = fvec[choice3] + RandInt(-3,3); g1 = NonZeroInt(-3,3)*g1T(x=(NonZeroInt(-3,3)*y+RandInt(-3,3)))
+    g2T = fvec[choice4] + RandInt(-3,3); g2 = RandInt(-3,3)*g2T(x=(NonZeroInt(-3,3)*y+RandInt(-3,3)))
+    fLx = f1; fLy = g1; fRx = f2; fRy = g2
+    fLxDer = derivative(fLx,x); fRxDer = derivative(fRx,x); fLyDer = derivative(fLy,y); fRyDer = derivative(fRy,y)
+    fL = fLx * fLy; fR = fRx * fRy
+    ans = ( (fLy)*(fLxDer) - (fRy)*(fRxDer) ) / ( (fRx)*(fRyDer) - (fLx)*(fLyDer) )
+    return [fL, fR, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def implicit():
+    var('x,y,z,X,Y,Z')
+    fvec = [e^x,x,x^2,ln(x)]
+    choice1 = RandInt(0,3); choice2 = RandInt(0,3); choice3 = RandInt(0,3); choice4 = RandInt(0,3)
+    f1T = fvec[choice1] + RandInt(-3,3); f1 = NonZeroInt(-3,3)*f1T(x=(NonZeroInt(-3,3)*x+RandInt(-3,3)))
+    f2T = fvec[choice2] + RandInt(-3,3); f2 = RandInt(-3,3)*f2T(x=(NonZeroInt(-3,3)*x+RandInt(-3,3)))
+    g1T = fvec[choice3] + RandInt(-3,3); g1 = NonZeroInt(-3,3)*g1T(x=(NonZeroInt(-3,3)*y+RandInt(-3,3)))
+    g2T = fvec[choice4] + RandInt(-3,3); g2 = RandInt(-3,3)*g2T(x=(NonZeroInt(-3,3)*y+RandInt(-3,3)))
+    fLx = f1; fLy = g1; fRx = f2; fRy = g2
+    fLxDer = derivative(fLx,x); fRxDer = derivative(fRx,x); fLyDer = derivative(fLy,y); fRyDer = derivative(fRy,y)
+    fL = fLx * fLy; fR = fRx * fRy
+    ans = ( (fLy)*(fLxDer) - (fRy)*(fRxDer) ) / ( (fRx)*(fRyDer) - (fLx)*(fLyDer) )
+    return [fL, fR, ans]
+
+##### Problem p1
+p1gen = implicit()
+p1fL = p1gen[0]
+p1fR = p1gen[1]
+p1ans = p1gen[2]
+\end{sagesilent}
+
+\begin{problem}Suppose $y$ is a function of $x$ and $\sage{p1fL}=\sage{p1fR}$. Compute $\frac{dy}{dx}=\answer{\sage{p1ans}}$.\end{problem}

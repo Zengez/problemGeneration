@@ -1,0 +1,82 @@
+TITLE: Linear Approximations
+TAGS: Derivatives
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def linearApproximations():
+    select = RandInt(0,1)
+    if select == 0:
+        f1 = NonZeroInt(-3,3)*e^x + RandInt(-5,5)
+        anchor = ln(RandInt(2,10))
+        targetdist = RandInt(1,4)
+    if select == 1:
+        f1 = NonZeroInt(-3,3)*sqrt(x) + RandInt(-5,5)
+        anchor = (RandInt(2,5))^2
+        targetdist = RandInt(1,4)
+    target = anchor+targetdist
+    ans = derivative(f1,x)(x=anchor)*(targetdist) + f1(x=anchor)
+    return [f1, anchor, target, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def linearApproximations():
+    select = RandInt(0,1)
+    if select == 0:
+        f1 = NonZeroInt(-3,3)*e^x + RandInt(-5,5)
+        anchor = ln(RandInt(2,10))
+        targetdist = RandInt(1,4)
+    if select == 1:
+        f1 = NonZeroInt(-3,3)*sqrt(x) + RandInt(-5,5)
+        anchor = (RandInt(2,5))^2
+        targetdist = RandInt(1,4)
+    target = anchor+targetdist
+    ans = derivative(f1,x)(x=anchor)*(targetdist) + f1(x=anchor)
+    return [f1, anchor, target, ans]
+
+##### Problem p1
+p1gen = linearApproximations()
+p1f1 = p1gen[0]
+p1anchor = p1gen[1]
+p1target = p1gen[2]
+p1ans = p1gen[3]
+\end{sagesilent}
+
+\begin{problem}
+Consider the function $f(x) = \sage{p1f1}$. Use the point $x=\sage{p1anchor}$ to approximate the value of $f(\sage{p1target})$.
+$f(\sage{p1target}) \approx \answer{\sage{p1ans}}$
+\end{problem}

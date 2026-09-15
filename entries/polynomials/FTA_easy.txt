@@ -1,0 +1,110 @@
+TITLE: Fundamental Theorem of Algebra (easy)
+TAGS: Polynomials, Functions, easy
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def fTAEasy():
+    c1 = RandInt(1,10)
+    c2 = RandInt(1,10)
+    c3 = RandInt(1,10)
+    c4 = RandInt(1,10)
+
+    pwr1 = RandInt(1,10)
+    pwr2 = RandInt(1,10)
+    pwr3 = RandInt(1,10)
+    pwr4 = RandInt(1,10)
+
+    f1 = c1*x^pwr1
+    f2 = c2*x^pwr2
+    f3 = c3*x^pwr3
+    f4 = c4*x^pwr4
+
+    fDisp = f1+f2+f3+f4
+
+    ans1 = max(pwr1,pwr2,pwr3,pwr4)
+
+    # Followup for p1
+    ans2 = 0
+    ans3 = 0
+    if pwr1 == ans1:
+        ans2 = ans2 + f1
+        ans3 = ans3 + c1
+    if pwr2 == ans1:
+        ans2 = ans2 + f2
+        ans3 = ans3 + c2
+    if pwr3 == ans1:
+        ans2 = ans2 + f3
+        ans3 = ans3 + c3
+    if pwr4 == ans1:
+        ans2 = ans2 + f4
+        ans3 = ans3 + c4
+    return [fDisp, ans1]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def fTAEasy():
+    c1 = RandInt(1,10)
+    c2 = RandInt(1,10)
+    c3 = RandInt(1,10)
+    c4 = RandInt(1,10)
+
+    pwr1 = RandInt(1,10)
+    pwr2 = RandInt(1,10)
+    pwr3 = RandInt(1,10)
+    pwr4 = RandInt(1,10)
+
+    f1 = c1*x^pwr1
+    f2 = c2*x^pwr2
+    f3 = c3*x^pwr3
+    f4 = c4*x^pwr4
+
+    fDisp = f1+f2+f3+f4
+
+    ans1 = max(pwr1,pwr2,pwr3,pwr4)
+
+    # Followup for p1
+    ans2 = 0
+    ans3 = 0
+    if pwr1 == ans1:
+        ans2 = ans2 + f1
+        ans3 = ans3 + c1
+    if pwr2 == ans1:
+        ans2 = ans2 + f2
+        ans3 = ans3 + c2
+    if pwr3 == ans1:
+        ans2 = ans2 + f3
+        ans3 = ans3 + c3
+    if pwr4 == ans1:
+        ans2 = ans2 + f4
+        ans3 = ans3 + c4
+    return [fDisp, ans1]
+
+##### Problem p1
+p1gen = fTAEasy()
+p1fDisp = p1gen[0]
+p1ans1 = p1gen[1]
+\end{sagesilent}
+
+\begin{problem}
+            \begin{hint}
+                By FTA, the number of solutions (including the possibly complex zeros and multiplicity) is equal to the degree of the polynomial.
+            \end{hint}
+            Consider the function $f(x) = \sage{p1fDisp}$. According to the Fundamental Theorem of Algebra, how many (possibly complex-valued) zeros are there (counting multiplicity) for $f(x)$? $\answer{\sage{p1ans1}}$
+        \end{problem}

@@ -1,0 +1,71 @@
+TITLE: Indeterminate Forms
+TAGS: Limits, Indeterminate Forms
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def indeterminateFormOne2():
+    var('x,y,z,X,Y,Z')
+    target = RandInt(-10,10)
+    c1 = NonZeroInt(1,10,[0,target]); c2 = NonZeroInt(1,10,[0,target]); c3 = NonZeroInt(1,10,[target]); c4 = NonZeroInt(1,10,[target]); c5 = NonZeroInt(-30,30); c6 = NonZeroInt(-30,30)
+    n1 = RandInt(1,5); n2 = RandInt(1,5)
+    f1top = expand(c5*(x^n1-c1)*(x-c2)*(x-target))
+    f1bot = expand(c6*(x^n2-c3)*(x-c4)*(x-target))
+    if n1 > n2: ans = infinity*c5*c6
+    if n1 < n2: ans = 0
+    if n1==n2: ans = c5/c6
+    return [f1top, f1bot, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def indeterminateFormOne2():
+    var('x,y,z,X,Y,Z')
+    target = RandInt(-10,10)
+    c1 = NonZeroInt(1,10,[0,target]); c2 = NonZeroInt(1,10,[0,target]); c3 = NonZeroInt(1,10,[target]); c4 = NonZeroInt(1,10,[target]); c5 = NonZeroInt(-30,30); c6 = NonZeroInt(-30,30)
+    n1 = RandInt(1,5); n2 = RandInt(1,5)
+    f1top = expand(c5*(x^n1-c1)*(x-c2)*(x-target))
+    f1bot = expand(c6*(x^n2-c3)*(x-c4)*(x-target))
+    if n1 > n2: ans = infinity*c5*c6
+    if n1 < n2: ans = 0
+    if n1==n2: ans = c5/c6
+    return [f1top, f1bot, ans]
+
+##### Problem p2
+p2gen = indeterminateFormOne2()
+p2f1top = p2gen[0]
+p2f1bot = p2gen[1]
+p2ans = p2gen[2]
+\end{sagesilent}
+
+\begin{problem}Calculate $\lim_{x\to\infty}\frac{\sage{p2f1top}}{\sage{p2f1bot}}=\answer{\sage{p2ans}}$.\end{problem}

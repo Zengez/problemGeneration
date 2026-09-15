@@ -1,0 +1,183 @@
+TITLE: Curve Sketching
+TAGS: Derivatives
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def curveSketching():
+    var('t,x,y,z,X,Y,Z')
+    ymaxSum = 9999
+    yminSum = 9999
+    ypoiSum = 9999
+    f2 = 9999*x^3 + 9999*x^2 + 9999*x + 9999
+    while ((abs(numerator(ymaxSum))>500) or (abs(numerator(yminSum))>500) or (abs(numerator(ypoiSum))>500) or (abs(f2.coefficient(x^3))>100) or (abs(f2.coefficient(x^2))>100) or (abs(f2.coefficient(x))>100) or (abs(f2(x=0))>100)):
+        c1 = 1
+        c3 = 1
+        while mod(c1*c3,3)>0:
+            c1 = NonZeroInt(-5,5)
+            c2 = NonZeroInt(-5,5)
+            c3 = RandInt(1,6)
+            c4 = -sign(c1)*sign(c2)*RandInt(1,5)
+        fact1 = c1*x-c2
+        fact2 = c3*x-c4
+        f1 = expand(fact1*fact2)
+        f2temp = integral(f1,x)
+        c5 = f2temp.coefficient(x^2)*f2temp.coefficient(x)/f2temp.coefficient(x^3)
+        f2 = f2temp+c5
+        if f2.coefficient(x^3)*f2.coefficient(x)<0:
+            sqrtval = f2.coefficient(x)/f2.coefficient(x^3)
+            f2fact1a = x - sqrt(abs(sqrtval))
+            f2fact1b = x + sqrt(abs(sqrtval))
+            f2fact1 = -sign(sqrtval)*(f2fact1a)*(f2fact1b)
+            f2fact2 = f2.coefficient(x^3)*x + f2.coefficient(x^2)
+            f1zero1 = -f2fact1a(x=0)/f2fact1a.coefficient(x)
+            f1zero2 = -f2fact1b(x=0)/f2fact1b.coefficient(x)
+            f1zero3 = -f2fact2(x=0)/f2fact2.coefficient(x)
+        else:
+            f2fact1 = f2.coefficient(x^3)*x^2 + f2.coefficient(x)
+            f2fact2 = x + f2.coefficient(x^2)/f2.coefficient(x^3)
+            f1zero1 = 0
+            f1zero2 = 0
+            f1zero3 = -f2fact2(x=0)/f2fact2.coefficient(x)
+        f2check = expand(f2fact1*f2fact2)
+        f3 = derivative(f1,x)
+        f1derOneZero1 = c2/c1
+        f1derOneZero2 = c4/c3
+        f1derOneZeros = [f1derOneZero1,f1derOneZero2]
+        tempsort=sorted(f1derOneZeros)
+        f1derOneZeros=sorted(f1derOneZeros)
+        f1derTwoZero = -f3(x=0)/f3.coefficient(x)
+        if f2.coefficient(x^3) > 0:
+            xmaxSum = f1derOneZeros[0]
+            xminSum = f1derOneZeros[1]
+            ymaxSum = f2(x=xmaxSum)
+            yminSum = f2(x=xminSum)
+        if f2.coefficient(x^3) < 0:
+            xmaxSum = f1derOneZeros[1]
+            xminSum = f1derOneZeros[0]
+            yminSum = f2(x=xminSum)
+            ymaxSum = f2(x=xmaxSum)
+        xpoiSum = f1derTwoZero
+        ypoiSum = f2(x=f1derTwoZero)
+        xzeroSum = f1zero1 + f1zero2 + f1zero3
+        yInt = f2(x=0)
+    return [f2, xmaxSum, ymaxSum, xminSum, yminSum, xpoiSum, ypoiSum, xzeroSum, yInt]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def curveSketching():
+    var('t,x,y,z,X,Y,Z')
+    ymaxSum = 9999
+    yminSum = 9999
+    ypoiSum = 9999
+    f2 = 9999*x^3 + 9999*x^2 + 9999*x + 9999
+    while ((abs(numerator(ymaxSum))>500) or (abs(numerator(yminSum))>500) or (abs(numerator(ypoiSum))>500) or (abs(f2.coefficient(x^3))>100) or (abs(f2.coefficient(x^2))>100) or (abs(f2.coefficient(x))>100) or (abs(f2(x=0))>100)):
+        c1 = 1
+        c3 = 1
+        while mod(c1*c3,3)>0:
+            c1 = NonZeroInt(-5,5)
+            c2 = NonZeroInt(-5,5)
+            c3 = RandInt(1,6)
+            c4 = -sign(c1)*sign(c2)*RandInt(1,5)
+        fact1 = c1*x-c2
+        fact2 = c3*x-c4
+        f1 = expand(fact1*fact2)
+        f2temp = integral(f1,x)
+        c5 = f2temp.coefficient(x^2)*f2temp.coefficient(x)/f2temp.coefficient(x^3)
+        f2 = f2temp+c5
+        if f2.coefficient(x^3)*f2.coefficient(x)<0:
+            sqrtval = f2.coefficient(x)/f2.coefficient(x^3)
+            f2fact1a = x - sqrt(abs(sqrtval))
+            f2fact1b = x + sqrt(abs(sqrtval))
+            f2fact1 = -sign(sqrtval)*(f2fact1a)*(f2fact1b)
+            f2fact2 = f2.coefficient(x^3)*x + f2.coefficient(x^2)
+            f1zero1 = -f2fact1a(x=0)/f2fact1a.coefficient(x)
+            f1zero2 = -f2fact1b(x=0)/f2fact1b.coefficient(x)
+            f1zero3 = -f2fact2(x=0)/f2fact2.coefficient(x)
+        else:
+            f2fact1 = f2.coefficient(x^3)*x^2 + f2.coefficient(x)
+            f2fact2 = x + f2.coefficient(x^2)/f2.coefficient(x^3)
+            f1zero1 = 0
+            f1zero2 = 0
+            f1zero3 = -f2fact2(x=0)/f2fact2.coefficient(x)
+        f2check = expand(f2fact1*f2fact2)
+        f3 = derivative(f1,x)
+        f1derOneZero1 = c2/c1
+        f1derOneZero2 = c4/c3
+        f1derOneZeros = [f1derOneZero1,f1derOneZero2]
+        tempsort=sorted(f1derOneZeros)
+        f1derOneZeros=sorted(f1derOneZeros)
+        f1derTwoZero = -f3(x=0)/f3.coefficient(x)
+        if f2.coefficient(x^3) > 0:
+            xmaxSum = f1derOneZeros[0]
+            xminSum = f1derOneZeros[1]
+            ymaxSum = f2(x=xmaxSum)
+            yminSum = f2(x=xminSum)
+        if f2.coefficient(x^3) < 0:
+            xmaxSum = f1derOneZeros[1]
+            xminSum = f1derOneZeros[0]
+            yminSum = f2(x=xminSum)
+            ymaxSum = f2(x=xmaxSum)
+        xpoiSum = f1derTwoZero
+        ypoiSum = f2(x=f1derTwoZero)
+        xzeroSum = f1zero1 + f1zero2 + f1zero3
+        yInt = f2(x=0)
+    return [f2, xmaxSum, ymaxSum, xminSum, yminSum, xpoiSum, ypoiSum, xzeroSum, yInt]
+
+##### Problem p1
+p1gen = curveSketching()
+p1f2 = p1gen[0]
+p1xmaxSum = p1gen[1]
+p1ymaxSum = p1gen[2]
+p1xminSum = p1gen[3]
+p1yminSum = p1gen[4]
+p1xpoiSum = p1gen[5]
+p1ypoiSum = p1gen[6]
+p1xzeroSum = p1gen[7]
+p1yInt = p1gen[8]
+\end{sagesilent}
+
+\begin{problem}
+Calculate what is needed to graph the function: $\sage{p1f2}$.
+\begin{itemize}
+\item Sum of the $x$ values that are local maximums: $\answer{\sage{p1xmaxSum}}$
+\item Sum of the $y$ values that are local maximums: $\answer{\sage{p1ymaxSum}}$
+\item Sum of the $x$ values that are local minimums: $\answer{\sage{p1xminSum}}$
+\item Sum of the $y$ values that are local minimums: $\answer{\sage{p1yminSum}}$
+\item Sum of the $x$ values that are points of inflection: $\answer{\sage{p1xpoiSum}}$
+\item Sum of the $y$ values that are points of inflection: $\answer{\sage{p1ypoiSum}}$
+\item Sum of the $x$ values that are zeros: $\answer{\sage{p1xzeroSum}}$
+\item The $y$-intercept is: $(\answer{0},\answer{\sage{p1yInt}})$
+\end{itemize}
+\end{problem}

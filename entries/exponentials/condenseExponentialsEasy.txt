@@ -1,0 +1,87 @@
+TITLE: Condensing Exponentials (easy)
+TAGS: Exponential Functions, Properties of Exponents, Condensing, easy
+
+EXAMPLE:
+
+CODE-SAGE:
+var('x,y')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def condenseExponentialsEasy():
+    b1 = NonZeroInt(2,15,[4,8,9])
+    c1 = RandInt(0,10)
+    c2 = RandInt(0,10)
+    c3 = RandInt(0,10)
+    c4 = RandInt(0,10)
+    c5 = RandInt(0,10)
+    c6 = RandInt(0,10)
+    f1 = c1*x + c2*y + c3
+    f2 = c4*x + c5*y + c6
+    ans = (c1-c4)*x + (c2-c5)*y + (c3-c6)
+    return [b1,f1,f2,ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x,y')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def condenseExponentialsEasy():
+    b1 = NonZeroInt(2,15,[4,8,9])
+    c1 = RandInt(0,10)
+    c2 = RandInt(0,10)
+    c3 = RandInt(0,10)
+    c4 = RandInt(0,10)
+    c5 = RandInt(0,10)
+    c6 = RandInt(0,10)
+    f1 = c1*x + c2*y + c3
+    f2 = c4*x + c5*y + c6
+    ans = (c1-c4)*x + (c2-c5)*y + (c3-c6)
+    return [b1,f1,f2,ans]
+
+p1gen = condenseExponentialsEasy()
+p1b1 = p1gen[0]
+p1f1 = p1gen[1]
+p1f2 = p1gen[2]
+p1ans = p1gen[3]
+\end{sagesilent}
+
+\begin{problem}
+    \begin{hint}
+        Use your exponent properties to (correctly) combine the numerator and denominator. This can be done directly because they are the same base.
+    \end{hint}
+    \begin{hint}
+        To correctly combine the numerator and denominator use the property $\frac{c^A}{c^B} = c^{A-B}$. In this case make sure to use parentheses around the entire exponent from the top and the entire exponent from the bottom so that you can distribute the negative(s) correctly.
+    \end{hint}
+    Condense the following expression into a single exponential.\\
+    \[
+        \frac{\left(\sage{p1b1}\right)^{\sage{p1f1}}}{\left(\sage{p1b1}\right)^{\sage{p1f2}}} = {\sage{p1b1}}^{\answer{\sage{p1ans}}}
+    \]
+\end{problem}

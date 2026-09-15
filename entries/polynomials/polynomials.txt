@@ -1,0 +1,58 @@
+TITLE: Polynomials
+TAGS: Polynomials, Derivatives
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def polynomials():
+    var('x,y,z,X,Y,Z')
+    f1 = RandInt(-10,10)*x^4 + RandInt(-10,10)*x^3 + RandInt(-10,10)*x^2 + RandInt(-10,10)*x^1 + RandInt(-10,10) + RandInt(-10,10)*x^(RandInt(-5,5)/NonZeroInt(-5,5))
+    ans = derivative(f1,x)
+    return [f1, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def polynomials():
+    var('x,y,z,X,Y,Z')
+    f1 = RandInt(-10,10)*x^4 + RandInt(-10,10)*x^3 + RandInt(-10,10)*x^2 + RandInt(-10,10)*x^1 + RandInt(-10,10) + RandInt(-10,10)*x^(RandInt(-5,5)/NonZeroInt(-5,5))
+    ans = derivative(f1,x)
+    return [f1, ans]
+
+##### Problem p1
+p1gen = polynomials()
+p1f1 = p1gen[0]
+p1ans = p1gen[1]
+\end{sagesilent}
+
+\begin{problem}Compute the derivative of $f(x)=\sage{p1f1}$ using the polynomial rule. $f'(x)=\answer{\sage{p1ans}}$.\end{problem}

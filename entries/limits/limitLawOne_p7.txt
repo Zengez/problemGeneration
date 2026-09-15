@@ -1,0 +1,39 @@
+TITLE: Evaluating Limits with Limit Laws
+TAGS: Limits, Limit Laws
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def limitLawOne7():
+    var('x,y,z,X,Y,Z')
+    c1=RandInt(1,10); c2=RandInt(3,10); b1=RandInt(2,5); target=RandInt(-2,2); f1=(b1^x-c1)/(x-c2); ans=f1(x=target)
+    return [target, f1, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def limitLawOne7():
+    var('x,y,z,X,Y,Z')
+    c1=RandInt(1,10); c2=RandInt(3,10); b1=RandInt(2,5); target=RandInt(-2,2); f1=(b1^x-c1)/(x-c2); ans=f1(x=target)
+    return [target, f1, ans]
+
+##### Problem p7
+p7gen = limitLawOne7()
+p7target = p7gen[0]
+p7f1 = p7gen[1]
+p7ans = p7gen[2]
+\end{sagesilent}
+
+\begin{problem}Calculate $\lim_{x\to\sage{p7target}}\sage{p7f1}=\answer{\sage{p7ans}}$.\end{problem}

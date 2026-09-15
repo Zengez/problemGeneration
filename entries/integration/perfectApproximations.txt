@@ -1,0 +1,70 @@
+TITLE: Perfect Approximations
+TAGS: Integration
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def perfectApproximations():
+    var('k,x,y,z,X,Y,Z')
+    funcvec = [x,x^2]
+    sel = 1#RandInt(0,1)# For now, I want to always have a quadratic.
+    f1 = expand(NonZeroInt(-5,5)* funcvec[sel](x=(x + RandInt(-5,5))) + RandInt(-5,5))
+    start = RandInt(-5,5)
+    end = RandInt(start+1, start+5)
+    ans = integral(f1,x,start,end)
+    return [f1, start, end, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def perfectApproximations():
+    var('k,x,y,z,X,Y,Z')
+    funcvec = [x,x^2]
+    sel = 1#RandInt(0,1)# For now, I want to always have a quadratic.
+    f1 = expand(NonZeroInt(-5,5)* funcvec[sel](x=(x + RandInt(-5,5))) + RandInt(-5,5))
+    start = RandInt(-5,5)
+    end = RandInt(start+1, start+5)
+    ans = integral(f1,x,start,end)
+    return [f1, start, end, ans]
+
+##### Problem p1
+p1gen = perfectApproximations()
+p1f1 = p1gen[0]
+p1start = p1gen[1]
+p1end = p1gen[2]
+p1ans = p1gen[3]
+\end{sagesilent}
+
+\begin{problem}
+Use limits to find a perfect approximation for the area under the curve of the function $f(x) = \sage{p1f1}$ from $x=\sage{p1start}$ to $x=\sage{p1end}$. $\answer{\sage{p1ans}}$.
+\end{problem}

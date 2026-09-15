@@ -1,0 +1,38 @@
+TITLE: Exponential Growth and Decay (medium)
+TAGS: Exponential Functions, Growth and Decay, Modeling, Word Problem, medium
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def exponentialGrowthAndDecayMedium():
+    decayVec=[LatexExpr(r'\text{radioactive isotope}'),LatexExpr(r'\text{has a halflife of}'),(1/2),LatexExpr(r'\text{kg}')];object=decayVec[0];growthType=decayVec[1];base=decayVec[2];unitName=decayVec[3];cycleLength=RandInt(2,12);cycleTermVec=[LatexExpr(r'\text{minutes}'),LatexExpr(r'\text{hours}'),LatexExpr(r'\text{days}'),LatexExpr(r'\text{weeks}')];cycleTerm=choice(cycleTermVec);cycleNumber=RandInt(4,15);duration=cycleNumber*cycleLength;initialPop=RandInt(2,20);ans=initialPop*(base)^(cycleNumber)
+    return [initialPop, base, cycleNumber, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def exponentialGrowthAndDecayMedium():
+    decayVec=[LatexExpr(r'\text{radioactive isotope}'),LatexExpr(r'\text{has a halflife of}'),(1/2),LatexExpr(r'\text{kg}')];object=decayVec[0];growthType=decayVec[1];base=decayVec[2];unitName=decayVec[3];cycleLength=RandInt(2,12);cycleTermVec=[LatexExpr(r'\text{minutes}'),LatexExpr(r'\text{hours}'),LatexExpr(r'\text{days}'),LatexExpr(r'\text{weeks}')];cycleTerm=choice(cycleTermVec);cycleNumber=RandInt(4,15);duration=cycleNumber*cycleLength;initialPop=RandInt(2,20);ans=initialPop*(base)^(cycleNumber)
+    return [initialPop, base, cycleNumber, ans]
+
+##### Problem p2
+p2gen = exponentialGrowthAndDecayMedium()
+p2initialPop = p2gen[0]
+p2base = p2gen[1]
+p2cycleNumber = p2gen[2]
+p2ans = p2gen[3]
+\end{sagesilent}
+
+\begin{problem}Starting with $\sage{p2initialPop}$, decaying by $\sage{p2base}$ for $\sage{p2cycleNumber}$ cycles gives $\answer{\sage{p2ans}}$.\end{problem}

@@ -1,0 +1,43 @@
+TITLE: Simplifying Numeric Radicals (easy)
+TAGS: Radical Functions, Simplifying, Arithmetic, easy
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def simplifyNumericRadicalsEasy():
+    var('x')
+    primeVec=[2,3,5,7,11,13]
+    pwr1=RandInt(2,5); pwr2=RandInt(0,3); prime1=primeVec[RandInt(0,2)]; prime2=primeVec[RandInt(0,5)]
+    disp=prime1^pwr1*prime2^pwr2; pwrO1=floor(pwr1/2); pwrO2=floor(pwr2/2); pwrI1=pwr1-2*pwrO1; pwrI2=pwr2-2*pwrO2; outer=prime1^pwrO1*prime2^pwrO2; inner=prime1^pwrI1*prime2^pwrI2
+    return [disp, outer, inner]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def simplifyNumericRadicalsEasy():
+    var('x')
+    primeVec=[2,3,5,7,11,13]
+    pwr1=RandInt(2,5); pwr2=RandInt(0,3); prime1=primeVec[RandInt(0,2)]; prime2=primeVec[RandInt(0,5)]
+    disp=prime1^pwr1*prime2^pwr2; pwrO1=floor(pwr1/2); pwrO2=floor(pwr2/2); pwrI1=pwr1-2*pwrO1; pwrI2=pwr2-2*pwrO2; outer=prime1^pwrO1*prime2^pwrO2; inner=prime1^pwrI1*prime2^pwrI2
+    return [disp, outer, inner]
+
+##### Problem p1
+p1gen = simplifyNumericRadicalsEasy()
+p1disp = p1gen[0]
+p1outer = p1gen[1]
+p1inner = p1gen[2]
+\end{sagesilent}
+
+\begin{problem}Simplify $\sqrt{\sage{p1disp}}=\answer{\sage{p1outer}}\sqrt{\answer{\sage{p1inner}}}$.\end{problem}

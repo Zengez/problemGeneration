@@ -1,0 +1,70 @@
+TITLE: Change of Base Formula (easy)
+TAGS: Logarithmic Functions, Change of Base, easy
+
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def changeOfBaseEasy():
+    b1 = RandInt(2,10)
+    b2 = NonZeroInt(2,10,[b1])
+    c1 = RandInt(1,200)
+    return [b1,b2,c1]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def changeOfBaseEasy():
+    b1 = RandInt(2,10)
+    b2 = NonZeroInt(2,10,[b1])
+    c1 = RandInt(1,200)
+    return [b1,b2,c1]
+
+p1gen = changeOfBaseEasy()
+p1b1,p1b2,p1c1 = p1gen
+
+\end{sagesilent}
+
+\begin{problem}
+    \begin{hint}
+        Recall the change of base formula, to change a log from base $b$ to base $c$:
+        \[
+            \Log_{b}(A) = \frac{\Log_{c}(A)}{\Log_{c}(b)}
+        \]
+    \end{hint}
+    Use the change of base formula to rewrite the expression $\Log_{\sage{p1b1}}\left(\sage{p1c1}\right)$ as a base $\sage{p1b2}$ logarithm.
+    \[
+        \Log_{\sage{p1b1}}\left(\sage{p1c1}\right) =
+        \frac{\Log_{\sage{p1b2}}\left(\answer{\sage{p1c1}}\right)}{\Log_{\sage{p1b2}}\left(\answer{\sage{p1b1}}\right)}
+    \]
+\end{problem}

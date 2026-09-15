@@ -1,0 +1,58 @@
+TITLE: Properties of Exponentials (hard)
+TAGS: Exponential Functions, Properties of Exponents, hard
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def propertiesOfExponentialsHard():
+    var('x,y,z,r')
+    c1=RandInt(-6,6);c2=RandInt(-6,6);c3=RandInt(-6,6);c4=RandInt(-6,6);c5=RandInt(-6,6);c6=RandInt(-6,6);c7=RandInt(-6,6);c8=RandInt(-6,6);c9=RandInt(-6,6);c10=RandInt(-6,6);c11=RandInt(-6,6);c12=RandInt(-6,6);c13=RandInt(-6,6);c14=RandInt(-6,6);c15=RandInt(-6,6);c16=RandInt(-6,6);pwr1=NonZeroInt(-6,6,[-1,0,1]);pwr2=NonZeroInt(-6,6,[-1,0,1]);f1=x^c1*y^c2*z^c3*r^c4;f2=x^c5*y^c6*z^c7*r^c8;f3=x^c9*y^c10*z^c11*r^c12;f4=x^c13*y^c14*z^c15*r^c16;ans1=(c1-c5)*pwr1+(c9-c13)*pwr2;ans2=(c2-c6)*pwr1+(c10-c14)*pwr2;ans3=(c3-c7)*pwr1+(c11-c15)*pwr2;ans4=(c4-c8)*pwr1+(c12-c16)*pwr2
+    return [ans1, ans2, ans3, ans4]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def propertiesOfExponentialsHard():
+    var('x,y,z,r')
+    c1=RandInt(-6,6);c2=RandInt(-6,6);c3=RandInt(-6,6);c4=RandInt(-6,6);c5=RandInt(-6,6);c6=RandInt(-6,6);c7=RandInt(-6,6);c8=RandInt(-6,6);c9=RandInt(-6,6);c10=RandInt(-6,6);c11=RandInt(-6,6);c12=RandInt(-6,6);c13=RandInt(-6,6);c14=RandInt(-6,6);c15=RandInt(-6,6);c16=RandInt(-6,6);pwr1=NonZeroInt(-6,6,[-1,0,1]);pwr2=NonZeroInt(-6,6,[-1,0,1]);f1=x^c1*y^c2*z^c3*r^c4;f2=x^c5*y^c6*z^c7*r^c8;f3=x^c9*y^c10*z^c11*r^c12;f4=x^c13*y^c14*z^c15*r^c16;ans1=(c1-c5)*pwr1+(c9-c13)*pwr2;ans2=(c2-c6)*pwr1+(c10-c14)*pwr2;ans3=(c3-c7)*pwr1+(c11-c15)*pwr2;ans4=(c4-c8)*pwr1+(c12-c16)*pwr2
+    return [ans1, ans2, ans3, ans4]
+
+##### Problem p3
+p3gen = propertiesOfExponentialsHard()
+p3ans1 = p3gen[0]
+p3ans2 = p3gen[1]
+p3ans3 = p3gen[2]
+p3ans4 = p3gen[3]
+\end{sagesilent}
+
+\begin{problem}Simplify using exponent rules: $x^{\answer{\sage{p3ans1}}}y^{\answer{\sage{p3ans2}}}z^{\answer{\sage{p3ans3}}}r^{\answer{\sage{p3ans4}}}$.\end{problem}

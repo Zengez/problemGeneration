@@ -1,0 +1,80 @@
+TITLE: Factoring by Completing the Square (hard)
+TAGS: Polynomials, Factoring, Functions, hard
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def factoringCompletingTheSquareHard():
+    # Hard mode, force ``b/2'' term to be fractional.
+    c1t = NonZeroInt(-10,10)
+    c2 = NonZeroInt(-5,5)
+    c3 = RandInt(-10,10)
+    c4 = RandInt(2,10)
+    while gcd(abs(c1t),c4)>1:
+        c4 = RandInt(2,10)
+    c1 = c1t/c4
+    f1 = c2*(x-c1)^2 + c3
+    f2 = expand(f1)
+    return [f2, c2, c1, c3]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def factoringCompletingTheSquareHard():
+    # Hard mode, force ``b/2'' term to be fractional.
+    c1t = NonZeroInt(-10,10)
+    c2 = NonZeroInt(-5,5)
+    c3 = RandInt(-10,10)
+    c4 = RandInt(2,10)
+    while gcd(abs(c1t),c4)>1:
+        c4 = RandInt(2,10)
+    c1 = c1t/c4
+    f1 = c2*(x-c1)^2 + c3
+    f2 = expand(f1)
+    return [f2, c2, c1, c3]
+
+##### Problem p3
+p3gen = factoringCompletingTheSquareHard()
+p3f2 = p3gen[0]
+p3c2 = p3gen[1]
+p3c1 = p3gen[2]
+p3c3 = p3gen[3]
+\end{sagesilent}
+
+\begin{problem}
+Complete the square on the following quadratic:
+\[\sage{p3f2} = \answer{\sage{p3c2}} \left( \answer{\sage{x-p3c1}} \right)^2 + \answer{\sage{p3c3}}\]
+\end{problem}

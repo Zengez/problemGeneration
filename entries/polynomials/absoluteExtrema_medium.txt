@@ -1,0 +1,99 @@
+TITLE: Absolute Extrema (medium)
+TAGS: Polynomials, Extrema, Functions, medium
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def absoluteExtremaMedium():
+    var('x')
+    c1 = NonZeroInt(-10,10)
+    c2 = NonZeroInt(-10,10,[0,c1])
+    c3 = NonZeroInt(-10,10,[0,c1,c2])
+    c4 = NonZeroInt(-10,10,[0,c1,c2,c3])
+    pwr1 = RandInt(1,20)
+    pwr2 = RandInt(1,20)
+    pwr3 = RandInt(1,20)
+    pwr4 = RandInt(1,20)
+    f1 = c1*x^pwr1
+    f2 = c2*x^pwr2
+    f3 = c3*x^pwr3
+    f4 = c4*x^pwr4
+    Disp = f1+f2+f3+f4
+    deg = Disp.degree(x)
+    if deg/2== floor(deg/2):
+        ans = (1+sign(Disp.coefficient(x^deg)))/2 + 1
+    else:
+        ans = 0
+    return [f1, f2, f3, f4, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def absoluteExtremaMedium():
+    var('x')
+    c1 = NonZeroInt(-10,10)
+    c2 = NonZeroInt(-10,10,[0,c1])
+    c3 = NonZeroInt(-10,10,[0,c1,c2])
+    c4 = NonZeroInt(-10,10,[0,c1,c2,c3])
+    pwr1 = RandInt(1,20)
+    pwr2 = RandInt(1,20)
+    pwr3 = RandInt(1,20)
+    pwr4 = RandInt(1,20)
+    f1 = c1*x^pwr1
+    f2 = c2*x^pwr2
+    f3 = c3*x^pwr3
+    f4 = c4*x^pwr4
+    Disp = f1+f2+f3+f4
+    deg = Disp.degree(x)
+    if deg/2== floor(deg/2):
+        ans = (1+sign(Disp.coefficient(x^deg)))/2 + 1
+    else:
+        ans = 0
+    return [f1, f2, f3, f4, ans]
+
+##### Problem p2
+p2gen = absoluteExtremaMedium()
+p2f1 = p2gen[0]
+p2f2 = p2gen[1]
+p2f3 = p2gen[2]
+p2f4 = p2gen[3]
+p2ans = p2gen[4]
+\end{sagesilent}
+
+\begin{problem}
+\begin{hint}Remember that the absolute extrema depends on the degree and leading coefficient for a polynomial.\end{hint}
+\begin{hint}You may need to simplify the polynomial (combine like terms) in order to get the leading term and determine the correct answer.\end{hint}
+Consider the function $f(x) = (\sage{p2f1}) + (\sage{p2f2}) + (\sage{p2f3}) + (\sage{p2f4})$.
+\begin{enumerate}\item[0] No Absolute Extrema\item[1] An Absolute Maximum\item[2] An Absolute Minimum\end{enumerate}
+Enter the number that corresponds to your answer: $\answer{\sage{p2ans}}$
+\end{problem}

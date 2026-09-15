@@ -1,0 +1,90 @@
+TITLE: Horizontal Asymptotes (easy)
+TAGS: Limits, Asymptotes, Horizontal Asymptotes, easy
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def hAOneEasy():
+    var('x,y,z,X,Y,Z')
+    target = RandInt(-10,10)
+    c1 = NonZeroInt(1,10,[0,target])
+    c2 = NonZeroInt(1,10,[0,target])
+    c3 = NonZeroInt(1,10,[target])
+    c4 = NonZeroInt(1,10,[target])
+    c5 = NonZeroInt(-30,30)
+    c6 = NonZeroInt(-30,30)
+    n1 = RandInt(1,5)
+    n2 = RandInt(1,5)
+    f1top = expand(c5*(x^n1-c1)*(x-c2)*(x-target))
+    f1bot = expand(c6*(x^n2-c3)*(x-c4)*(x-target))
+    if n1 > n2:
+        leftHA = LatexExpr(r"DNE"); rightHA = LatexExpr(r"DNE")
+    if n1 < n2:
+        leftHA = 0; rightHA = 0
+    if n1==n2:
+        leftHA = c5/c6; rightHA = c5/c6
+    return [f1top, f1bot, leftHA, rightHA]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def hAOneEasy():
+    var('x,y,z,X,Y,Z')
+    target = RandInt(-10,10)
+    c1 = NonZeroInt(1,10,[0,target])
+    c2 = NonZeroInt(1,10,[0,target])
+    c3 = NonZeroInt(1,10,[target])
+    c4 = NonZeroInt(1,10,[target])
+    c5 = NonZeroInt(-30,30)
+    c6 = NonZeroInt(-30,30)
+    n1 = RandInt(1,5)
+    n2 = RandInt(1,5)
+    f1top = expand(c5*(x^n1-c1)*(x-c2)*(x-target))
+    f1bot = expand(c6*(x^n2-c3)*(x-c4)*(x-target))
+    if n1 > n2:
+        leftHA = LatexExpr(r"DNE"); rightHA = LatexExpr(r"DNE")
+    if n1 < n2:
+        leftHA = 0; rightHA = 0
+    if n1==n2:
+        leftHA = c5/c6; rightHA = c5/c6
+    return [f1top, f1bot, leftHA, rightHA]
+
+##### Problem p1
+p1gen = hAOneEasy()
+p1f1top = p1gen[0]
+p1f1bot = p1gen[1]
+p1leftHA = p1gen[2]
+p1rightHA = p1gen[3]
+\end{sagesilent}
+
+\begin{problem}Determine the horizontal asymptotes of $f(x)=\frac{\sage{p1f1top}}{\sage{p1f1bot}}$. Left: $\answer{\sage{p1leftHA}}$, Right: $\answer{\sage{p1rightHA}}$.\end{problem}

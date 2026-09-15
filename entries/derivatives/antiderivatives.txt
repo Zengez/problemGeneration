@@ -1,0 +1,73 @@
+TITLE: Antiderivatives
+TAGS: Integration, Antiderivatives
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def antiderivatives():
+    var('C,x,y,z,X,Y,Z')
+    base = RandInt(2,10)
+    f1 = RandInt(-5,5)*x^3+RandInt(-5,5)*x^2+RandInt(-5,5)*x+RandInt(-5,5)*e^x+RandInt(-5,5)*base^x
+    ans = integral(f1,x)
+    return [f1, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def antiderivatives():
+    var('C,x,y,z,X,Y,Z')
+    base = RandInt(2,10)
+    f1 = RandInt(-5,5)*x^3+RandInt(-5,5)*x^2+RandInt(-5,5)*x+RandInt(-5,5)*e^x+RandInt(-5,5)*base^x
+    ans = integral(f1,x)
+    return [f1, ans]
+
+##### Problem p1
+p1gen = antiderivatives()
+p1f1 = p1gen[0]
+p1ans = p1gen[1]
+\end{sagesilent}
+
+\begin{javascript}
+var x
+sameDerivative = function(a,b) {
+    return (
+    a.derivative('a').equals( b.derivative('a') ) &&
+    a.derivative('b').equals( b.derivative('b') ) &&
+    a.derivative('c').equals( b.derivative('c') ) &&
+    a.derivative('d').equals( b.derivative('d') ) &&
+    a.derivative('j').equals( b.derivative('j') ) &&
+    a.derivative('k').equals( b.derivative('k') ) &&
+    a.derivative('l').equals( b.derivative('l') ) &&
+    a.derivative('m').equals( b.derivative('m') ) &&
+    a.derivative('n').equals( b.derivative('n') ) &&
+    a.derivative('o').equals( b.derivative('o') ) &&
+    a.derivative('p').equals( b.derivative('p') ) &&
+    a.derivative('q').equals( b.derivative('q') ) &&
+    a.derivative('r').equals( b.derivative('r') ) &&
+    a.derivative('s').equals( b.derivative('s') ) &&
+    a.derivative('t').equals( b.derivative('t') ) &&
+    a.derivative('u').equals( b.derivative('u') ) &&
+    a.derivative('v').equals( b.derivative('v') ) &&
+    a.derivative('w').equals( b.derivative('w') ) &&
+    a.derivative('x').equals( b.derivative('x') ) &&
+    a.derivative('y').equals( b.derivative('y') ) &&
+    a.derivative('z').equals( b.derivative('z') ) &&
+    a.derivative('C').equals( b.derivative('C') )) ;
+};
+\end{javascript}
+
+\begin{problem}
+Find an antiderivative of $f(x) = \sage{p1f1}$: $F(x) = \answer[validator=sameDerivative]{\sage{p1ans}}$.
+\end{problem}

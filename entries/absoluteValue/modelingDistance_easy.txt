@@ -1,0 +1,87 @@
+TITLE: Modeling Distance with Absolute Value (easy)
+TAGS: Functions, Absolute Value, Modeling, Word Problem, easy
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def modelingDistanceEasy():
+    var('a','b','c','d')
+    letterVec = [a,b,c,d]
+    obj1 = NonZeroInt(-5,5)*choice(letterVec)
+    obj2 = NonZeroInt(-5,5)*choice(letterVec)
+    dist = RandInt(1,200)
+    relateVec = [[LatexExpr(r'\text{at least}'),(abs(obj1 - obj2) >= dist)],[LatexExpr(r'\text{no less than}'),(abs(obj1 - obj2) >= dist)],[LatexExpr(r'\text{at most}'),(abs(obj1 - obj2) <= dist)],[LatexExpr(r'\text{no more than}'),(abs(obj1 - obj2) <= dist)],[LatexExpr(r'\text{strictly less than}'),(abs(obj1 - obj2) < dist)],[LatexExpr(r'\text{strictly more than}'),(abs(obj1 - obj2) > dist)]]
+    relateChoice = RandInt(0,5)
+    relateText=relateVec[relateChoice][0]
+    ansExpr=relateVec[relateChoice][1]
+    ansVec = [(abs(obj1 - obj2) > dist),(abs(obj1 - obj2) < dist),(abs(obj1 - obj2) >= dist),(abs(obj1 - obj2) <= dist)]
+    shuffle(ansVec)
+    ans = ansVec.index(ansExpr)+1
+    return [obj1, obj2, relateText, dist, ansVec, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def modelingDistanceEasy():
+    var('a','b','c','d')
+    letterVec = [a,b,c,d]
+    obj1 = NonZeroInt(-5,5)*choice(letterVec)
+    obj2 = NonZeroInt(-5,5)*choice(letterVec)
+    dist = RandInt(1,200)
+    relateVec = [[LatexExpr(r'\text{at least}'),(abs(obj1 - obj2) >= dist)],[LatexExpr(r'\text{no less than}'),(abs(obj1 - obj2) >= dist)],[LatexExpr(r'\text{at most}'),(abs(obj1 - obj2) <= dist)],[LatexExpr(r'\text{no more than}'),(abs(obj1 - obj2) <= dist)],[LatexExpr(r'\text{strictly less than}'),(abs(obj1 - obj2) < dist)],[LatexExpr(r'\text{strictly more than}'),(abs(obj1 - obj2) > dist)]]
+    relateChoice = RandInt(0,5)
+    relateText=relateVec[relateChoice][0]
+    ansExpr=relateVec[relateChoice][1]
+    ansVec = [(abs(obj1 - obj2) > dist),(abs(obj1 - obj2) < dist),(abs(obj1 - obj2) >= dist),(abs(obj1 - obj2) <= dist)]
+    shuffle(ansVec)
+    ans = ansVec.index(ansExpr)+1
+    return [obj1, obj2, relateText, dist, ansVec, ans]
+
+##### Problem p1
+p1gen = modelingDistanceEasy()
+p1obj1 = p1gen[0]
+p1obj2 = p1gen[1]
+p1relateText = p1gen[2]
+p1dist = p1gen[3]
+p1ansVec = p1gen[4]
+p1ans = p1gen[5]
+\end{sagesilent}
+
+\begin{problem}
+\begin{hint}Recall, the distance between $A$ and $B$ is represented by $|A-B|$.\end{hint}
+\begin{hint}Remember to be careful with negatives. It's best to plug in the expressions in parentheses when you are writing it as $|A - B|$ to represent the distance between $A$ and $B$.\end{hint}
+Which of the following models the following description of distance: \\
+The distance between $\sage{p1obj1}$ and $\sage{p1obj2}$ is $\sage{p1relateText}$ $\sage{p1dist}$
+\begin{enumerate}\item[1:] $\sage{p1ansVec[0]}$\item[2:] $\sage{p1ansVec[1]}$\item[3:] $\sage{p1ansVec[2]}$\item[4:] $\sage{p1ansVec[3]}$\end{enumerate}
+$\answer{\sage{p1ans}}$
+\end{problem}

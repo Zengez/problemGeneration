@@ -1,0 +1,202 @@
+TITLE: Differentiability and Continuity of Piecewise Functions
+TAGS: Derivatives, Differentiability, Continuity, Piecewise Functions
+
+EXAMPLE:
+
+CODE-SAGE:
+var('x,y')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def probGenOne():
+    pwr1 = RandInt(2,4)
+    pwr2 = RandInt(1,pwr1-1)
+    funcvec = [[x, x^2, x^3], [sqrt(x),x^(pwr2/pwr1)]]
+    diff = sqrt(-1)
+    f1 = 2000*x
+    f2 = 2000*x
+    target = 1
+    while ( (abs(imag(diff))> 0) or (abs(f1(x=target))>500) or (abs(f2(x=target)) > 500) or (abs(derivative(f1,x)(x=target))>500) or (abs(derivative(f2,x)(x=target))>500) or f1==f2 ):
+        archtype = RandInt(0,1)
+        select1 = RandInt(0,len(funcvec[archtype])-1)
+        select2 = RandInt(0,len(funcvec[archtype])-1)
+        c1 = NonZeroInt(-4,4)
+        c2 = NonZeroInt(-4,4)
+        c3 = NonZeroInt(-4,4)
+        c4 = NonZeroInt(-4,4)
+        c5 = NonZeroInt(-4,4)
+        c6 = NonZeroInt(-4,4)
+        c7 = NonZeroInt(-4,4)
+        c8 = NonZeroInt(-4,4)
+        f1 = c1*funcvec[archtype][select1](x=(c2*x - c3),y=y) + c4
+        f2T = c5*funcvec[archtype][select2](x=(c6*x - c7),y=y) + c8
+        target = NonZeroInt(1,5,[c7/c6,c3/c2])
+        if archtype==1:
+            c2 = NonZeroInt(-5,5)
+            c3 = c2*target - NonZeroInt(1,3)^pwr1
+            c6 = NonZeroInt(-5,5)
+            c7 = c6*target - NonZeroInt(1,3)^pwr1
+            f1 = c1*funcvec[archtype][select1](x=(c2*x - c3),y=y) + c4
+            f2T = c5*funcvec[archtype][select2](x=(c6*x - c7),y=y) + c8
+        diff = derivative(f1,x)(x=target) - derivative(f2T,x)(x=target)
+        f2temp = f2T+diff*x
+        diff2 = f1(x=target)-f2temp(x=target)
+        f2core = f2temp + diff2
+        derOffTog = 0
+        contOffTog = 0
+        isDiff = RandInt(0,1)
+        if isDiff==0:
+            derOffTog = RandInt(0,1)
+            contOffTog = RandInt(1-derOffTog,1)
+        derOff = NonZeroInt(-5,5)
+        contOff = NonZeroInt(-5,5)
+        f2 = f2core + (1-isDiff)*( derOffTog*(derOff*x - target*derOff) + contOffTog*contOff )
+        diff = derivative(f1,x)(x=target) - derivative(f2,x)(x=target)
+    ansInner = 0
+    ans = LatexExpr(r'No')
+    if ((diff == 0) and (f1(x=target)==f2(x=target))):
+        ans=LatexExpr(r'Yes')
+        ansInner = 1
+    if ansInner==0:
+        ansB = 1*contOffTog + 2*derOffTog
+        if ( (abs(imag(f1(x=target))) > 0 ) or (abs(imag(f1(x=target))) > 0 ) ):
+            ansB = 4
+        st1 = LatexExpr(r'\text{Why not? (Enter the number corresponding to your reason)}') + LatexExpr(r'\\')
+        st2 = LatexExpr(r'\textbf{1: } \text{The function is not continuous at } x =') + latex(target) + LatexExpr(r'\\')
+        st3 = LatexExpr(r'\textbf{2: } \text{The left and right derivative are not equal at } x = ') + latex(target) + LatexExpr(r'\\')
+        st4 = LatexExpr(r'\textbf{3: } \text{Both 1 and 2}') + LatexExpr(r'\\')
+        st5 = LatexExpr(r'\textbf{4: } \text{The function fails to exist at } x = ') + latex(target) + LatexExpr(r'\\')
+        st6 = LatexExpr(r'\textbf{5: } \text{All of the above}') + LatexExpr(r'\\')
+        fullStatement = st1+st2+st3+st4+st5+st6
+    if ansInner==1:
+        ansBContent = derivative(f1,x)(x=target)
+        ansB = latex(ansBContent)
+        fullStatement = LatexExpr(r'\text{What is the value of the derivative at }') + latex(x = target) + LatexExpr(r'\text{?}')
+    return [f1,f2,target,ans,fullStatement,ansB]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x,y')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def probGenOne():
+    pwr1 = RandInt(2,4)
+    pwr2 = RandInt(1,pwr1-1)
+    funcvec = [[x, x^2, x^3], [sqrt(x),x^(pwr2/pwr1)]]
+    diff = sqrt(-1)
+    f1 = 2000*x
+    f2 = 2000*x
+    target = 1
+    while ( (abs(imag(diff))> 0) or (abs(f1(x=target))>500) or (abs(f2(x=target)) > 500) or (abs(derivative(f1,x)(x=target))>500) or (abs(derivative(f2,x)(x=target))>500) or f1==f2 ):
+        archtype = RandInt(0,1)
+        select1 = RandInt(0,len(funcvec[archtype])-1)
+        select2 = RandInt(0,len(funcvec[archtype])-1)
+        c1 = NonZeroInt(-4,4)
+        c2 = NonZeroInt(-4,4)
+        c3 = NonZeroInt(-4,4)
+        c4 = NonZeroInt(-4,4)
+        c5 = NonZeroInt(-4,4)
+        c6 = NonZeroInt(-4,4)
+        c7 = NonZeroInt(-4,4)
+        c8 = NonZeroInt(-4,4)
+        f1 = c1*funcvec[archtype][select1](x=(c2*x - c3),y=y) + c4
+        f2T = c5*funcvec[archtype][select2](x=(c6*x - c7),y=y) + c8
+        target = NonZeroInt(1,5,[c7/c6,c3/c2])
+        if archtype==1:
+            c2 = NonZeroInt(-5,5)
+            c3 = c2*target - NonZeroInt(1,3)^pwr1
+            c6 = NonZeroInt(-5,5)
+            c7 = c6*target - NonZeroInt(1,3)^pwr1
+            f1 = c1*funcvec[archtype][select1](x=(c2*x - c3),y=y) + c4
+            f2T = c5*funcvec[archtype][select2](x=(c6*x - c7),y=y) + c8
+        diff = derivative(f1,x)(x=target) - derivative(f2T,x)(x=target)
+        f2temp = f2T+diff*x
+        diff2 = f1(x=target)-f2temp(x=target)
+        f2core = f2temp + diff2
+        derOffTog = 0
+        contOffTog = 0
+        isDiff = RandInt(0,1)
+        if isDiff==0:
+            derOffTog = RandInt(0,1)
+            contOffTog = RandInt(1-derOffTog,1)
+        derOff = NonZeroInt(-5,5)
+        contOff = NonZeroInt(-5,5)
+        f2 = f2core + (1-isDiff)*( derOffTog*(derOff*x - target*derOff) + contOffTog*contOff )
+        diff = derivative(f1,x)(x=target) - derivative(f2,x)(x=target)
+    ansInner = 0
+    ans = LatexExpr(r'No')
+    if ((diff == 0) and (f1(x=target)==f2(x=target))):
+        ans=LatexExpr(r'Yes')
+        ansInner = 1
+    if ansInner==0:
+        ansB = 1*contOffTog + 2*derOffTog
+        if ( (abs(imag(f1(x=target))) > 0 ) or (abs(imag(f1(x=target))) > 0 ) ):
+            ansB = 4
+        st1 = LatexExpr(r'\text{Why not? (Enter the number corresponding to your reason)}') + LatexExpr(r'\\')
+        st2 = LatexExpr(r'\textbf{1: } \text{The function is not continuous at } x =') + latex(target) + LatexExpr(r'\\')
+        st3 = LatexExpr(r'\textbf{2: } \text{The left and right derivative are not equal at } x = ') + latex(target) + LatexExpr(r'\\')
+        st4 = LatexExpr(r'\textbf{3: } \text{Both 1 and 2}') + LatexExpr(r'\\')
+        st5 = LatexExpr(r'\textbf{4: } \text{The function fails to exist at } x = ') + latex(target) + LatexExpr(r'\\')
+        st6 = LatexExpr(r'\textbf{5: } \text{All of the above}') + LatexExpr(r'\\')
+        fullStatement = st1+st2+st3+st4+st5+st6
+    if ansInner==1:
+        ansBContent = derivative(f1,x)(x=target)
+        ansB = latex(ansBContent)
+        fullStatement = LatexExpr(r'\text{What is the value of the derivative at }') + latex(x = target) + LatexExpr(r'\text{?}')
+    return [f1,f2,target,ans,fullStatement,ansB]
+
+p1gen = probGenOne()
+p1f1 = p1gen[0]
+p1f2 = p1gen[1]
+p1target = p1gen[2]
+p1ans = p1gen[3]
+p1BfullStatement = p1gen[4]
+p1Bans = p1gen[5]
+\end{sagesilent}
+
+\begin{problem}
+    \begin{hint}
+        Being differentiable at $\sage{p1target}$ isn't \textit{just} about the function being continuous at that point, but it also needs the difference quotient to the right and left of that point to be the same value, so you need to check the derivative of both functions at that point to see if they agree as well!
+    \end{hint}
+    Consider the following function:
+    \[
+        f(x) =
+        \begin{cases}
+            \sage{p1f1}           & x < \sage{p1target} \\
+            \sage{p1f2}           & \sage{p1target} \leq x
+        \end{cases}
+    \]
+    Is $f(x)$ differentiable at $x=\sage{p1target}$? (Enter Yes or No) $\answer{\sage{p1ans}}$.
+    \begin{problem}
+        $\sage{p1BfullStatement}$
+
+        $\answer{\sage{p1Bans}}$
+    \end{problem}
+\end{problem}

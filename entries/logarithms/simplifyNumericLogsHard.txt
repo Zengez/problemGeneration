@@ -1,0 +1,87 @@
+TITLE: Simplifying Numeric Logs (hard)
+TAGS: Simplifying, Logarithmic Functions, Arithmetic, hard
+
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def simplifyNumericLogsHard():
+    b1 = RandInt(2,7)
+    arg1 = 9999
+    b2 = 9999
+    while arg1 > 500 or b2>500:
+        pwr1 = RandInt(2,5)
+        pwr2 = NonZeroInt(2,5,[pwr1])
+        while gcd(pwr1,pwr2)>1:
+            pwr1 = RandInt(2,5)
+            pwr2 = NonZeroInt(2,5,[pwr1])
+        arg1 = b1^pwr1
+        b2 = b1^pwr2
+    ans1 = pwr1/pwr2
+    return [b1,arg1,pwr1,pwr2,b2,ans1]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def simplifyNumericLogsHard():
+    b1 = RandInt(2,7)
+    arg1 = 9999
+    b2 = 9999
+    while arg1 > 500 or b2>500:
+        pwr1 = RandInt(2,5)
+        pwr2 = NonZeroInt(2,5,[pwr1])
+        while gcd(pwr1,pwr2)>1:
+            pwr1 = RandInt(2,5)
+            pwr2 = NonZeroInt(2,5,[pwr1])
+        arg1 = b1^pwr1
+        b2 = b1^pwr2
+    ans1 = pwr1/pwr2
+    return [b1,arg1,pwr1,pwr2,b2,ans1]
+
+p1gen = simplifyNumericLogsHard()
+p1b1,p1arg1,p1pwr1,p1pwr2,p1b2,p1ans1 = p1gen
+\end{sagesilent}
+
+\begin{problem}
+    \begin{hint}
+        Try to find a common base for both the value of the log's base ($\sage{p1b2}$) and the argument of the log ($\sage{p1arg1}$).
+    \end{hint}
+    \begin{hint}
+        The common base is $\sage{p1b1}$.
+    \end{hint}
+    \begin{hint}
+        Use the change of base formula to rewrite the log as a base $\sage{p1b1}$ log, then simplify.
+    \end{hint}
+    Compute the following numeric exponential value.
+    $\Log_{\sage{p1b2}}\left({\sage{p1arg1}}\right) = \answer{\sage{p1ans1}}$
+\end{problem}

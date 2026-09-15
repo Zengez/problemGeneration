@@ -1,0 +1,47 @@
+TITLE: Simplifying Numeric Radicals (medium)
+TAGS: Radical Functions, Simplifying, Arithmetic, medium
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def simplifyNumericRadicalsMedium():
+    var('x')
+    primeVec=[2,3,5,7,11,13]
+    disp=999999
+    while disp>10000:
+        pwr1=RandInt(2,5);pwr2=RandInt(0,6);pwr3=RandInt(0,6);prime1=primeVec[RandInt(0,5)];prime2=primeVec[RandInt(0,5)];prime3=primeVec[RandInt(0,5)];disp=prime1^pwr1*prime2^pwr2*prime3^pwr3
+    pwrO1=floor(pwr1/2);pwrO2=floor(pwr2/2);pwrO3=floor(pwr3/2);pwrI1=pwr1-2*pwrO1;pwrI2=pwr2-2*pwrO2;pwrI3=pwr3-2*pwrO3;outer=prime1^pwrO1*prime2^pwrO2*prime3^pwrO3;inner=prime1^pwrI1*prime2^pwrI2*prime3^pwrI3
+    return [disp, outer, inner]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def simplifyNumericRadicalsMedium():
+    var('x')
+    primeVec=[2,3,5,7,11,13]
+    disp=999999
+    while disp>10000:
+        pwr1=RandInt(2,5);pwr2=RandInt(0,6);pwr3=RandInt(0,6);prime1=primeVec[RandInt(0,5)];prime2=primeVec[RandInt(0,5)];prime3=primeVec[RandInt(0,5)];disp=prime1^pwr1*prime2^pwr2*prime3^pwr3
+    pwrO1=floor(pwr1/2);pwrO2=floor(pwr2/2);pwrO3=floor(pwr3/2);pwrI1=pwr1-2*pwrO1;pwrI2=pwr2-2*pwrO2;pwrI3=pwr3-2*pwrO3;outer=prime1^pwrO1*prime2^pwrO2*prime3^pwrO3;inner=prime1^pwrI1*prime2^pwrI2*prime3^pwrI3
+    return [disp, outer, inner]
+
+##### Problem p2
+p2gen = simplifyNumericRadicalsMedium()
+p2disp = p2gen[0]
+p2outer = p2gen[1]
+p2inner = p2gen[2]
+\end{sagesilent}
+
+\begin{problem}Simplify $\sqrt{\sage{p2disp}}=\answer{\sage{p2outer}}\sqrt{\answer{\sage{p2inner}}}$.\end{problem}

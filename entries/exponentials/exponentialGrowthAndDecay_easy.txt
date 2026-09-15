@@ -1,0 +1,38 @@
+TITLE: Exponential Growth and Decay (easy)
+TAGS: Exponential Functions, Growth and Decay, Modeling, Word Problem, easy
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def exponentialGrowthAndDecayEasy():
+    growthVec=[[LatexExpr(r'\text{bacteria}'),LatexExpr(r'\text{doubles every}'),2,LatexExpr(r'\text{cells}')],[LatexExpr(r'\text{bacteria}'),LatexExpr(r'\text{triples every}'),3,LatexExpr(r'\text{cells}')],[LatexExpr(r'\text{bacteria}'),LatexExpr(r'\text{quadruples every}'),4,LatexExpr(r'\text{cells}')],[LatexExpr(r'\text{bacteria}'),LatexExpr(r'\text{quintuples every}'),5,LatexExpr(r'\text{cells}')]];growthChoice=RandInt(0,3);object=growthVec[growthChoice][0];growthType=growthVec[growthChoice][1];base=growthVec[growthChoice][2];unitName=growthVec[growthChoice][3];cycleLength=RandInt(2,12);cycleTermVec=[LatexExpr(r'\text{minutes}'),LatexExpr(r'\text{hours}'),LatexExpr(r'\text{days}'),LatexExpr(r'\text{weeks}')];cycleTerm=choice(cycleTermVec);cycleNumber=RandInt(4,15);duration=cycleNumber*cycleLength;initialPop=RandInt(2,20);ans=initialPop*(base)^(cycleNumber)
+    return [initialPop, base, cycleNumber, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def exponentialGrowthAndDecayEasy():
+    growthVec=[[LatexExpr(r'\text{bacteria}'),LatexExpr(r'\text{doubles every}'),2,LatexExpr(r'\text{cells}')],[LatexExpr(r'\text{bacteria}'),LatexExpr(r'\text{triples every}'),3,LatexExpr(r'\text{cells}')],[LatexExpr(r'\text{bacteria}'),LatexExpr(r'\text{quadruples every}'),4,LatexExpr(r'\text{cells}')],[LatexExpr(r'\text{bacteria}'),LatexExpr(r'\text{quintuples every}'),5,LatexExpr(r'\text{cells}')]];growthChoice=RandInt(0,3);object=growthVec[growthChoice][0];growthType=growthVec[growthChoice][1];base=growthVec[growthChoice][2];unitName=growthVec[growthChoice][3];cycleLength=RandInt(2,12);cycleTermVec=[LatexExpr(r'\text{minutes}'),LatexExpr(r'\text{hours}'),LatexExpr(r'\text{days}'),LatexExpr(r'\text{weeks}')];cycleTerm=choice(cycleTermVec);cycleNumber=RandInt(4,15);duration=cycleNumber*cycleLength;initialPop=RandInt(2,20);ans=initialPop*(base)^(cycleNumber)
+    return [initialPop, base, cycleNumber, ans]
+
+##### Problem p1
+p1gen = exponentialGrowthAndDecayEasy()
+p1initialPop = p1gen[0]
+p1base = p1gen[1]
+p1cycleNumber = p1gen[2]
+p1ans = p1gen[3]
+\end{sagesilent}
+
+\begin{problem}Starting with $\sage{p1initialPop}$, growing by $\sage{p1base}$ for $\sage{p1cycleNumber}$ cycles gives $\answer{\sage{p1ans}}$.\end{problem}

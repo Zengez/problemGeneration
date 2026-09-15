@@ -1,0 +1,90 @@
+TITLE: Complex Numbers (medium)
+TAGS: Polynomials, Complex Numbers, Functions, medium
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def complexNumbersMedium():
+    var('x')
+    c1 = NonZeroInt(-10,10)
+    c2 = RandInt(-10,10)
+    c3 = NonZeroInt(-10,10)
+    c4 = RandInt(-10,10)
+
+
+    f1 = c1 + c2*i
+    f2 = c3 + c4*i
+
+    ans1 = f1*f2
+    return [f1, f2, ans1]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def complexNumbersMedium():
+    var('x')
+    c1 = NonZeroInt(-10,10)
+    c2 = RandInt(-10,10)
+    c3 = NonZeroInt(-10,10)
+    c4 = RandInt(-10,10)
+
+
+    f1 = c1 + c2*i
+    f2 = c3 + c4*i
+
+    ans1 = f1*f2
+    return [f1, f2, ans1]
+
+##### Problem p2
+p2gen = complexNumbersMedium()
+p2f1 = p2gen[0]
+p2f2 = p2gen[1]
+p2ans1 = p2gen[2]
+\end{sagesilent}
+
+\begin{problem}
+            \begin{hint}
+                Recall, to multiply complex numbers, you need to distribute the terms, like if you were multiplying two binomials. 
+            \end{hint}
+            \begin{hint}
+                Specifically, multiplying 
+                \[
+                    (A + Bi)(C + Di) = A(C+Di) + Bi(C + Di) = (AC - BD) + (AD + BC)i
+                \]
+            \end{hint}
+            Simplify the following complex number:
+            \[
+                (\sage{p2f1})\cdot(\sage{p2f2}) = \answer{\sage{p2ans1}}
+            \]
+            
+        \end{problem}

@@ -1,0 +1,118 @@
+TITLE: Local Extrema
+TAGS: Derivatives, Extrema
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def localExtrema():
+    c1 = RandInt(-10,10)
+    c2 = NonZeroInt(-10,10,[c1])
+    c3 = NonZeroInt(-10,10,[c1,c2])
+    flip = RandInt(0,1)
+    f1der = expand((x-c1)*(x-c2)*(x-c3)*(-1)^flip*RandInt(1,4))
+    f1disp = integral(f1der,x) + RandInt(-10,10)
+    while (abs(f1disp.coefficient(x, 1))>80 or abs(f1disp.coefficient(x, 2))>80 or abs(f1disp.coefficient(x, 3))>80 or abs(f1disp.coefficient(x, 4))>80 or abs(f1disp(x=0))>80):
+        c1 = RandInt(-10,10)
+        c2 = NonZeroInt(-10,10,[c1])
+        c3 = NonZeroInt(-10,10,[c1,c2])
+        flip = RandInt(0,1)
+        f1der = expand((x-c1)*(x-c2)*(x-c3)*(-1)^flip*RandInt(1,4))
+        f1disp = integral(f1der,x) + RandInt(-10,10)
+    ansMin = 2-flip
+    ansMax = 1+flip
+    sortedzeros = sorted([c1,c2,c3])
+    if flip==1:
+        ansMinxSum = sortedzeros[1]
+        ansMaxxSum = sortedzeros[0]+sortedzeros[2]
+        ansMinySum = f1disp(x=sortedzeros[1])
+        ansMaxySum = f1disp(x=sortedzeros[0]) + f1disp(x=sortedzeros[2])
+    if flip==0:
+        ansMaxxSum = sortedzeros[1]
+        ansMinxSum = sortedzeros[0]+sortedzeros[2]
+        ansMaxySum = f1disp(x=sortedzeros[1])
+        ansMinySum = f1disp(x=sortedzeros[0]) + f1disp(x=sortedzeros[2])
+    return [f1disp, ansMin, ansMinxSum, ansMinySum, ansMax, ansMaxxSum, ansMaxySum]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def localExtrema():
+    c1 = RandInt(-10,10)
+    c2 = NonZeroInt(-10,10,[c1])
+    c3 = NonZeroInt(-10,10,[c1,c2])
+    flip = RandInt(0,1)
+    f1der = expand((x-c1)*(x-c2)*(x-c3)*(-1)^flip*RandInt(1,4))
+    f1disp = integral(f1der,x) + RandInt(-10,10)
+    while (abs(f1disp.coefficient(x, 1))>80 or abs(f1disp.coefficient(x, 2))>80 or abs(f1disp.coefficient(x, 3))>80 or abs(f1disp.coefficient(x, 4))>80 or abs(f1disp(x=0))>80):
+        c1 = RandInt(-10,10)
+        c2 = NonZeroInt(-10,10,[c1])
+        c3 = NonZeroInt(-10,10,[c1,c2])
+        flip = RandInt(0,1)
+        f1der = expand((x-c1)*(x-c2)*(x-c3)*(-1)^flip*RandInt(1,4))
+        f1disp = integral(f1der,x) + RandInt(-10,10)
+    ansMin = 2-flip
+    ansMax = 1+flip
+    sortedzeros = sorted([c1,c2,c3])
+    if flip==1:
+        ansMinxSum = sortedzeros[1]
+        ansMaxxSum = sortedzeros[0]+sortedzeros[2]
+        ansMinySum = f1disp(x=sortedzeros[1])
+        ansMaxySum = f1disp(x=sortedzeros[0]) + f1disp(x=sortedzeros[2])
+    if flip==0:
+        ansMaxxSum = sortedzeros[1]
+        ansMinxSum = sortedzeros[0]+sortedzeros[2]
+        ansMaxySum = f1disp(x=sortedzeros[1])
+        ansMinySum = f1disp(x=sortedzeros[0]) + f1disp(x=sortedzeros[2])
+    return [f1disp, ansMin, ansMinxSum, ansMinySum, ansMax, ansMaxxSum, ansMaxySum]
+
+##### Problem p1
+p1gen = localExtrema()
+p1f1disp = p1gen[0]
+p1ansMin = p1gen[1]
+p1ansMinxSum = p1gen[2]
+p1ansMinySum = p1gen[3]
+p1ansMax = p1gen[4]
+p1ansMaxxSum = p1gen[5]
+p1ansMaxySum = p1gen[6]
+\end{sagesilent}
+
+\begin{problem}
+For $f(x)=\sage{p1f1disp}$, how many local minimums does $f(x)$ have? $\answer{\sage{p1ansMin}}$. What is the sum of the $x$ value(s) that have local minimums? $\answer{\sage{p1ansMinxSum}}$. What is the sum of the value(s) of the local minimums? $\answer{\sage{p1ansMinySum}}$.
+\end{problem}
+
+\begin{problem}
+How many local maximums does $f(x)$ have? $\answer{\sage{p1ansMax}}$. What is the sum of the $x$ value(s) that have local maximums? $\answer{\sage{p1ansMaxxSum}}$. What is the sum of the value(s) of the local maximums? $\answer{\sage{p1ansMaxySum}}$.
+\end{problem}

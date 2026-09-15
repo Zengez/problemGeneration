@@ -1,0 +1,124 @@
+TITLE: Absolute Extrema
+TAGS: Derivatives, Extrema
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def absoluteExtrema():
+    c1 = RandInt(-10,10)
+    c2 = NonZeroInt(-10,10,[c1])
+    c3 = NonZeroInt(-10,10,[c1,c2])
+    sortedzeros = sorted([c1,c2,c3])
+    leftend = RandInt(-12,sortedzeros[0])
+    rightend = RandInt(sortedzeros[2],12)
+    flip = RandInt(0,1)
+    f1der = expand((x-c1)*(x-c2)*(x-c3)*(-1)^flip*RandInt(1,4))
+    f1disp = integral(f1der,x) + RandInt(-10,10)
+    extremavals = sorted([[f1disp(x=c1),c1], [f1disp(x=c2),c2], [f1disp(x=c3),c3], [f1disp(x=leftend),leftend], [f1disp(x=rightend),rightend]])
+    absmin = extremavals[0][0]
+    absmax = extremavals[4][0]
+    absxmin = extremavals[0][1]
+    absxmax = extremavals[4][1]
+    while (abs(absmin)>80 or abs(absmax)>80 or abs(absmax.numerator())>300 or abs(absmin.numerator())>300):
+        c1 = RandInt(-10,10)
+        c2 = NonZeroInt(-10,10,[c1])
+        c3 = NonZeroInt(-10,10,[c1,c2])
+        sortedzeros = sorted([c1,c2,c3])
+        leftend = RandInt(-12,sortedzeros[0])
+        rightend = RandInt(sortedzeros[2],12)
+        flip = RandInt(0,1)
+        f1der = expand((x-c1)*(x-c2)*(x-c3)*(-1)^flip*RandInt(1,4))
+        f1disp = integral(f1der,x) + RandInt(-10,10)
+        extremavals = sorted([[f1disp(x=c1),c1], [f1disp(x=c2),c2], [f1disp(x=c3),c3], [f1disp(x=leftend),leftend], [f1disp(x=rightend),rightend]])
+        absmin = extremavals[0][0]
+        absmax = extremavals[4][0]
+        absxmin = extremavals[0][1]
+        absxmax = extremavals[4][1]
+    return [f1disp, leftend, rightend, absxmin, absmin, absxmax, absmax]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def absoluteExtrema():
+    c1 = RandInt(-10,10)
+    c2 = NonZeroInt(-10,10,[c1])
+    c3 = NonZeroInt(-10,10,[c1,c2])
+    sortedzeros = sorted([c1,c2,c3])
+    leftend = RandInt(-12,sortedzeros[0])
+    rightend = RandInt(sortedzeros[2],12)
+    flip = RandInt(0,1)
+    f1der = expand((x-c1)*(x-c2)*(x-c3)*(-1)^flip*RandInt(1,4))
+    f1disp = integral(f1der,x) + RandInt(-10,10)
+    extremavals = sorted([[f1disp(x=c1),c1], [f1disp(x=c2),c2], [f1disp(x=c3),c3], [f1disp(x=leftend),leftend], [f1disp(x=rightend),rightend]])
+    absmin = extremavals[0][0]
+    absmax = extremavals[4][0]
+    absxmin = extremavals[0][1]
+    absxmax = extremavals[4][1]
+    while (abs(absmin)>80 or abs(absmax)>80 or abs(absmax.numerator())>300 or abs(absmin.numerator())>300):
+        c1 = RandInt(-10,10)
+        c2 = NonZeroInt(-10,10,[c1])
+        c3 = NonZeroInt(-10,10,[c1,c2])
+        sortedzeros = sorted([c1,c2,c3])
+        leftend = RandInt(-12,sortedzeros[0])
+        rightend = RandInt(sortedzeros[2],12)
+        flip = RandInt(0,1)
+        f1der = expand((x-c1)*(x-c2)*(x-c3)*(-1)^flip*RandInt(1,4))
+        f1disp = integral(f1der,x) + RandInt(-10,10)
+        extremavals = sorted([[f1disp(x=c1),c1], [f1disp(x=c2),c2], [f1disp(x=c3),c3], [f1disp(x=leftend),leftend], [f1disp(x=rightend),rightend]])
+        absmin = extremavals[0][0]
+        absmax = extremavals[4][0]
+        absxmin = extremavals[0][1]
+        absxmax = extremavals[4][1]
+    return [f1disp, leftend, rightend, absxmin, absmin, absxmax, absmax]
+
+##### Problem p1
+p1gen = absoluteExtrema()
+p1f1disp = p1gen[0]
+p1leftend = p1gen[1]
+p1rightend = p1gen[2]
+p1absxmin = p1gen[3]
+p1absmin = p1gen[4]
+p1absxmax = p1gen[5]
+p1absmax = p1gen[6]
+\end{sagesilent}
+
+\begin{problem}
+For $f(x)=\sage{p1f1disp}$ on $[\sage{p1leftend},\sage{p1rightend}]$, what is the absolute minimum? $\left(\answer{\sage{p1absxmin}},\answer{\sage{p1absmin}}\right)$.
+\end{problem}
+
+\begin{problem}
+What is the absolute maximum? $\left(\answer{\sage{p1absxmax}},\answer{\sage{p1absmax}}\right)$.
+\end{problem}

@@ -1,0 +1,61 @@
+TITLE: Related Rates
+TAGS: Derivatives, Related Rates, Word Problem
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def relatedRates():
+    var('x,y,z,X,Y,Z')
+    ans = 1/10000
+    while denominator(ans) > 400:
+        check = -1
+        while check < 1:
+            ladder = RandInt(10,20)
+            base = RandInt(3,ladder/2)
+            fall = RandInt(1,4)/RandInt(4,20)
+            time = RandInt(5,20)
+            check = base - fall*time
+        ans = check*fall/(sqrt(ladder^2-check^2))
+    return [ladder, base, fall, time, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def relatedRates():
+    var('x,y,z,X,Y,Z')
+    ans = 1/10000
+    while denominator(ans) > 400:
+        check = -1
+        while check < 1:
+            ladder = RandInt(10,20)
+            base = RandInt(3,ladder/2)
+            fall = RandInt(1,4)/RandInt(4,20)
+            time = RandInt(5,20)
+            check = base - fall*time
+        ans = check*fall/(sqrt(ladder^2-check^2))
+    return [ladder, base, fall, time, ans]
+
+##### Problem p1
+p1gen = relatedRates()
+p1ladder = p1gen[0]
+p1base = p1gen[1]
+p1fall = p1gen[2]
+p1time = p1gen[3]
+p1ans = p1gen[4]
+\end{sagesilent}
+
+\begin{problem}
+A $\sage{p1ladder}$ foot ladder is resting against the wall. The bottom is initially $\sage{p1base}$ feet away from the wall and is being pushed towards the wall at a rate of $\sage{p1fall}$ ft/sec. How fast is the top of the ladder moving up the wall $\sage{p1time}$ seconds after we start pushing? $\answer{\sage{p1ans}}$
+\end{problem}

@@ -1,0 +1,84 @@
+TITLE: Solving Absolute Value Equations (medium)
+TAGS: Functions, Absolute Value, medium
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def solveAbsValMedium():
+    c1 = NonZeroInt(-3,3)
+    c2 = NonZeroInt(-3,3)
+    c3 = NonZeroInt(-10,10)
+    c4 = NonZeroInt(-10,10)
+    c5 = NonZeroInt(-10,10)
+    c6 = NonZeroInt(1,10)
+    f1 = c1*abs(c2*x - c3) + c4*x + c5
+    sol = solve(f1==c6,x,to_poly_solve=True)
+    if len(sol)>0:
+        ans1=0
+    else:
+        ans1=LatexExpr(r'DNE')
+    for i in range(0,len(sol)):
+        ans1 = ans1+sol[i].right()
+    return [f1, c6, ans1]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def solveAbsValMedium():
+    c1 = NonZeroInt(-3,3)
+    c2 = NonZeroInt(-3,3)
+    c3 = NonZeroInt(-10,10)
+    c4 = NonZeroInt(-10,10)
+    c5 = NonZeroInt(-10,10)
+    c6 = NonZeroInt(1,10)
+    f1 = c1*abs(c2*x - c3) + c4*x + c5
+    sol = solve(f1==c6,x,to_poly_solve=True)
+    if len(sol)>0:
+        ans1=0
+    else:
+        ans1=LatexExpr(r'DNE')
+    for i in range(0,len(sol)):
+        ans1 = ans1+sol[i].right()
+    return [f1, c6, ans1]
+
+##### Problem p2
+p2gen = solveAbsValMedium()
+p2f1 = p2gen[0]
+p2c6 = p2gen[1]
+p2ans1 = p2gen[2]
+\end{sagesilent}
+
+\begin{problem}Solve the equality $\sage{p2f1}=\sage{p2c6}$ for $x$. If there are no solutions, enter DNE. The sum of valid $x$-solutions is: $\answer{\sage{p2ans1}}$\end{problem}

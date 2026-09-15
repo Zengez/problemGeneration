@@ -1,0 +1,72 @@
+TITLE: Function Evaluation and Notation
+TAGS: Functions, Notation, Evaluation
+
+EXAMPLE:
+\\begin{problem}Let $f(x)=1x^2+(5)x+(-8)$. Then $f(-4)=-12$.\\end{problem}
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def fxNotation():
+    c1 = RandInt(-10,10)
+    c2 = NonZeroInt(-10,10)
+    c3 = RandInt(-10,10)
+    f1 = c1*x^2 + c2*x + c3
+    c4 = RandInt(-5,5)
+    ans1 = f1(x=c4)
+    return [f1, c4, ans1]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def fxNotation():
+    c1 = RandInt(-10,10)
+    c2 = NonZeroInt(-10,10)
+    c3 = RandInt(-10,10)
+    f1 = c1*x^2 + c2*x + c3
+    c4 = RandInt(-5,5)
+    ans1 = f1(x=c4)
+    return [f1, c4, ans1]
+
+##### Problem p1
+p1gen = fxNotation()
+p1f1 = p1gen[0]
+p1c4 = p1gen[1]
+p1ans1 = p1gen[2]
+\end{sagesilent}
+
+\begin{problem}
+Consider the function $f:\mathbb{R}\rightarrow\mathbb{R}$ defined by $f(x) = \sage{p1f1}$. The name of the function is $\answer{f}$.
+\begin{problem}What is the rule that defines $f(x)$? $x$ is mapped to $\answer{\sage{p1f1}}$.
+\begin{problem}$f(\sage{p1c4}) = \answer{\sage{p1ans1}}$.\end{problem}
+\end{problem}\end{problem}

@@ -1,0 +1,88 @@
+TITLE: Possible Relative Extrema (easy)
+TAGS: Polynomials, Relative Extrema, easy
+
+EXAMPLE:
+\\begin{problem}For $f(x)=(9)x^{5}+(-6)x^{8}+(8)x^{13}+(10)x^{9}$, the maximum possible number of relative extrema is $12$ and the minimum possible number is $0$.\\end{problem}
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def relativeExtremaEasy():
+    c1=NonZeroInt(-10,10)
+    c2=NonZeroInt(-10,10,[0,c1])
+    c3=NonZeroInt(-10,10,[0,c1,c2])
+    c4=NonZeroInt(-10,10,[0,c1,c2,c3])
+    pwr1=RandInt(1,20); pwr2=RandInt(1,20); pwr3=RandInt(1,20); pwr4=RandInt(1,20)
+    f1=c1*x^pwr1; f2=c2*x^pwr2; f3=c3*x^pwr3; f4=c4*x^pwr4
+    fDisp=f1+f2+f3+f4
+    deg=fDisp.degree(x)
+    ans1=deg-1
+    ans2=mod(ans1,2)
+    return [f1,f2,f3,f4,fDisp,ans1,ans2]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def relativeExtremaEasy():
+    c1=NonZeroInt(-10,10)
+    c2=NonZeroInt(-10,10,[0,c1])
+    c3=NonZeroInt(-10,10,[0,c1,c2])
+    c4=NonZeroInt(-10,10,[0,c1,c2,c3])
+    pwr1=RandInt(1,20); pwr2=RandInt(1,20); pwr3=RandInt(1,20); pwr4=RandInt(1,20)
+    f1=c1*x^pwr1; f2=c2*x^pwr2; f3=c3*x^pwr3; f4=c4*x^pwr4
+    fDisp=f1+f2+f3+f4
+    deg=fDisp.degree(x)
+    ans1=deg-1
+    ans2=mod(ans1,2)
+    return [f1,f2,f3,f4,fDisp,ans1,ans2]
+
+p1gen = relativeExtremaEasy()
+p1f1 = p1gen[0]
+p1f2 = p1gen[1]
+p1f3 = p1gen[2]
+p1f4 = p1gen[3]
+p1fDisp = p1gen[4]
+p1ans1 = p1gen[5]
+p1ans2 = p1gen[6]
+\end{sagesilent}
+
+
+\begin{problem}
+    \begin{hint}
+        You don't need to factor or graph the function
+    \end{hint}
+    \begin{hint}
+        The answer is only asking for the maximum \textbf{possible} relative extrema, not how many local extrema the function actually has.
+    \end{hint}
+    Consider the function $f(x) = \sage{p1fDisp}$. What are the maximum number of relative extrema that $f(x)$ could have? $\answer[id=c]{\sage{p1ans1}}$.
+\end{problem}

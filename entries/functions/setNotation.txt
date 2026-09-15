@@ -1,0 +1,55 @@
+TITLE: Set Notation
+TAGS: Functions, Notation
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def setNotation():
+    c1 = NonZeroInt(-10,10)
+    c2 = -c1
+    return [c1]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def setNotation():
+    c1 = NonZeroInt(-10,10)
+    c2 = -c1
+    return [c1]
+
+##### Problem p1
+p1gen = setNotation()
+p1c1 = p1gen[0]
+\end{sagesilent}
+
+\begin{problem}Which of the following is equivalent to: $(\sage{p1c1}, \infty)$? \answer{\sage{p1c1}}\end{problem}

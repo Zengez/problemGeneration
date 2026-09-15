@@ -1,0 +1,96 @@
+TITLE: Complex Numbers (hard)
+TAGS: Polynomials, Complex Numbers, Functions, hard
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def complexNumbersHard():
+    var('x')
+    c1 = NonZeroInt(-10,10)
+    c2 = RandInt(-10,10)
+    c3 = NonZeroInt(-10,10)
+    c4 = RandInt(-10,10)
+
+    c5 = c3^2 + c4^2
+
+    f1 = c1 + c2*i
+    f2 = c3 + c4*i
+
+    ans1 = (c1*c3 + c2*c4)/c5
+    ans2 = (c3*c2 - c1*c4)/c5
+    return [f1, f2, ans1, ans2]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def complexNumbersHard():
+    var('x')
+    c1 = NonZeroInt(-10,10)
+    c2 = RandInt(-10,10)
+    c3 = NonZeroInt(-10,10)
+    c4 = RandInt(-10,10)
+
+    c5 = c3^2 + c4^2
+
+    f1 = c1 + c2*i
+    f2 = c3 + c4*i
+
+    ans1 = (c1*c3 + c2*c4)/c5
+    ans2 = (c3*c2 - c1*c4)/c5
+    return [f1, f2, ans1, ans2]
+
+##### Problem p3
+p3gen = complexNumbersHard()
+p3f1 = p3gen[0]
+p3f2 = p3gen[1]
+p3ans1 = p3gen[2]
+p3ans2 = p3gen[3]
+\end{sagesilent}
+
+\begin{problem}
+            \begin{hint}
+                Recall, to divide two complex numbers, you need to multiply the top and bottom of the fraction by the complex conjugate. 
+            \end{hint}
+            \begin{hint}
+                Specifically, multiplying 
+                \[
+                    \frac{A + Bi}{C + Di} = \left( \frac{A + Bi}{C + Di} \right)\left( \frac{C - Di}{C - Di} \right) = \frac{(A + Bi)(C - Di)}{C^2 + D^2}
+                \]
+                Then simplify and split the numerator.
+            \end{hint}
+            Simplify the following complex number:
+            \[
+                \frac{\sage{p3f1}}{\sage{p3f2}} = \answer{\sage{p3ans1}} + \answer{\sage{p3ans2}} \cdot i
+            \]
+        
+        \end{problem}

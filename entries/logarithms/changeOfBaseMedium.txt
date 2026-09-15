@@ -1,0 +1,97 @@
+TITLE: Change of Base Formula (medium)
+TAGS: Logarithmic Functions, Change of Base, medium
+
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def changeOfBaseMedium():
+    base = RandInt(2,10)
+    arg = NonZeroInt(2,20,[base])
+    pwr = NonZeroInt(2,5,[base,arg])
+    while (GCD(base,arg)>1 or arg^pwr>1030):
+        base = RandInt(2,10)
+        arg = NonZeroInt(2,20,[base])
+        pwr = NonZeroInt(2,5,[base,arg])
+    intVal = arg^pwr
+    ansVec = [
+        [pwr,arg,base],
+        [pwr,base,arg],
+        [arg,pwr,base],
+        [arg,base,pwr],
+        [base,arg,pwr],
+        [base,pwr,arg]
+        ]
+    shuffle(ansVec)
+    ans = ansVec.index([pwr,arg,base])+1
+    return [base,arg,pwr,intVal,ansVec,ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def changeOfBaseMedium():
+    base = RandInt(2,10)
+    arg = NonZeroInt(2,20,[base])
+    pwr = NonZeroInt(2,5,[base,arg])
+    while (GCD(base,arg)>1 or arg^pwr>1030):
+        base = RandInt(2,10)
+        arg = NonZeroInt(2,20,[base])
+        pwr = NonZeroInt(2,5,[base,arg])
+    intVal = arg^pwr
+    ansVec = [[pwr,arg,base],[pwr,base,arg],[arg,pwr,base],[arg,base,pwr],[base,arg,pwr],[base,pwr,arg]]
+    shuffle(ansVec)
+    ans = ansVec.index([pwr,arg,base])+1
+    return [base,arg,pwr,intVal,ansVec,ans]
+
+p1gen = changeOfBaseMedium()
+p1base,p1arg,p1pwr,p1int,p1ansVec,p1ans = p1gen
+\end{sagesilent}
+
+\begin{problem}
+    \begin{hint}
+        Recall the change of base formula, to change a log from base $b$ to base $c$:
+        \[
+            \Log_{b}(A) = \frac{\Log_{c}(A)}{\Log_{c}(b)}
+        \]
+    \end{hint}
+    Which of the following is equivalent to: $\Log_{\sage{p1base}}\left(\sage{p1int}\right)$?
+    \begin{enumerate}
+        \item[1:] $\frac{\sage{p1ansVec[0][0]}}{\Log_{\sage{p1ansVec[0][1]}}\left(\sage{p1ansVec[0][2]}\right)}$
+        \item[2:] $\frac{\sage{p1ansVec[1][0]}}{\Log_{\sage{p1ansVec[1][1]}}\left(\sage{p1ansVec[1][2]}\right)}$
+        \item[3:] $\frac{\sage{p1ansVec[2][0]}}{\Log_{\sage{p1ansVec[2][1]}}\left(\sage{p1ansVec[2][2]}\right)}$
+        \item[4:] $\frac{\sage{p1ansVec[3][0]}}{\Log_{\sage{p1ansVec[3][1]}}\left(\sage{p1ansVec[3][2]}\right)}$
+        \item[5:] $\frac{\sage{p1ansVec[4][0]}}{\Log_{\sage{p1ansVec[4][1]}}\left(\sage{p1ansVec[4][2]}\right)}$
+        \item[6:] $\frac{\sage{p1ansVec[5][0]}}{\Log_{\sage{p1ansVec[5][1]}}\left(\sage{p1ansVec[5][2]}\right)}$
+    \end{enumerate}
+    Enter the number corresponding to your choice: $\answer{\sage{p1ans}}$
+\end{problem}

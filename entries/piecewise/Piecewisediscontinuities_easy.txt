@@ -1,0 +1,73 @@
+TITLE: Discontinuities of Piecewise Functions (easy)
+TAGS: Piecewise Functions, Continuity, easy
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def piecewisediscontinuitiesEasy():
+    check=500;f1fix=0
+    while (numerator(abs(check))>300 or denominator(abs(check))>300 or numerator(abs(f1fix))>400 or denominator(abs(f1fix))>400):
+        funcvec=[x,x^2,x^3,2^x];f1pick=RandInt(0,3);f2pick=NonZeroInt(0,3,[f1pick]);f1=NonZeroInt(-5,5)*funcvec[f1pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f2=NonZeroInt(-5,5)*funcvec[f2pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);r1=RandInt(-15,15);choice=RandInt(1,6)
+        if choice<4:f1fix=f2(x=r1)-f1(x=r1);f1=f1+f1fix;symb1=(x<=r1)
+        if choice==4:f1fix=f2(x=r1)-f1(x=r1);f1=f1+f1fix;symb1=(x<r1)
+        if choice==5:f1fix=f2(x=r1)-f1(x=r1);f1=f1+f1fix;f2=f2+NonZeroInt(-10,10);symb1=(x<=r1)
+        if choice==6:f2=f2/(expand((x-r1)*(x-RandInt(-5,5))));symb1=(x<=r1)
+        check=f1(x=r1);ans=2 if choice>3 else 1
+    return [r1, f1, f2, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def piecewisediscontinuitiesEasy():
+    check=500;f1fix=0
+    while (numerator(abs(check))>300 or denominator(abs(check))>300 or numerator(abs(f1fix))>400 or denominator(abs(f1fix))>400):
+        funcvec=[x,x^2,x^3,2^x];f1pick=RandInt(0,3);f2pick=NonZeroInt(0,3,[f1pick]);f1=NonZeroInt(-5,5)*funcvec[f1pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f2=NonZeroInt(-5,5)*funcvec[f2pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);r1=RandInt(-15,15);choice=RandInt(1,6)
+        if choice<4:f1fix=f2(x=r1)-f1(x=r1);f1=f1+f1fix;symb1=(x<=r1)
+        if choice==4:f1fix=f2(x=r1)-f1(x=r1);f1=f1+f1fix;symb1=(x<r1)
+        if choice==5:f1fix=f2(x=r1)-f1(x=r1);f1=f1+f1fix;f2=f2+NonZeroInt(-10,10);symb1=(x<=r1)
+        if choice==6:f2=f2/(expand((x-r1)*(x-RandInt(-5,5))));symb1=(x<=r1)
+        check=f1(x=r1);ans=2 if choice>3 else 1
+    return [r1, f1, f2, ans]
+
+##### Problem p1
+p1gen = piecewisediscontinuitiesEasy()
+p1r1 = p1gen[0]
+p1f1 = p1gen[1]
+p1f2 = p1gen[2]
+p1ans = p1gen[3]
+\end{sagesilent}
+
+\begin{problem}At $x=\sage{p1r1}$, the piecewise function using $\sage{p1f1}$ and $\sage{p1f2}$ is continuous? $\answer{\sage{p1ans}}$.\end{problem}

@@ -1,0 +1,129 @@
+TITLE: Fundamental Theorem of Algebra (hard)
+TAGS: Polynomials, Functions, hard
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def fTAHard():
+    c1 = RandInt(1,10)
+    c2 = RandInt(1,10)
+    c3 = RandInt(1,10)
+    c4 = RandInt(1,10)
+
+    pwr1 = RandInt(1,10)
+    pwr2 = RandInt(1,10)
+    pwr3 = RandInt(1,10)
+    pwr4 = RandInt(1,10)
+
+    f1 = c1*x^pwr1
+    f2 = c2*x^pwr2
+    f3 = c3*x^pwr3
+    f4 = c4*x^pwr4
+
+    ans1 = max(pwr1,pwr2,pwr3,pwr4)
+
+    # Followup for p3
+    ans2 = 0
+    ans3 = 0
+    if pwr1 == ans1:
+        ans2 = ans2 + f1
+        ans3 = ans3 + c1
+    if pwr2 == ans1:
+        ans2 = ans2 + f2
+        ans3 = ans3 + c2
+    if pwr3 == ans1:
+        ans2 = ans2 + f3
+        ans3 = ans3 + c3
+    if pwr4 == ans1:
+        ans2 = ans2 + f4
+        ans3 = ans3 + c4
+    return [f1, f2, f3, f4, ans1]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def fTAHard():
+    c1 = RandInt(1,10)
+    c2 = RandInt(1,10)
+    c3 = RandInt(1,10)
+    c4 = RandInt(1,10)
+
+    pwr1 = RandInt(1,10)
+    pwr2 = RandInt(1,10)
+    pwr3 = RandInt(1,10)
+    pwr4 = RandInt(1,10)
+
+    f1 = c1*x^pwr1
+    f2 = c2*x^pwr2
+    f3 = c3*x^pwr3
+    f4 = c4*x^pwr4
+
+    ans1 = max(pwr1,pwr2,pwr3,pwr4)
+
+    # Followup for p3
+    ans2 = 0
+    ans3 = 0
+    if pwr1 == ans1:
+        ans2 = ans2 + f1
+        ans3 = ans3 + c1
+    if pwr2 == ans1:
+        ans2 = ans2 + f2
+        ans3 = ans3 + c2
+    if pwr3 == ans1:
+        ans2 = ans2 + f3
+        ans3 = ans3 + c3
+    if pwr4 == ans1:
+        ans2 = ans2 + f4
+        ans3 = ans3 + c4
+    return [f1, f2, f3, f4, ans1]
+
+##### Problem p3
+p3gen = fTAHard()
+p3f1 = p3gen[0]
+p3f2 = p3gen[1]
+p3f3 = p3gen[2]
+p3f4 = p3gen[3]
+p3ans1 = p3gen[4]
+\end{sagesilent}
+
+\begin{problem}
+            \begin{hint}
+                You should use the Fundamental Theorem of Algebra (FTA) to get this.
+            \end{hint}
+            \begin{hint}
+                By FTA, the number of solutions (including the possibly complex zeros and multiplicity) is equal to the degree of the polynomial.
+            \end{hint}
+            Consider the function $f(x) = \sage{p3f1} + \sage{p3f2} + \sage{p3f3} + \sage{p3f4}$. According to the Fundamental Theorem of Algebra, how many (possibly complex-valued) zeros are there (counting multiplicity) for $f(x)$? $\answer{\sage{p3ans1}}$
+            
+            \begin{problem}
+                \begin{hint}
+                    You know how many \textit{total} zeros the polynomial might have, so if we are only interested in a subset of that total, the number from before must be an upper bound!
+                \end{hint}
+                \begin{hint}
+                    By FTA, the number of solutions (including the possibly complex zeros and multiplicity) is equal to the degree of the polynomial.
+                \end{hint}
+                There are \wordChoice{\choice{at least} \choice{exactly} \choice[correct]{at most}} $\answer{\sage{p3ans1}}$ real-valued solutions. 
+                \begin{problem}
+                    \begin{hint}
+                        If we know that the value is an upper bound, can we have fewer than that number?
+                    \end{hint}
+                    This means there \textbf{could be} \wordChoice{ \choice{more than} \choice{exactly} \choice[correct]{less than}} $\sage{p3ans1}$ real-valued zeros.
+                \end{problem}
+            \end{problem}
+            
+        \end{problem}

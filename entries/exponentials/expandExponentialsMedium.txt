@@ -1,0 +1,106 @@
+TITLE: Expanding Exponentials (medium)
+TAGS: Exponential Functions, Properties of Exponents, Expanding, medium
+
+EXAMPLE:
+
+CODE-SAGE:
+var('x,y')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def expandExponentialsMedium():
+    b1 = RandInt(2,6)
+    ans2b = 9999
+    while ((ans2b > 500) or (ans2b^(-1) > 500)):
+        b2 = NonZeroInt(-6,6,[-1,0,1])
+        ans2b = b1^b2
+    ans3b = 9999
+    while ((ans3b > 500) or (ans3b^(-1) > 500)):
+        b3 = NonZeroInt(-6,6,[-1,0,1,b2,-b2])
+        ans3b = b1^b3
+    ans1 = 9999
+    while ( (ans1 > 1000) or (ans1^(-1) > 1000) or (ans1==ans2b) or (ans1==ans3b) or (ans1==ans2b^(-1)) or (ans1==ans3b^(-1)) ):
+        c1 = NonZeroInt(-5,5)
+        ans1 = b1^c1
+    c2 = NonZeroInt(-11,11)
+    c3 = NonZeroInt(-11,11)
+    f1 = b1^(c1 + b2*x^c2 + b3*y^c3)
+    ans2x = x^c2
+    ans3y = y^c3
+    return [f1,ans1,ans2b,ans2x,ans3b,ans3y]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x,y')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def expandExponentialsMedium():
+    b1 = RandInt(2,6)
+    ans2b = 9999
+    while ((ans2b > 500) or (ans2b^(-1) > 500)):
+        b2 = NonZeroInt(-6,6,[-1,0,1])
+        ans2b = b1^b2
+    ans3b = 9999
+    while ((ans3b > 500) or (ans3b^(-1) > 500)):
+        b3 = NonZeroInt(-6,6,[-1,0,1,b2,-b2])
+        ans3b = b1^b3
+    ans1 = 9999
+    while ( (ans1 > 1000) or (ans1^(-1) > 1000) or (ans1==ans2b) or (ans1==ans3b) or (ans1==ans2b^(-1)) or (ans1==ans3b^(-1)) ):
+        c1 = NonZeroInt(-5,5)
+        ans1 = b1^c1
+    c2 = NonZeroInt(-11,11)
+    c3 = NonZeroInt(-11,11)
+    f1 = b1^(c1 + b2*x^c2 + b3*y^c3)
+    ans2x = x^c2
+    ans3y = y^c3
+    return [f1,ans1,ans2b,ans2x,ans3b,ans3y]
+
+p1gen = expandExponentialsMedium()
+p1f1 = p1gen[0]
+p1ans1 = p1gen[1]
+p1ans2b = p1gen[2]
+p1ans2x = p1gen[3]
+p1ans3b = p1gen[4]
+p1ans3y = p1gen[5]
+\end{sagesilent}
+
+\begin{problem}
+    \begin{hint}
+        Start by expanding out by term using $A^{B+C} = (A^B)(A^C)$.
+    \end{hint}
+    \begin{hint}
+        Remember that you can break apart multiplication as well, using the property $A^{kB} = (A^k)^B$. Use this to get rid of the constant coefficients in the exponents.
+    \end{hint}
+    Expand the following exponential so that each exponent has at most one term.
+    \[
+        \sage{p1f1}
+            = \answer{\sage{p1ans1}} \cdot {\sage{p1ans2b}}^{\answer{\sage{p1ans2x}}} \cdot {\sage{p1ans3b}}^{\answer{\sage{p1ans3y}}}
+    \]
+\end{problem}

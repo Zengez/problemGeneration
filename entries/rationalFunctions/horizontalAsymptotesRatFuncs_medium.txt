@@ -1,0 +1,72 @@
+TITLE: Horizontal Asymptotes of Rational Functions (medium)
+TAGS: Rational Functions, Asymptotes, Horizontal Asymptotes, medium
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def horizontalAsymptotesRatFuncsMedium():
+    pwr1=RandInt(3,20);tog=RandInt(0,2)
+    if tog==0:
+        fTop=NonZeroInt(-10,10)*x^pwr1+sum([RandInt(-9,9)*x^(RandInt(0,pwr1-1)) for t in [0..RandInt(3,6)]]);fBot=NonZeroInt(-10,10)*x^pwr1+sum([RandInt(-9,9)*x^(RandInt(0,pwr1-1)) for t in [0..RandInt(3,6)]]);ans=(fTop.leading_coefficient(x))/(fBot.leading_coefficient(x))
+    else:
+        pwr2=RandInt(3,20);fTop=NonZeroInt(-10,10)*x^pwr1+sum([RandInt(-9,9)*x^(RandInt(0,pwr1-1)) for t in [0..RandInt(3,6)]]);fBot=NonZeroInt(-10,10)*x^pwr2+sum([RandInt(-9,9)*x^(RandInt(0,pwr2-1)) for t in [0..RandInt(3,6)]])
+        if pwr1>pwr2: ans=LatexExpr(r'DNE')
+        elif pwr1<pwr2: ans=0
+        else: ans=(fTop.leading_coefficient(x))/(fBot.leading_coefficient(x))
+    return [fTop, fBot, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def horizontalAsymptotesRatFuncsMedium():
+    pwr1=RandInt(3,20);tog=RandInt(0,2)
+    if tog==0:
+        fTop=NonZeroInt(-10,10)*x^pwr1+sum([RandInt(-9,9)*x^(RandInt(0,pwr1-1)) for t in [0..RandInt(3,6)]]);fBot=NonZeroInt(-10,10)*x^pwr1+sum([RandInt(-9,9)*x^(RandInt(0,pwr1-1)) for t in [0..RandInt(3,6)]]);ans=(fTop.leading_coefficient(x))/(fBot.leading_coefficient(x))
+    else:
+        pwr2=RandInt(3,20);fTop=NonZeroInt(-10,10)*x^pwr1+sum([RandInt(-9,9)*x^(RandInt(0,pwr1-1)) for t in [0..RandInt(3,6)]]);fBot=NonZeroInt(-10,10)*x^pwr2+sum([RandInt(-9,9)*x^(RandInt(0,pwr2-1)) for t in [0..RandInt(3,6)]])
+        if pwr1>pwr2: ans=LatexExpr(r'DNE')
+        elif pwr1<pwr2: ans=0
+        else: ans=(fTop.leading_coefficient(x))/(fBot.leading_coefficient(x))
+    return [fTop, fBot, ans]
+
+##### Problem p2
+p2gen = horizontalAsymptotesRatFuncsMedium()
+p2fTop = p2gen[0]
+p2fBot = p2gen[1]
+p2ans = p2gen[2]
+\end{sagesilent}
+
+\begin{problem}$r(x)=\frac{\sage{p2fTop}}{\sage{p2fBot}}$ has HA $\answer{\sage{p2ans}}$.\end{problem}

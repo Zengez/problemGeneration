@@ -1,0 +1,87 @@
+TITLE: Determine Continuity (medium)
+TAGS: Continuity, Limits, medium
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def determineContinuityMedium():
+    var('x,y,z,X,Y,Z')
+    funcvec = [x, x^2, x^3, e^x, 2^x, sqrt(abs(x)), abs(x)]
+    c10 = RandInt(-10,10); c11 = NonZeroInt(-10,10,[c10])
+    piv1 = min(c10,c11); piv2 = max(c10,c11)
+    pick1 = RandInt(0,6); pick2 = RandInt(0,6); pick3 = RandInt(0,6)
+    c1 = NonZeroInt(-5,5); c2 = RandInt(-5,5); c3 = RandInt(-5,5)
+    c4 = NonZeroInt(-5,5); c5 = RandInt(-5,5); c6 = RandInt(-5,5)
+    c7 = NonZeroInt(-5,5); c8 = NonZeroInt(-5,5); c9 = RandInt(-5,5)
+    flip = RandInt(0,1)
+    f1t = c1*funcvec[pick1] + c2
+    f2t = c4*funcvec[pick2] + c5
+    f3t = c7*funcvec[pick3]
+    f1 = f1t(x=(x-c3)); f2 = f2t(x=(x-c6)); f3T = f3t(x=(x-c9))
+    c8merg = f2(x=piv2) - f3T(x=piv2)
+    f3 = f3T + c8merg + flip*c8
+    ans = 1-flip
+    return [f1, f2, f3, piv2, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def determineContinuityMedium():
+    var('x,y,z,X,Y,Z')
+    funcvec = [x, x^2, x^3, e^x, 2^x, sqrt(abs(x)), abs(x)]
+    c10 = RandInt(-10,10); c11 = NonZeroInt(-10,10,[c10])
+    piv1 = min(c10,c11); piv2 = max(c10,c11)
+    pick1 = RandInt(0,6); pick2 = RandInt(0,6); pick3 = RandInt(0,6)
+    c1 = NonZeroInt(-5,5); c2 = RandInt(-5,5); c3 = RandInt(-5,5)
+    c4 = NonZeroInt(-5,5); c5 = RandInt(-5,5); c6 = RandInt(-5,5)
+    c7 = NonZeroInt(-5,5); c8 = NonZeroInt(-5,5); c9 = RandInt(-5,5)
+    flip = RandInt(0,1)
+    f1t = c1*funcvec[pick1] + c2
+    f2t = c4*funcvec[pick2] + c5
+    f3t = c7*funcvec[pick3]
+    f1 = f1t(x=(x-c3)); f2 = f2t(x=(x-c6)); f3T = f3t(x=(x-c9))
+    c8merg = f2(x=piv2) - f3T(x=piv2)
+    f3 = f3T + c8merg + flip*c8
+    ans = 1-flip
+    return [f1, f2, f3, piv2, ans]
+
+##### Problem p3
+p3gen = determineContinuityMedium()
+p3f1 = p3gen[0]
+p3f2 = p3gen[1]
+p3f3 = p3gen[2]
+p3piv2 = p3gen[3]
+p3ans = p3gen[4]
+\end{sagesilent}
+
+\begin{problem}Determine whether the piecewise function with pieces $\sage{p3f1}$, $\sage{p3f2}$, and $\sage{p3f3}$ is continuous at $\sage{p3piv2}$. Enter 1 if continuous and 0 otherwise: $\answer{\sage{p3ans}}$.\end{problem}

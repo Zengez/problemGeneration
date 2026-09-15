@@ -1,0 +1,64 @@
+TITLE: Piecewise Functions: Analytic Viewpoint (easy)
+TAGS: Piecewise Functions, Functions, easy
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def piecewiseAnalyticViewpointEasy():
+    funcvec=[x,x^2,x^3,sqrt(abs(x)),ln(abs(x)+1),e^x]
+    f1pick=RandInt(0,5);f2pick=RandInt(0,5);f1=NonZeroInt(-5,5)*funcvec[f1pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f2=NonZeroInt(-5,5)*funcvec[f2pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);r1=RandInt(-15,15);l2=RandInt(r1-3,r1+3);ans=1
+    if l2<r1:ans=0
+    return [f1, r1, f2, l2, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def piecewiseAnalyticViewpointEasy():
+    funcvec=[x,x^2,x^3,sqrt(abs(x)),ln(abs(x)+1),e^x]
+    f1pick=RandInt(0,5);f2pick=RandInt(0,5);f1=NonZeroInt(-5,5)*funcvec[f1pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f2=NonZeroInt(-5,5)*funcvec[f2pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);r1=RandInt(-15,15);l2=RandInt(r1-3,r1+3);ans=1
+    if l2<r1:ans=0
+    return [f1, r1, f2, l2, ans]
+
+##### Problem p1
+p1gen = piecewiseAnalyticViewpointEasy()
+p1f1 = p1gen[0]
+p1r1 = p1gen[1]
+p1f2 = p1gen[2]
+p1l2 = p1gen[3]
+p1ans = p1gen[4]
+\end{sagesilent}
+
+\begin{problem}$f(x)=\begin{cases}\sage{p1f1}&x\leq\sage{p1r1}\\\sage{p1f2}&\sage{p1l2}<x\end{cases}$ is a function? $\answer{\sage{p1ans}}$.\end{problem}

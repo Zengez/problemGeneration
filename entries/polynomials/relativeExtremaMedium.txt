@@ -1,0 +1,121 @@
+TITLE: Possible Relative Extrema (medium)
+TAGS: Polynomials, Relative Extrema, medium
+
+EXAMPLE:
+\\begin{problem}For $f(x)=(-5)x^{16}+(4)x^{15}+(-4)x^{8}+(5)x^{20}$, the maximum possible number of relative extrema is $19$ and the minimum possible number is $1$.\\end{problem}
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def relativeExtremaMedium():
+    c1=NonZeroInt(-10,10)
+    c2=NonZeroInt(-10,10,[0,c1])
+    c3=NonZeroInt(-10,10,[0,c1,c2])
+    c4=NonZeroInt(-10,10,[0,c1,c2,c3])
+    pwr1=RandInt(1,20); pwr2=RandInt(1,20); pwr3=RandInt(1,20); pwr4=RandInt(1,20)
+    f1=c1*x^pwr1; f2=c2*x^pwr2; f3=c3*x^pwr3; f4=c4*x^pwr4
+    fDisp=f1+f2+f3+f4
+    deg=fDisp.degree(x)
+    ans1=deg-1
+    ans2=mod(ans1,2)
+    return [f1,f2,f3,f4,fDisp,ans1,ans2]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def relativeExtremaMedium():
+    c1=NonZeroInt(-10,10)
+    c2=NonZeroInt(-10,10,[0,c1])
+    c3=NonZeroInt(-10,10,[0,c1,c2])
+    c4=NonZeroInt(-10,10,[0,c1,c2,c3])
+    pwr1=RandInt(1,20); pwr2=RandInt(1,20); pwr3=RandInt(1,20); pwr4=RandInt(1,20)
+    f1=c1*x^pwr1; f2=c2*x^pwr2; f3=c3*x^pwr3; f4=c4*x^pwr4
+    fDisp=f1+f2+f3+f4
+    deg=fDisp.degree(x)
+    ans1=deg-1
+    ans2=mod(ans1,2)
+    return [f1,f2,f3,f4,fDisp,ans1,ans2]
+
+p1gen = relativeExtremaMedium()
+p1f1 = p1gen[0]
+p1f2 = p1gen[1]
+p1f3 = p1gen[2]
+p1f4 = p1gen[3]
+p1fDisp = p1gen[4]
+p1ans1 = p1gen[5]
+p1ans2 = p1gen[6]
+\end{sagesilent}
+
+\begin{javascript}
+function boundedSameParity(a,b,c) {
+    var ansOne;
+    var ansTwo;
+    var ansThree;
+    if ((a-b)%2==0) { ansOne=1; } else { ansOne=0; }
+    var upB = parseInt(c)+1;
+    if (a<upB) { ansTwo=1; } else { ansTwo=0; }
+    var lowB = parseInt(b)-1;
+    if (a>lowB) { ansThree=1; } else { ansThree=0; }
+    return ( ansOne*ansTwo*ansThree );
+};
+\end{javascript}
+\begin{problem}
+    \begin{hint}
+        You don't need to factor or graph the function
+    \end{hint}
+    \begin{hint}
+        The answer is only asking for the maximum \textbf{possible} relative extrema, not how many local extrema the function actually has.
+    \end{hint}
+    Consider the function $f(x) = \sage{p1fDisp}$. What are the maximum number of relative extrema that $f(x)$ could have? $\answer[id=c]{\sage{p1ans1}}$.
+    \begin{problem}
+        \begin{hint}
+            You don't need to factor or graph the function
+        \end{hint}
+        \begin{hint}
+            The answer is only asking for the minimum \textbf{possible} relative extrema, not how many local extrema the function actually has.
+        \end{hint}
+        What is the minimum number relative extrema that $f(x)$ could possibly have? $\answer[id=b]{\sage{p1ans2}}$
+        \begin{problem}
+            \begin{hint}
+                Remember that local/relative extrema must come in pairs
+            \end{hint}
+            \begin{hint}
+                Since you know the minimum number of possible extrema from the previous problem, and you know they must come in pairs, add an even number to the minimum (as long as you stay below the maximum!)
+            \end{hint}
+            Enter any number that could be a valid number of \textbf{possible} local extrema for $f(x)$.
+            \begin{validator}[boundedSameParity(a,b,c)]
+                $\answer[id=a]{\sage{p1ans1}}$
+            \end{validator}
+        \end{problem}
+    \end{problem}
+\end{problem}

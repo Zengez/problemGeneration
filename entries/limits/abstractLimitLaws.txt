@@ -1,0 +1,67 @@
+TITLE: Abstract Limit Laws
+TAGS: Limits, Limit Laws
+
+EXAMPLE:
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def abstractLimitLaws():
+    c1=RandInt(-5,5); c2=RandInt(-5,5); c3=NonZeroInt(-8,8,[-1,0,1]); c4=NonZeroInt(-8,8,[-1,0,1]); target=RandInt(-5,5); ans=c3*c1+c4*c2
+    return [c1,c2,c3,c4,target,ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def abstractLimitLaws():
+    c1=RandInt(-5,5); c2=RandInt(-5,5); c3=NonZeroInt(-8,8,[-1,0,1]); c4=NonZeroInt(-8,8,[-1,0,1]); target=RandInt(-5,5); ans=c3*c1+c4*c2
+    return [c1,c2,c3,c4,target,ans]
+
+p1gen = abstractLimitLaws()
+p1c1 = p1gen[0]
+p1c2 = p1gen[1]
+p1c3 = p1gen[2]
+p1c4 = p1gen[3]
+p1target = p1gen[4]
+p1ans = p1gen[5]
+\end{sagesilent}
+
+\begin{problem}
+    If you know that $\lim_{x \to \sage{p1target}} f(x) = \sage{p1c1}$ and $\lim_{x \to \sage{p1target}} g(x) = \sage{p1c2}$, then evaluate the following limit:
+    \[
+        \lim_{x \to \sage{p1target}} \left( \sage{p1c3} f(x) + \sage{p1c4}g(x) \right) = \answer{\sage{p1ans}}
+    \]
+    \begin{feedback}
+        Remember that you can use limit laws to rewrite
+        \[
+            \lim_{x \to \sage{p1target}} \left( \sage{p1c3} f(x) + \sage{p1c4}g(x) \right) = \lim_{x \to \sage{p1target}}( \sage{p1c3}) \cdot \lim_{x \to \sage{p1target}}(f(x)) + \lim_{x \to \sage{p1target}}(\sage{p1c4}) \cdot \lim_{x \to \sage{p1target}}(g(x))
+        \]
+    \end{feedback}
+\end{problem}

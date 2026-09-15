@@ -1,0 +1,54 @@
+TITLE: Rigid Translations (Analytic)
+TAGS: Translations
+
+EXAMPLE:
+\\begin{problem}Consider $g(x)=f(x-(4))+(8)$. If $(4,-8)$ lies on $f$, then $(8,0)$ lies on $g$.\\end{problem}
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def rigidTranslationsAnalytic():
+    var('x,y,z,X,Y,Z')
+    c1 = RandInt(-10,10)
+    c2 = RandInt(-10,10)
+    c3 = RandInt(-10,10)
+    c4 = RandInt(-10,10)
+    i1 = x - c1
+    ans1 = c3 + c1
+    ans2 = c2 + c4
+    return [i1, c2, c3, c4, ans1, ans2]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def rigidTranslationsAnalytic():
+    var('x,y,z,X,Y,Z')
+    c1 = RandInt(-10,10)
+    c2 = RandInt(-10,10)
+    c3 = RandInt(-10,10)
+    c4 = RandInt(-10,10)
+    i1 = x - c1
+    ans1 = c3 + c1
+    ans2 = c2 + c4
+    return [i1, c2, c3, c4, ans1, ans2]
+
+##### Problem p1
+p1gen = rigidTranslationsAnalytic()
+p1i1 = p1gen[0]
+p1c2 = p1gen[1]
+p1c3 = p1gen[2]
+p1c4 = p1gen[3]
+p1ans1 = p1gen[4]
+p1ans2 = p1gen[5]
+\end{sagesilent}
+
+\begin{problem}Consider the translation of the function $f(x)$ given by \[g(x) = f( \sage{p1i1} ) + (\sage{p1c2}).\] If the point $(\sage{p1c3}, \sage{p1c4})$ is on the graph of $f(x)$, what point must be on the graph of $g(x)$? $(\answer{\sage{p1ans1}},\answer{\sage{p1ans2}})$.\end{problem}

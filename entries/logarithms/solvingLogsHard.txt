@@ -1,0 +1,108 @@
+TITLE: Solving Logarithmic Equations (hard)
+TAGS: Logarithmic Functions, Solving Equations, hard
+
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def solvingLogsHard():
+    b1 = RandInt(2,7)
+    baseMult = RandInt(2,4)
+    b2 = b1^baseMult
+    while b2>100:
+        baseMult = RandInt(2,4)
+        b2 = b1^baseMult
+    c1 = NonZeroInt(-5,5)
+    c2 = RandInt(-5,5)
+    c3 = NonZeroInt(-5,5)
+    c4 = RandInt(-5,5)
+    c5 = RandInt(1,6)
+    while c5^baseMult>250:
+        c5 = RandInt(1,6)
+    shift = c5^baseMult
+    f1 = expand((c1*x-c2)*(c3*x-c4) + shift)
+    ans1 = c2/c1 + c4/c3
+    return [b1,baseMult,b2,c1,c2,c3,c4,c5,shift,f1,ans1]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def solvingLogsHard():
+    b1 = RandInt(2,7)
+    baseMult = RandInt(2,4)
+    b2 = b1^baseMult
+    while b2>100:
+        baseMult = RandInt(2,4)
+        b2 = b1^baseMult
+    c1 = NonZeroInt(-5,5)
+    c2 = RandInt(-5,5)
+    c3 = NonZeroInt(-5,5)
+    c4 = RandInt(-5,5)
+    c5 = RandInt(1,6)
+    while c5^baseMult>250:
+        c5 = RandInt(1,6)
+    shift = c5^baseMult
+    f1 = expand((c1*x-c2)*(c3*x-c4) + shift)
+    ans1 = c2/c1 + c4/c3
+    return [b1,baseMult,b2,c1,c2,c3,c4,c5,shift,f1,ans1]
+
+p1gen = solvingLogsHard()
+p1b1,p1baseMult,p1b2,p1c1,p1c2,p1c3,p1c4,p1c5,p1shift,p1f1,p1ans1 = p1gen
+\end{sagesilent}
+
+\begin{problem}
+    \begin{hint}
+        Start by using an appropriate base on both sides of the equality to eliminate the logarithm.
+    \end{hint}
+    \begin{hint}
+        In this case, you want to use $\sage{p1b2}$ as a base on both sides, since both log bases can be raised to a power to get this number, which makes things easier. So your first step looks like:
+        \[
+            \sage{p1b2}^{\Log_{\sage{p1b2}}\left(\sage{p1f1}\right)} = \sage{p1b2}^{\Log_{\sage{p1b1}}\left(\sage{p1c5}\right)}
+        \]
+    \end{hint}
+    \begin{hint}
+        The exponential and the log undo each other, and on the other side of the equality you can compute the $\sage{p1b2}^{\Log_{\sage{p1b1}}\left(\sage{p1c5}\right)}$ explicitly.
+    \end{hint}
+    \begin{hint}
+        From this point you proceed as normal, solving the polynomial by getting everything on the same side and factoring.
+    \end{hint}
+    Solve for $x$ in the following logarithmic equation:
+    \[
+        \Log_{\sage{p1b2}}\left(\sage{p1f1}\right) = \Log_{\sage{p1b1}}\left(\sage{p1c5}\right)
+    \]
+    The \textbf{sum} of solutions is: $\answer{\sage{p1ans1}}$.
+\end{problem}

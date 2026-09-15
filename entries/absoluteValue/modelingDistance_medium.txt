@@ -1,0 +1,87 @@
+TITLE: Modeling Distance with Absolute Value (medium)
+TAGS: Functions, Absolute Value, Modeling, Word Problem, medium
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def modelingDistanceMedium():
+    var('a','b','c','d')
+    letterVec = [a,b,c,d]
+    obj1 = NonZeroInt(-5,5)*choice(letterVec) + NonZeroInt(-5,5)*choice(letterVec)
+    obj2 = NonZeroInt(-5,5)*choice(letterVec) + NonZeroInt(-5,5)*choice(letterVec)
+    dist = RandInt(1,200)
+    relateVec = [[LatexExpr(r'\text{at least}'),(abs(obj1 - obj2) >= dist)],[LatexExpr(r'\text{no less than}'),(abs(obj1 - obj2) >= dist)],[LatexExpr(r'\text{at most}'),(abs(obj1 - obj2) <= dist)],[LatexExpr(r'\text{no more than}'),(abs(obj1 - obj2) <= dist)],[LatexExpr(r'\text{strictly less than}'),(abs(obj1 - obj2) < dist)],[LatexExpr(r'\text{strictly more than}'),(abs(obj1 - obj2) > dist)]]
+    relateChoice = RandInt(0,5)
+    relateText=relateVec[relateChoice][0]
+    ansExpr=relateVec[relateChoice][1]
+    ansVec = [(abs(obj1 - obj2) > dist),(abs(obj1 - obj2) < dist),(abs(obj1 - obj2) >= dist),(abs(obj1 - obj2) <= dist),(abs(obj1 - dist) > obj2),(abs(obj1 - dist) < obj2),(abs(dist - obj2) <= obj1),(abs(dist - obj2) >= obj1)]
+    shuffle(ansVec)
+    ans = ansVec.index(ansExpr)+1
+    return [obj1, obj2, relateText, dist, ansVec, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def modelingDistanceMedium():
+    var('a','b','c','d')
+    letterVec = [a,b,c,d]
+    obj1 = NonZeroInt(-5,5)*choice(letterVec) + NonZeroInt(-5,5)*choice(letterVec)
+    obj2 = NonZeroInt(-5,5)*choice(letterVec) + NonZeroInt(-5,5)*choice(letterVec)
+    dist = RandInt(1,200)
+    relateVec = [[LatexExpr(r'\text{at least}'),(abs(obj1 - obj2) >= dist)],[LatexExpr(r'\text{no less than}'),(abs(obj1 - obj2) >= dist)],[LatexExpr(r'\text{at most}'),(abs(obj1 - obj2) <= dist)],[LatexExpr(r'\text{no more than}'),(abs(obj1 - obj2) <= dist)],[LatexExpr(r'\text{strictly less than}'),(abs(obj1 - obj2) < dist)],[LatexExpr(r'\text{strictly more than}'),(abs(obj1 - obj2) > dist)]]
+    relateChoice = RandInt(0,5)
+    relateText=relateVec[relateChoice][0]
+    ansExpr=relateVec[relateChoice][1]
+    ansVec = [(abs(obj1 - obj2) > dist),(abs(obj1 - obj2) < dist),(abs(obj1 - obj2) >= dist),(abs(obj1 - obj2) <= dist),(abs(obj1 - dist) > obj2),(abs(obj1 - dist) < obj2),(abs(dist - obj2) <= obj1),(abs(dist - obj2) >= obj1)]
+    shuffle(ansVec)
+    ans = ansVec.index(ansExpr)+1
+    return [obj1, obj2, relateText, dist, ansVec, ans]
+
+##### Problem p2
+p2gen = modelingDistanceMedium()
+p2obj1 = p2gen[0]
+p2obj2 = p2gen[1]
+p2relateText = p2gen[2]
+p2dist = p2gen[3]
+p2ansVec = p2gen[4]
+p2ans = p2gen[5]
+\end{sagesilent}
+
+\begin{problem}
+\begin{hint}Recall, the distance between $A$ and $B$ is represented by $|A-B|$.\end{hint}
+\begin{hint}Remember to be careful with negatives. It's best to plug in the expressions in parentheses when you are writing it as $|A - B|$ to represent the distance between $A$ and $B$.\end{hint}
+Which of the following models the following description of distance: \\
+The distance between $\sage{p2obj1}$ and $\sage{p2obj2}$ is $\sage{p2relateText}$ $\sage{p2dist}$
+\begin{enumerate}\item[1:] $\sage{p2ansVec[0]}$\item[2:] $\sage{p2ansVec[1]}$\item[3:] $\sage{p2ansVec[2]}$\item[4:] $\sage{p2ansVec[3]}$\item[5:] $\sage{p2ansVec[4]}$\item[6:] $\sage{p2ansVec[5]}$\item[7:] $\sage{p2ansVec[6]}$\item[8:] $\sage{p2ansVec[7]}$\end{enumerate}
+$\answer{\sage{p2ans}}$
+\end{problem}

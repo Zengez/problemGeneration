@@ -1,0 +1,68 @@
+TITLE: Indeterminate Forms
+TAGS: Limits, Indeterminate Forms
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def indeterminateFormOne():
+    var('x,y,z,X,Y,Z')
+    target = RandInt(-10,10)
+    c1 = NonZeroInt(1,10,[0,target])
+    c2 = NonZeroInt(1,10,[0,target,-target])
+    f1top = expand((x-c1)*(x+c1)*(x-target))
+    f1bot = expand((x-c2)*(x+c2)*(x-target))
+    ans = (target^2-c1^2)/(target^2-c2^2)
+    return [target, f1top, f1bot, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def indeterminateFormOne():
+    var('x,y,z,X,Y,Z')
+    target = RandInt(-10,10)
+    c1 = NonZeroInt(1,10,[0,target])
+    c2 = NonZeroInt(1,10,[0,target,-target])
+    f1top = expand((x-c1)*(x+c1)*(x-target))
+    f1bot = expand((x-c2)*(x+c2)*(x-target))
+    ans = (target^2-c1^2)/(target^2-c2^2)
+    return [target, f1top, f1bot, ans]
+
+##### Problem p1
+p1gen = indeterminateFormOne()
+p1target = p1gen[0]
+p1f1top = p1gen[1]
+p1f1bot = p1gen[2]
+p1ans = p1gen[3]
+\end{sagesilent}
+
+\begin{problem}Calculate $\lim_{x\to\sage{p1target}}\frac{\sage{p1f1top}}{\sage{p1f1bot}}=\answer{\sage{p1ans}}$.\end{problem}

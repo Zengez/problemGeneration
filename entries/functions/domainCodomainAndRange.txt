@@ -1,0 +1,73 @@
+TITLE: Domain, Codomain, and Range
+TAGS: Functions, Domain, Range
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandVector(b, c, avoid=[], rep=1):
+    """ Returns essentially a multiset permutation of ([b,c]-av) * rep. """
+    oneVec = [val for val in range(b,c+1) if val not in avoid]
+    vec = oneVec * rep
+    shuffle(vec)
+    return vec
+
+def domainCodomainAndRange():
+    vec1 = RandVector(-100,100)
+    x1 = vec1[0]
+    x2 = vec1[1]
+    x3 = vec1[2]
+    x4 = vec1[3]
+    x5 = vec1[4]
+    y1 = vec1[5]
+    y2 = vec1[6]
+    y3 = vec1[7]
+    y4 = vec1[8]
+    y5 = vec1[9]
+    return [x1, y1, x2, y2, x3, y3, x4, y4, x5, y5]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandVector(b, c, avoid=[], rep=1):
+    """ Returns essentially a multiset permutation of ([b,c]-av) * rep. """
+    oneVec = [val for val in range(b,c+1) if val not in avoid]
+    vec = oneVec * rep
+    shuffle(vec)
+    return vec
+
+def domainCodomainAndRange():
+    vec1 = RandVector(-100,100)
+    x1 = vec1[0]
+    x2 = vec1[1]
+    x3 = vec1[2]
+    x4 = vec1[3]
+    x5 = vec1[4]
+    y1 = vec1[5]
+    y2 = vec1[6]
+    y3 = vec1[7]
+    y4 = vec1[8]
+    y5 = vec1[9]
+    return [x1, y1, x2, y2, x3, y3, x4, y4, x5, y5]
+
+##### Problem p1
+p1gen = domainCodomainAndRange()
+p1x1 = p1gen[0]
+p1y1 = p1gen[1]
+p1x2 = p1gen[2]
+p1y2 = p1gen[3]
+p1x3 = p1gen[4]
+p1y3 = p1gen[5]
+p1x4 = p1gen[6]
+p1y4 = p1gen[7]
+p1x5 = p1gen[8]
+p1y5 = p1gen[9]
+\end{sagesilent}
+
+\begin{problem}
+Consider the relation defined by the following coordinate pairs: \[(\sage{p1x1},\sage{p1y1}),(\sage{p1x2},\sage{p1y2}),(\sage{p1x3},\sage{p1y3}),(\sage{p1x4},\sage{p1y4}),(\sage{p1x5},\sage{p1y5})\]
+Which of the following are in the domain of the relation? (Select all that apply)
+\begin{selectAll}
+\choice[correct]{$\sage{p1x1}$}\n\choice{$\sage{p1y1}$}\n\choice[correct]{$\sage{p1x2}$}\n\choice{$\sage{p1y2}$}\n\choice[correct]{$\sage{p1x3}$}\n\choice{$\sage{p1y3}$}\n\choice[correct]{$\sage{p1x4}$}\n\choice{$\sage{p1y4}$}\n\choice[correct]{$\sage{p1x5}$}\n\choice{$\sage{p1y5}$}\n\end{selectAll}
+\begin{problem}Which of the following are in the range of the relation? (Select all that apply)
+\begin{selectAll}
+\choice{$\sage{p1x1}$}\n\choice[correct]{$\sage{p1y1}$}\n\choice{$\sage{p1x2}$}\n\choice[correct]{$\sage{p1y2}$}\n\choice{$\sage{p1x3}$}\n\choice[correct]{$\sage{p1y3}$}\n\choice{$\sage{p1x4}$}\n\choice[correct]{$\sage{p1y4}$}\n\choice{$\sage{p1x5}$}\n\choice[correct]{$\sage{p1y5}$}\n\end{selectAll}\end{problem}\end{problem}

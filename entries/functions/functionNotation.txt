@@ -1,0 +1,91 @@
+TITLE: Function Notation
+TAGS: Functions, Notation
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def functionNotation():
+    c1 = NonZeroInt(-10,10)
+    c2 = NonZeroInt(-10,10,[c1])
+    domvec = [ 'x' + LatexExpr(r'\leq') + str(c1), str(x < c1), 'x' + LatexExpr(r'\geq') + str(c1), str(x > c1) ]
+    codomvec = [ 'x' + LatexExpr(r'\leq') + str(c2), str(x < c2), 'x' + LatexExpr(r'\geq') + str(c2), str(x > c2) ]
+    dompick =RandInt(0,3)
+    codompick = NonZeroInt(0,3,[dompick])
+    var1 = domvec[dompick]
+    var2 = codomvec[codompick]
+    ans1 = domvec[dompick]
+    ans2 = codomvec[codompick]
+    ans3 = domvec[3 - dompick]
+    ans4 = codomvec[3 - codompick]
+    #### Start of problem p2
+    return [var1, var2, ans1, ans2, ans3, ans4]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def functionNotation():
+    c1 = NonZeroInt(-10,10)
+    c2 = NonZeroInt(-10,10,[c1])
+    domvec = [ 'x' + LatexExpr(r'\leq') + str(c1), str(x < c1), 'x' + LatexExpr(r'\geq') + str(c1), str(x > c1) ]
+    codomvec = [ 'x' + LatexExpr(r'\leq') + str(c2), str(x < c2), 'x' + LatexExpr(r'\geq') + str(c2), str(x > c2) ]
+    dompick =RandInt(0,3)
+    codompick = NonZeroInt(0,3,[dompick])
+    var1 = domvec[dompick]
+    var2 = codomvec[codompick]
+    ans1 = domvec[dompick]
+    ans2 = codomvec[codompick]
+    ans3 = domvec[3 - dompick]
+    ans4 = codomvec[3 - codompick]
+    #### Start of problem p2
+    return [var1, var2, ans1, ans2, ans3, ans4]
+
+##### Problem p1
+p1gen = functionNotation()
+p1var1 = p1gen[0]
+p1var2 = p1gen[1]
+p1ans1 = p1gen[2]
+p1ans2 = p1gen[3]
+p1ans3 = p1gen[4]
+p1ans4 = p1gen[5]
+\end{sagesilent}
+
+\begin{problem}
+Consider the function \[f:\{ x \in \mathbb{R} : \sage{p1var1} \} \longrightarrow \{ x \in \mathbb{R} : \sage{p1var2} \}\]
+What is the domain of the function $f$?
+\begin{multipleChoice}\choice[correct]{$ \{ x \in \mathbb{R} : \sage{p1ans1} \} $}\choice{$\{ x \in \mathbb{R} : \sage{p1ans2} \}$}\choice{$\{ x \in \mathbb{R} : \sage{p1ans3} \}$}\choice{$\{ x \in \mathbb{R} : \sage{p1ans4} \}$}\end{multipleChoice}
+What is the codomain of the function $f$?
+\begin{multipleChoice}\choice{$ \{ x \in \mathbb{R} : \sage{p1ans1} \} $}\choice[correct]{$\{ x \in \mathbb{R} : \sage{p1ans2} \}$}\choice{$\{ x \in \mathbb{R} : \sage{p1ans3} \}$}\choice{$\{ x \in \mathbb{R} : \sage{p1ans4} \}$}\end{multipleChoice}
+\end{problem}

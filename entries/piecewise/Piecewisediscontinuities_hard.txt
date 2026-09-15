@@ -1,0 +1,73 @@
+TITLE: Discontinuities of Piecewise Functions (hard)
+TAGS: Piecewise Functions, Continuity, hard
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def piecewisediscontinuitiesHard():
+    check=500;f1fix=0;f3fix=0
+    while (numerator(abs(check))>300 or denominator(abs(check))>300 or numerator(abs(f1fix))>400 or denominator(abs(f1fix))>400 or numerator(abs(f3fix))>400 or denominator(abs(f3fix))>400):
+        funcvec=[x,x^2,x^3,2^x];f1pick=RandInt(0,3);f2pick=NonZeroInt(0,3,[f1pick]);f3pick=NonZeroInt(0,3,[f2pick]);f1=NonZeroInt(-5,5)*funcvec[f1pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f2=NonZeroInt(-5,5)*funcvec[f2pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f3=NonZeroInt(-5,5)*funcvec[f3pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);l1=RandInt(-15,15);r1=l1+RandInt(1,7);r2=r1+RandInt(1,7);r3=r2+RandInt(1,7);target=choice([r1,r2]);choice=RandInt(1,4)
+        if choice==1:f1fix=f2(x=r1)-f1(x=r1);f3fix=f2(x=r2)-f3(x=r2);f1=f1+f1fix;f3=f3+f3fix;symb1=(x<=r1);symb2=(x<=r2)
+        if choice==2:f1fix=f2(x=r1)-f1(x=r1);f3fix=f2(x=r2)-f3(x=r2);f1=f1+f1fix;f3=f3+f3fix;symb1=(x<r1);symb2=(x<r2)
+        if choice==3:f1fix=f2(x=r1)-f1(x=r1);f3fix=f2(x=r2)-f3(x=r2);f1=f1+f1fix;f3=f3+f3fix;f2=f2+NonZeroInt(-10,10);symb1=(x<=r1);symb2=(x<=r2)
+        if choice==4:f2=f2/(expand((x-r1)*(x-r2)));symb1=(x<=r1);symb2=(x<=r2)
+        if target==r1:check=f1(x=r1)
+        else:check=f3(x=r2)
+    return [target, choice]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def piecewisediscontinuitiesHard():
+    check=500;f1fix=0;f3fix=0
+    while (numerator(abs(check))>300 or denominator(abs(check))>300 or numerator(abs(f1fix))>400 or denominator(abs(f1fix))>400 or numerator(abs(f3fix))>400 or denominator(abs(f3fix))>400):
+        funcvec=[x,x^2,x^3,2^x];f1pick=RandInt(0,3);f2pick=NonZeroInt(0,3,[f1pick]);f3pick=NonZeroInt(0,3,[f2pick]);f1=NonZeroInt(-5,5)*funcvec[f1pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f2=NonZeroInt(-5,5)*funcvec[f2pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f3=NonZeroInt(-5,5)*funcvec[f3pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);l1=RandInt(-15,15);r1=l1+RandInt(1,7);r2=r1+RandInt(1,7);r3=r2+RandInt(1,7);target=choice([r1,r2]);choice=RandInt(1,4)
+        if choice==1:f1fix=f2(x=r1)-f1(x=r1);f3fix=f2(x=r2)-f3(x=r2);f1=f1+f1fix;f3=f3+f3fix;symb1=(x<=r1);symb2=(x<=r2)
+        if choice==2:f1fix=f2(x=r1)-f1(x=r1);f3fix=f2(x=r2)-f3(x=r2);f1=f1+f1fix;f3=f3+f3fix;symb1=(x<r1);symb2=(x<r2)
+        if choice==3:f1fix=f2(x=r1)-f1(x=r1);f3fix=f2(x=r2)-f3(x=r2);f1=f1+f1fix;f3=f3+f3fix;f2=f2+NonZeroInt(-10,10);symb1=(x<=r1);symb2=(x<=r2)
+        if choice==4:f2=f2/(expand((x-r1)*(x-r2)));symb1=(x<=r1);symb2=(x<=r2)
+        if target==r1:check=f1(x=r1)
+        else:check=f3(x=r2)
+    return [target, choice]
+
+##### Problem p3
+p3gen = piecewisediscontinuitiesHard()
+p3target = p3gen[0]
+p3choice = p3gen[1]
+\end{sagesilent}
+
+\begin{problem}Classify the discontinuity at $x=\sage{p3target}$ for the three-piece function: $\answer{\sage{p3choice}}$.\end{problem}

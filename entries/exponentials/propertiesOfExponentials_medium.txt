@@ -1,0 +1,56 @@
+TITLE: Properties of Exponentials (medium)
+TAGS: Exponential Functions, Properties of Exponents, medium
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def propertiesOfExponentialsMedium():
+    var('x,y,z,r')
+    c1=RandInt(-6,6);c2=RandInt(-6,6);c5=RandInt(-6,6);c6=RandInt(-6,6);c9=RandInt(-6,6);c10=RandInt(-6,6);c13=RandInt(-6,6);c14=RandInt(-6,6);pwr1=NonZeroInt(-6,6);pwr2=NonZeroInt(-6,6);f1=x^c1*y^c2;f2=x^c5*y^c6;f3=x^c9*y^c10;f4=x^c13*y^c14;ans1=(c1-c5)*pwr1+(c9-c13)*pwr2;ans2=(c2-c6)*pwr1+(c10-c14)*pwr2
+    return [ans1, ans2]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def propertiesOfExponentialsMedium():
+    var('x,y,z,r')
+    c1=RandInt(-6,6);c2=RandInt(-6,6);c5=RandInt(-6,6);c6=RandInt(-6,6);c9=RandInt(-6,6);c10=RandInt(-6,6);c13=RandInt(-6,6);c14=RandInt(-6,6);pwr1=NonZeroInt(-6,6);pwr2=NonZeroInt(-6,6);f1=x^c1*y^c2;f2=x^c5*y^c6;f3=x^c9*y^c10;f4=x^c13*y^c14;ans1=(c1-c5)*pwr1+(c9-c13)*pwr2;ans2=(c2-c6)*pwr1+(c10-c14)*pwr2
+    return [ans1, ans2]
+
+##### Problem p2
+p2gen = propertiesOfExponentialsMedium()
+p2ans1 = p2gen[0]
+p2ans2 = p2gen[1]
+\end{sagesilent}
+
+\begin{problem}Simplify using exponent rules: $x^{\answer{\sage{p2ans1}}}y^{\answer{\sage{p2ans2}}}$.\end{problem}

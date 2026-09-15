@@ -1,0 +1,91 @@
+TITLE: Applying Limit Laws
+TAGS: Limits, Limit Laws
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def limitLawTwo2():
+    var('x,y,z,X,Y,Z')
+    funcvec = [x, x^2, x^3, e^x, 2^x, log(abs(x)), sqrt(abs(x)), abs(x)]
+    pick1 = RandInt(0,7); pick2 = RandInt(0,7); pick3 = RandInt(0,7)
+    c1 = RandInt(-5,5); c2 = RandInt(-5,5); c3 = RandInt(-5,5); c4 = RandInt(-5,5); c5 = RandInt(-5,5); c6 = RandInt(-5,5)
+    f1t = funcvec[pick1]; f2t = funcvec[pick2]; f3t = funcvec[pick3]
+    f1t2 = f1t(x=(x-c1))+c2; f2 = f2t(x=(x-c3))+c4; f3t2 = f3t(x=(x-c5))+c6
+    pivot1 = NonZeroInt(-5,1); pivot2 = NonZeroInt(pivot1+1, 5)
+    flip = RandInt(0,1); flip2 = RandInt(0,1)
+    temp1 = f2(x=(pivot1))-f1t2(x=(pivot1)); temp2 = f2(x=(pivot2))-f3t2(x=(pivot2))
+    f1 = f1t2 + temp1*flip; f3 = f3t2 + temp2*flip2
+    anspvt1L = f1(x=(pivot1)); anspvt1R = f2(x=(pivot1)); anspvt2L = f2(x=(pivot2)); anspvt2R = f3(x=(pivot2))
+    if anspvt1L==anspvt1R: anslim1 = anspvt1L
+    else: anslim1 = LatexExpr(r"DNE")
+    if anspvt2L==anspvt2R: anslim2 = anspvt2L
+    else: anslim2 = LatexExpr(r"DNE")
+    return [f1, f2, f3, pivot1, pivot2, anspvt1L, anspvt1R, anspvt2L, anspvt2R, anslim1, anslim2]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def limitLawTwo2():
+    var('x,y,z,X,Y,Z')
+    funcvec = [x, x^2, x^3, e^x, 2^x, log(abs(x)), sqrt(abs(x)), abs(x)]
+    pick1 = RandInt(0,7); pick2 = RandInt(0,7); pick3 = RandInt(0,7)
+    c1 = RandInt(-5,5); c2 = RandInt(-5,5); c3 = RandInt(-5,5); c4 = RandInt(-5,5); c5 = RandInt(-5,5); c6 = RandInt(-5,5)
+    f1t = funcvec[pick1]; f2t = funcvec[pick2]; f3t = funcvec[pick3]
+    f1t2 = f1t(x=(x-c1))+c2; f2 = f2t(x=(x-c3))+c4; f3t2 = f3t(x=(x-c5))+c6
+    pivot1 = NonZeroInt(-5,1); pivot2 = NonZeroInt(pivot1+1, 5)
+    flip = RandInt(0,1); flip2 = RandInt(0,1)
+    temp1 = f2(x=(pivot1))-f1t2(x=(pivot1)); temp2 = f2(x=(pivot2))-f3t2(x=(pivot2))
+    f1 = f1t2 + temp1*flip; f3 = f3t2 + temp2*flip2
+    anspvt1L = f1(x=(pivot1)); anspvt1R = f2(x=(pivot1)); anspvt2L = f2(x=(pivot2)); anspvt2R = f3(x=(pivot2))
+    if anspvt1L==anspvt1R: anslim1 = anspvt1L
+    else: anslim1 = LatexExpr(r"DNE")
+    if anspvt2L==anspvt2R: anslim2 = anspvt2L
+    else: anslim2 = LatexExpr(r"DNE")
+    return [f1, f2, f3, pivot1, pivot2, anspvt1L, anspvt1R, anspvt2L, anspvt2R, anslim1, anslim2]
+
+##### Problem p4
+p4gen = limitLawTwo2()
+p4f1 = p4gen[0]
+p4f2 = p4gen[1]
+p4f3 = p4gen[2]
+p4pivot1 = p4gen[3]
+p4pivot2 = p4gen[4]
+p4anspvt1L = p4gen[5]
+p4anspvt1R = p4gen[6]
+p4anspvt2L = p4gen[7]
+p4anspvt2R = p4gen[8]
+p4anslim1 = p4gen[9]
+p4anslim2 = p4gen[10]
+\end{sagesilent}
+
+\begin{problem}For the piecewise function with pieces $\sage{p4f1}$, $\sage{p4f2}$, and $\sage{p4f3}$ and pivots $\sage{p4pivot1},\sage{p4pivot2}$, compute the one-sided limits $\answer{\sage{p4anspvt1L}},\answer{\sage{p4anspvt1R}},\answer{\sage{p4anspvt2L}},\answer{\sage{p4anspvt2R}}$ and the two-sided limits $\answer{\sage{p4anslim1}},\answer{\sage{p4anslim2}}$.\end{problem}

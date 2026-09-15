@@ -1,0 +1,57 @@
+TITLE: Domains of Rational Functions (medium)
+TAGS: Rational Functions, Domain, medium
+
+EXAMPLE:
+\\begin{problem}A generated rational denominator has zero(s) at 1, 0; the requested sum of domain restrictions is $1$.\\end{problem}
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def domainsOfRationalFunctionsMedium():
+    c1=NonZeroInt(-3,3);c2=NonZeroInt(-3,3);c3=NonZeroInt(-3,3);c4=RandInt(-3,3);fTop=x^6+sum([RandInt(-3,3)*x^t for t in [0..3]]);fBot=(c1*x-c2)*(c3*x-c4);f1=fTop/fBot;ans=c2/c1+c4/c3
+    return [f1, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def domainsOfRationalFunctionsMedium():
+    c1=NonZeroInt(-3,3);c2=NonZeroInt(-3,3);c3=NonZeroInt(-3,3);c4=RandInt(-3,3);fTop=x^6+sum([RandInt(-3,3)*x^t for t in [0..3]]);fBot=(c1*x-c2)*(c3*x-c4);f1=fTop/fBot;ans=c2/c1+c4/c3
+    return [f1, ans]
+
+##### Problem p2
+p2gen = domainsOfRationalFunctionsMedium()
+p2f1 = p2gen[0]
+p2ans = p2gen[1]
+\end{sagesilent}
+
+\begin{problem}Let $r(x)=\sage{p2f1}$. Sum of domain restrictions: $\answer{\sage{p2ans}}$.\end{problem}

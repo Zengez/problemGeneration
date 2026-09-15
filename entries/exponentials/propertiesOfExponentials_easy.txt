@@ -1,0 +1,42 @@
+TITLE: Properties of Exponentials (easy)
+TAGS: Exponential Functions, Properties of Exponents, easy
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def propertiesOfExponentialsEasy():
+    var('x,y,z,r')
+    c1=RandInt(-6,6);c2=RandInt(-6,6);c5=RandInt(-6,6);c6=RandInt(-6,6);pwr1=RandInt(-6,6);pwr2=RandInt(-6,6);f1=x^c1*y^c2;f2=x^c5*y^c6;ans1=c1*pwr1+c5*pwr2;ans2=c2*pwr1+c6*pwr2
+    return [f1, pwr1, f2, pwr2, ans1, ans2]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def propertiesOfExponentialsEasy():
+    var('x,y,z,r')
+    c1=RandInt(-6,6);c2=RandInt(-6,6);c5=RandInt(-6,6);c6=RandInt(-6,6);pwr1=RandInt(-6,6);pwr2=RandInt(-6,6);f1=x^c1*y^c2;f2=x^c5*y^c6;ans1=c1*pwr1+c5*pwr2;ans2=c2*pwr1+c6*pwr2
+    return [f1, pwr1, f2, pwr2, ans1, ans2]
+
+##### Problem p1
+p1gen = propertiesOfExponentialsEasy()
+p1f1 = p1gen[0]
+p1pwr1 = p1gen[1]
+p1f2 = p1gen[2]
+p1pwr2 = p1gen[3]
+p1ans1 = p1gen[4]
+p1ans2 = p1gen[5]
+\end{sagesilent}
+
+\begin{problem}$\sage{p1f1}^{\sage{p1pwr1}}\sage{p1f2}^{\sage{p1pwr2}}=x^{\answer{\sage{p1ans1}}}y^{\answer{\sage{p1ans2}}}$.\end{problem}

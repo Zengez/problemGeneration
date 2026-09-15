@@ -1,0 +1,85 @@
+TITLE: Set Notation
+TAGS: Functions, Notation
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def setNotation2():
+    c1 = NonZeroInt(-10,10)
+    c2 = -c1
+    rvec = [ LatexExpr(r' x \leq ') + str(c1), LatexExpr(r'x < ') + str(c1), LatexExpr(r' x \geq ') + str(c1), LatexExpr(r'x > ') + str(c1) ]
+    vecfalse = [RealSet.open_closed(-infinity,c1), RealSet(-infinity, c1), RealSet.closed_open(c1,infinity), RealSet(c1,infinity),RealSet.open_closed(-infinity,-c1), RealSet(-infinity, -c1), RealSet.closed_open(-c1,infinity), RealSet(-c1,infinity)]
+    vecpick = RandInt(0,3)
+    relate = rvec[vecpick]
+    false = [vecfalse[i] for i in range(8) if abs(i - vecpick)>0]
+    ans1 = false[0]
+    ans2 = false[1]
+    ans3 = vecfalse[vecpick]
+    ans4 = false[2]
+    ans5 = false[3]
+    ans6 = false[4]
+    ans7 = false[5]
+    ans8 = false[6]
+    return [relate, ans3]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def setNotation2():
+    c1 = NonZeroInt(-10,10)
+    c2 = -c1
+    rvec = [ LatexExpr(r' x \leq ') + str(c1), LatexExpr(r'x < ') + str(c1), LatexExpr(r' x \geq ') + str(c1), LatexExpr(r'x > ') + str(c1) ]
+    vecfalse = [RealSet.open_closed(-infinity,c1), RealSet(-infinity, c1), RealSet.closed_open(c1,infinity), RealSet(c1,infinity),RealSet.open_closed(-infinity,-c1), RealSet(-infinity, -c1), RealSet.closed_open(-c1,infinity), RealSet(-c1,infinity)]
+    vecpick = RandInt(0,3)
+    relate = rvec[vecpick]
+    false = [vecfalse[i] for i in range(8) if abs(i - vecpick)>0]
+    ans1 = false[0]
+    ans2 = false[1]
+    ans3 = vecfalse[vecpick]
+    ans4 = false[2]
+    ans5 = false[3]
+    ans6 = false[4]
+    ans7 = false[5]
+    ans8 = false[6]
+    return [relate, ans3]
+
+##### Problem p2
+p2gen = setNotation2()
+p2relate = p2gen[0]
+p2ans3 = p2gen[1]
+\end{sagesilent}
+
+\begin{problem}Which of the following is equivalent to: $\{ x \in \mathbb{R} : \sage{p2relate} \}$? \choice[correct]{$\sage{p2ans3}$}\end{problem}

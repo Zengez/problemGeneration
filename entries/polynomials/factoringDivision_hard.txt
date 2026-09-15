@@ -1,0 +1,77 @@
+TITLE: Factoring using Polynomial Division (hard)
+TAGS: Polynomials, Factoring, Functions, hard
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def factoringDivisionHard():
+    c1 = NonZeroInt(-5,5)
+    c2 = RandInt(-10,10)
+    pwr1 = RandInt(1,3)
+    pwr2 = RandInt(2,5)
+    f0 = sum([RandInt(-5,5)*x^t for t in [0..pwr1-1]])
+    f1 = c1*x^pwr1 + sum([RandInt(-5,5)*x^t for t in [0..pwr1-1]])
+    f2 = NonZeroInt(-5,5)*x^pwr2 + sum([RandInt(-5,5)*x^t for t in [0..pwr2-1]])
+    f3 = expand(f1*f2) + f0
+    return [f3, f1, f2, f0]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def factoringDivisionHard():
+    c1 = NonZeroInt(-5,5)
+    c2 = RandInt(-10,10)
+    pwr1 = RandInt(1,3)
+    pwr2 = RandInt(2,5)
+    f0 = sum([RandInt(-5,5)*x^t for t in [0..pwr1-1]])
+    f1 = c1*x^pwr1 + sum([RandInt(-5,5)*x^t for t in [0..pwr1-1]])
+    f2 = NonZeroInt(-5,5)*x^pwr2 + sum([RandInt(-5,5)*x^t for t in [0..pwr2-1]])
+    f3 = expand(f1*f2) + f0
+    return [f3, f1, f2, f0]
+
+##### Problem p3
+p3gen = factoringDivisionHard()
+p3f3 = p3gen[0]
+p3f1 = p3gen[1]
+p3f2 = p3gen[2]
+p3f0 = p3gen[3]
+\end{sagesilent}
+
+\begin{problem}
+Compute the following division:
+\begin{align*}\left(\sage{p3f3}\right) \div \left(\sage{p3f1}\right) \\
+= \answer{\sage{p3f2}} + \frac{\answer{\sage{p3f0}}}{\answer{\sage{p3f1}}}\end{align*}
+\end{problem}

@@ -1,0 +1,68 @@
+TITLE: Logarithmic Differentiation
+TAGS: Logarithmic Functions, Derivatives
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def logarithmicDifferentiation():
+    var('x,y,z,X,Y,Z')
+    f1 = (NonZeroInt(-5,5)*x^(RandInt(1,3)) - RandInt(-5,5))
+    f2 = (NonZeroInt(-5,5)*x^(RandInt(1,3)) - RandInt(-5,5))
+    f3 = (NonZeroInt(-5,5)*x^(RandInt(1,3)) - RandInt(-5,5))
+    f4 = (NonZeroInt(-5,5)*x^(RandInt(1,3)) - RandInt(-5,5))
+    f5 = (NonZeroInt(-5,5)*x^(RandInt(1,3)) - RandInt(-5,5))
+    fdisp = f1*f2*f3*f4*f5
+    ans = (derivative(f1,x)/f1 + derivative(f2,x)/f2 + derivative(f3,x)/f3 + derivative(f4,x)/f4 + derivative(f5,x)/f5)*fdisp
+    return [fdisp, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def logarithmicDifferentiation():
+    var('x,y,z,X,Y,Z')
+    f1 = (NonZeroInt(-5,5)*x^(RandInt(1,3)) - RandInt(-5,5))
+    f2 = (NonZeroInt(-5,5)*x^(RandInt(1,3)) - RandInt(-5,5))
+    f3 = (NonZeroInt(-5,5)*x^(RandInt(1,3)) - RandInt(-5,5))
+    f4 = (NonZeroInt(-5,5)*x^(RandInt(1,3)) - RandInt(-5,5))
+    f5 = (NonZeroInt(-5,5)*x^(RandInt(1,3)) - RandInt(-5,5))
+    fdisp = f1*f2*f3*f4*f5
+    ans = (derivative(f1,x)/f1 + derivative(f2,x)/f2 + derivative(f3,x)/f3 + derivative(f4,x)/f4 + derivative(f5,x)/f5)*fdisp
+    return [fdisp, ans]
+
+##### Problem p1
+p1gen = logarithmicDifferentiation()
+p1fdisp = p1gen[0]
+p1ans = p1gen[1]
+\end{sagesilent}
+
+\begin{problem}Compute the derivative of $f(x)=\sage{p1fdisp}$ using logarithmic differentiation. $f'(x)=\answer{\sage{p1ans}}$\end{problem}

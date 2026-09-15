@@ -1,0 +1,82 @@
+TITLE: Newtonian Mechanics
+TAGS: Derivatives, Word Problem
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def newtonianMechanics2():
+    var('t,x,y,z,X,Y,Z')
+    c1 = RandInt(-1,10)
+    c2 = NonZeroInt(-1,10,[c1, c1-1, c1+1])
+    lead = NonZeroInt(-5,5)
+    fderZ = sorted([c1,c2])
+    f1der = lead*(t-c1)*(t-c2)
+    fdisp = integral(f1der,t) + RandInt(-5,5)
+    start = RandInt(fderZ[0],fderZ[1])
+    end = RandInt(fderZ[1],12)
+    ans1 = fdisp(t=end)-fdisp(t=start)
+    ans2 = abs(fdisp(t=fderZ[1])-fdisp(t=start)) + abs(fdisp(t=end) - fdisp(t=fderZ[1]))
+    return [fdisp, start, end, ans1, ans2]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def newtonianMechanics2():
+    var('t,x,y,z,X,Y,Z')
+    c1 = RandInt(-1,10)
+    c2 = NonZeroInt(-1,10,[c1, c1-1, c1+1])
+    lead = NonZeroInt(-5,5)
+    fderZ = sorted([c1,c2])
+    f1der = lead*(t-c1)*(t-c2)
+    fdisp = integral(f1der,t) + RandInt(-5,5)
+    start = RandInt(fderZ[0],fderZ[1])
+    end = RandInt(fderZ[1],12)
+    ans1 = fdisp(t=end)-fdisp(t=start)
+    ans2 = abs(fdisp(t=fderZ[1])-fdisp(t=start)) + abs(fdisp(t=end) - fdisp(t=fderZ[1]))
+    return [fdisp, start, end, ans1, ans2]
+
+##### Problem p2
+p2gen = newtonianMechanics2()
+p2fdisp = p2gen[0]
+p2start = p2gen[1]
+p2end = p2gen[2]
+p2ans1 = p2gen[3]
+p2ans2 = p2gen[4]
+\end{sagesilent}
+
+\begin{problem}
+A particle's position in space along a straight path is modeled by the function $s(t) = \sage{p2fdisp}$. Determine the particle's net distance traveled from $t=\sage{p2start}$ to $t=\sage{p2end}$: $\answer{\sage{p2ans1}}$.
+\begin{problem}
+Determine the particle's total distance traveled from $t=\sage{p2start}$ to $t=\sage{p2end}$: $\answer{\sage{p2ans2}}$.
+\end{problem}
+\end{problem}

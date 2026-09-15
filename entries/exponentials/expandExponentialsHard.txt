@@ -1,0 +1,97 @@
+TITLE: Expanding Exponentials (hard)
+TAGS: Exponential Functions, Properties of Exponents, Expanding, hard
+
+EXAMPLE:
+
+CODE-SAGE:
+var('x,y,z')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def expandExponentialsHard():
+    b1 = RandInt(2,6)
+    b2 = RandInt(2,5)
+    b3 = NonZeroInt(2,5,[b2])
+    b4 = NonZeroInt(2,5,[b2,b3])
+    r1 = NonZeroInt(-5,5)/RandInt(1,10)
+    r2 = NonZeroInt(-5,5)/RandInt(1,10)
+    r3 = NonZeroInt(-5,5)/RandInt(1,10)
+    r4 = NonZeroInt(-5,5)/RandInt(1,10)
+    q1 = b1^(b2*x^r1 + b3*y^r2 + b4*z^r3 + r4)
+    a1 = abs(b1^r4)
+    return [b1,b2,b3,b4,r1,r2,r3,r4,q1,a1]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x,y,z')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def expandExponentialsHard():
+    b1 = RandInt(2,6)
+    b2 = RandInt(2,5)
+    b3 = NonZeroInt(2,5,[b2])
+    b4 = NonZeroInt(2,5,[b2,b3])
+    r1 = NonZeroInt(-5,5)/RandInt(1,10)
+    r2 = NonZeroInt(-5,5)/RandInt(1,10)
+    r3 = NonZeroInt(-5,5)/RandInt(1,10)
+    r4 = NonZeroInt(-5,5)/RandInt(1,10)
+    q1 = b1^(b2*x^r1 + b3*y^r2 + b4*z^r3 + r4)
+    a1 = abs(b1^r4)
+    return [b1,b2,b3,b4,r1,r2,r3,r4,q1,a1]
+
+p1gen = expandExponentialsHard()
+p1b1 = p1gen[0]
+p1b2 = p1gen[1]
+p1b3 = p1gen[2]
+p1b4 = p1gen[3]
+p1r1 = p1gen[4]
+p1r2 = p1gen[5]
+p1r3 = p1gen[6]
+p1r4 = p1gen[7]
+p1q1 = p1gen[8]
+p1a1 = p1gen[9]
+\end{sagesilent}
+
+\begin{problem}
+    \begin{hint}
+        Don't get intimidated! This is just like the similar problem in the previous section - just harder! Start by using negative exponents to get the terms in the big exponent to not have complex fractions.
+    \end{hint}
+    \begin{hint}
+        Split the exponent by expanding out (term by term in the exponent) using $A^{B+C} = (A^B)(A^C)$.
+    \end{hint}
+    \begin{hint}
+        Remember that you can break apart multiplication as well, using the property $A^{kB} = (A^k)^B$. Use this to get rid of the constant coefficients in the exponents.
+    \end{hint}
+    Expand the following exponential so that each exponent has at most one term.
+    \[
+        \sage{p1q1}
+            = \answer{\sage{p1a1}} \cdot {\sage{p1b1^p1b2}}^{\answer{x^{\sage{p1r1}}}} \cdot \answer{\sage{p1b1^p1b3}}^{y^{\answer{\sage{p1r2}}}} \cdot {\sage{p1b1^p1b4}}^{z^{\answer{\sage{p1r3}}}}
+    \]
+\end{problem}

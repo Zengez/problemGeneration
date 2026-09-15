@@ -1,0 +1,146 @@
+TITLE: Computing Inequalities (medium)
+TAGS: Functions, Inequalities, medium
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def computeInequalitiesMedium():
+    var('x,y,z,X,Y,Z,r,R')
+    var('f,g,h,dx,dy,dz,dh,df')
+    c1 = NonZeroInt(-5,5)
+    c2 = RandInt(-5,5)
+    c3 = NonZeroInt(-5,5,[c1])
+    c4 = RandInt(-5,5)
+
+
+    fLeft = c1*x^2-c2
+    fRight = c3*x-c4
+
+    check = RandInt(-10,10)
+
+    while abs(fLeft(x=check))>300 or abs(fRight(x=check))>300:
+        check = RandInt(-10,10)
+        fLeft = c1*x^2-c2
+        fRight = c3*x-c4
+
+    ## Determine which of the symbols we will use in the inequality from: [<, <=, >, >=]
+    sym1Choice=RandInt(0,3)
+
+    ## Assume it isn't true, then flip it to true if it is. Faster computation this way.
+    ans=0
+    if sym1Choice==0:
+        fDisp = (fLeft < fRight)
+        if fLeft(x=check)<fRight(x=check):
+            ans=1
+    if sym1Choice==1:
+        fDisp = (fLeft <= fRight)
+        if fLeft(x=check)<=fRight(x=check):
+            ans=1
+    if sym1Choice==2:
+        fDisp = (fLeft > fRight)
+        if fLeft(x=check)>fRight(x=check):
+            ans=1
+    if sym1Choice==3:
+        fDisp = (fLeft >= fRight)
+        if fLeft(x=check)>=fRight(x=check):
+            ans=1
+    return [check, fDisp, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def computeInequalitiesMedium():
+    var('x,y,z,X,Y,Z,r,R')
+    var('f,g,h,dx,dy,dz,dh,df')
+    c1 = NonZeroInt(-5,5)
+    c2 = RandInt(-5,5)
+    c3 = NonZeroInt(-5,5,[c1])
+    c4 = RandInt(-5,5)
+
+
+    fLeft = c1*x^2-c2
+    fRight = c3*x-c4
+
+    check = RandInt(-10,10)
+
+    while abs(fLeft(x=check))>300 or abs(fRight(x=check))>300:
+        check = RandInt(-10,10)
+        fLeft = c1*x^2-c2
+        fRight = c3*x-c4
+
+    ## Determine which of the symbols we will use in the inequality from: [<, <=, >, >=]
+    sym1Choice=RandInt(0,3)
+
+    ## Assume it isn't true, then flip it to true if it is. Faster computation this way.
+    ans=0
+    if sym1Choice==0:
+        fDisp = (fLeft < fRight)
+        if fLeft(x=check)<fRight(x=check):
+            ans=1
+    if sym1Choice==1:
+        fDisp = (fLeft <= fRight)
+        if fLeft(x=check)<=fRight(x=check):
+            ans=1
+    if sym1Choice==2:
+        fDisp = (fLeft > fRight)
+        if fLeft(x=check)>fRight(x=check):
+            ans=1
+    if sym1Choice==3:
+        fDisp = (fLeft >= fRight)
+        if fLeft(x=check)>=fRight(x=check):
+            ans=1
+    return [check, fDisp, ans]
+
+##### Problem p2
+p2gen = computeInequalitiesMedium()
+p2check = p2gen[0]
+p2fDisp = p2gen[1]
+p2ans = p2gen[2]
+\end{sagesilent}
+
+\begin{problem}
+    \begin{hint}
+        Start by plugging in the given value of $x$ on both sides and fully computing each side
+    \end{hint}
+    \begin{hint}
+        Next determine if the resulting inequality for the numbers is true.
+    \end{hint}
+
+    Determine if the following inequality is true, for $x=\sage{p2check}$.
+    
+    \[
+        \sage{p2fDisp}
+    \]
+    
+    If the inequality is true, enter 1, otherwise enter 0. $\answer{\sage{p2ans}}$
+\end{problem}

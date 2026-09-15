@@ -1,0 +1,51 @@
+TITLE: Sigma Notation
+TAGS: Integration, Sigma Notation, Notation
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def sigmaNotation():
+    var('k,x,y,z,X,Y,Z')
+    indexStart = RandInt(-4,4)
+    indexEnd = RandInt(indexStart+1, 10)
+    f1 = RandInt(-5,5)*x+RandInt(-5,5)*x^2+RandInt(-5,5)*e^x
+    ans = sum(f1,x,indexStart,indexEnd)
+    totalTerms = indexEnd-indexStart+1
+    return [indexStart, indexEnd, f1, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def sigmaNotation():
+    var('k,x,y,z,X,Y,Z')
+    indexStart = RandInt(-4,4)
+    indexEnd = RandInt(indexStart+1, 10)
+    f1 = RandInt(-5,5)*x+RandInt(-5,5)*x^2+RandInt(-5,5)*e^x
+    ans = sum(f1,x,indexStart,indexEnd)
+    totalTerms = indexEnd-indexStart+1
+    return [indexStart, indexEnd, f1, ans]
+
+##### Problem p1
+p1gen = sigmaNotation()
+p1indexStart = p1gen[0]
+p1indexEnd = p1gen[1]
+p1f1 = p1gen[2]
+p1ans = p1gen[3]
+\end{sagesilent}
+
+\begin{problem}
+Compute the following sum:
+\[\sum\limits_{k=\sage{p1indexStart}}^{\sage{p1indexEnd}} \sage{p1f1(x=k)} = \answer{\sage{p1ans}}\]
+\end{problem}

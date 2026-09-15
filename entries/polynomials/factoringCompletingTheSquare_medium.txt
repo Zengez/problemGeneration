@@ -1,0 +1,54 @@
+TITLE: Factoring by Completing the Square (medium)
+TAGS: Polynomials, Factoring, Functions, medium
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def factoringCompletingTheSquareMedium():
+    # Medium mode, allow non-monic, but keep the ``b/2'' term a nice number.
+    c1 = RandInt(-10,10)
+    c2 = RandInt(2,5)
+    c3 = RandInt(-10,10)
+    f1 = c2*(x-c1)^2 + c3
+    f2 = expand(f1)
+    return [f2, c2, c1, c3]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def factoringCompletingTheSquareMedium():
+    # Medium mode, allow non-monic, but keep the ``b/2'' term a nice number.
+    c1 = RandInt(-10,10)
+    c2 = RandInt(2,5)
+    c3 = RandInt(-10,10)
+    f1 = c2*(x-c1)^2 + c3
+    f2 = expand(f1)
+    return [f2, c2, c1, c3]
+
+##### Problem p2
+p2gen = factoringCompletingTheSquareMedium()
+p2f2 = p2gen[0]
+p2c2 = p2gen[1]
+p2c1 = p2gen[2]
+p2c3 = p2gen[3]
+\end{sagesilent}
+
+\begin{problem}
+Complete the square on the following quadratic:
+\[\sage{p2f2} = \answer{\sage{p2c2}}(\answer{\sage{x-p2c1}})^2 + \answer{\sage{p2c3}}\]
+\end{problem}

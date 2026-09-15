@@ -1,0 +1,61 @@
+TITLE: Intermediate Value Theorem Applications (medium)
+TAGS: Limits, Continuity, Intermediate Value Theorem, medium
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def intermediateValueApplication3Medium():
+    c1 = RandInt(-15,15)
+    target = NonZeroInt(-15,15)
+    if ((0<target and target<c1) or (target<0 and c1<target)): ans=1
+    else: ans=0
+    return [c1, target, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def intermediateValueApplication3Medium():
+    c1 = RandInt(-15,15)
+    target = NonZeroInt(-15,15)
+    if ((0<target and target<c1) or (target<0 and c1<target)): ans=1
+    else: ans=0
+    return [c1, target, ans]
+
+##### Problem p3
+p3gen = intermediateValueApplication3Medium()
+p3c1 = p3gen[0]
+p3target = p3gen[1]
+p3ans = p3gen[2]
+\end{sagesilent}
+
+\begin{problem}Let $h$ be continuous with horizontal asymptote $y=\sage{p3c1}$ and at least one x-intercept. Must there exist $x$ such that $h(x)=\sage{p3target}$? Enter 1 if yes, 0 if no: $\answer{\sage{p3ans}}$.\end{problem}

@@ -1,0 +1,51 @@
+TITLE: Simplifying Numeric Logs (easy)
+TAGS: Simplifying, Logarithmic Functions, Arithmetic, easy
+
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def simplifyNumericLogsEasy():
+    b1 = RandInt(2,7)
+    arg1 = 9999
+    while arg1 > 500:
+        pwr1 = RandInt(0,5)
+        arg1 = b1^pwr1
+    ans1 = pwr1
+    return [b1,arg1,ans1]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def simplifyNumericLogsEasy():
+    b1 = RandInt(2,7)
+    arg1 = 9999
+    while arg1 > 500:
+        pwr1 = RandInt(0,5)
+        arg1 = b1^pwr1
+    ans1 = pwr1
+    return [b1,arg1,ans1]
+
+p1gen = simplifyNumericLogsEasy()
+p1b1,p1arg1,p1ans1 = p1gen
+\end{sagesilent}
+
+\begin{problem}
+    \begin{hint}
+        Try rewriting the number inside the log as the base of the log to some power.
+    \end{hint}
+    Compute the following numeric exponential value.
+    $\Log_{\sage{p1b1}}\left({\sage{p1arg1}}\right) = \answer{\sage{p1ans1}}$
+\end{problem}

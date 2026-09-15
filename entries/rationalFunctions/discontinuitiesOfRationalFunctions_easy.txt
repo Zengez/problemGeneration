@@ -1,0 +1,77 @@
+TITLE: Discontinuities of Rational Functions (easy)
+TAGS: Rational Functions, Continuity, easy
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def discontinuitiesOfRationalFunctionsEasy():
+    c1=NonZeroInt(-3,3);c2=RandInt(-3,3);c3=NonZeroInt(-3,3);c4=RandInt(-3,3);c5=NonZeroInt(-3,3);c6=RandInt(-3,3);c7=NonZeroInt(-3,3);c8=RandInt(-3,3)
+    fTop=expand((c1*x-c2)*(c3*x-c4))
+    fBot=(c5*x-c6)
+    ans=RandInt(1,3)
+    if ans==1: target=NonZeroInt(-5,5,[c8/c7,c6/c5])
+    if ans==2:
+        target=NonZeroInt(-5,5,[c8/c7,c6/c5]);fTop=fTop*(x-target);fBot=fBot*(x-target)
+    if ans==3:
+        target=NonZeroInt(-5,5,[c4/c3,c2/c1]);fBot=fBot*(x-target)
+    if ans>1: ans=2
+    return [fTop, fBot, target, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def discontinuitiesOfRationalFunctionsEasy():
+    c1=NonZeroInt(-3,3);c2=RandInt(-3,3);c3=NonZeroInt(-3,3);c4=RandInt(-3,3);c5=NonZeroInt(-3,3);c6=RandInt(-3,3);c7=NonZeroInt(-3,3);c8=RandInt(-3,3)
+    fTop=expand((c1*x-c2)*(c3*x-c4))
+    fBot=(c5*x-c6)
+    ans=RandInt(1,3)
+    if ans==1: target=NonZeroInt(-5,5,[c8/c7,c6/c5])
+    if ans==2:
+        target=NonZeroInt(-5,5,[c8/c7,c6/c5]);fTop=fTop*(x-target);fBot=fBot*(x-target)
+    if ans==3:
+        target=NonZeroInt(-5,5,[c4/c3,c2/c1]);fBot=fBot*(x-target)
+    if ans>1: ans=2
+    return [fTop, fBot, target, ans]
+
+##### Problem p1
+p1gen = discontinuitiesOfRationalFunctionsEasy()
+p1fTop = p1gen[0]
+p1fBot = p1gen[1]
+p1target = p1gen[2]
+p1ans = p1gen[3]
+\end{sagesilent}
+
+\begin{problem}$r(x)=\frac{\sage{p1fTop}}{\sage{p1fBot}}$ at $x=\sage{p1target}$: $\answer{\sage{p1ans}}$.\end{problem}

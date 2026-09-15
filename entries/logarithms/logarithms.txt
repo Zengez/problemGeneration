@@ -1,0 +1,72 @@
+TITLE: Derivatives of Logarithmic Functions
+TAGS: Derivatives, Logarithmic Functions
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def logarithms():
+    var('x,y,z,X,Y,Z')
+    c1 = NonZeroInt(-5,5)
+    c2 = NonZeroInt(-5,5)
+    c3 = RandInt(-5,5)
+    c4 = RandInt(-5,5)
+    flip = 0#RandInt(0,1)
+    base = flip*e + (1-flip)*RandInt(2,10)
+    f1 = log(x)/(log(base))
+    f2 = c1*f1(x=(c2*x - c3)) + c4
+    ans = derivative(f2,x)
+    return [f2, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def logarithms():
+    var('x,y,z,X,Y,Z')
+    c1 = NonZeroInt(-5,5)
+    c2 = NonZeroInt(-5,5)
+    c3 = RandInt(-5,5)
+    c4 = RandInt(-5,5)
+    flip = 0#RandInt(0,1)
+    base = flip*e + (1-flip)*RandInt(2,10)
+    f1 = log(x)/(log(base))
+    f2 = c1*f1(x=(c2*x - c3)) + c4
+    ans = derivative(f2,x)
+    return [f2, ans]
+
+##### Problem p1
+p1gen = logarithms()
+p1f2 = p1gen[0]
+p1ans = p1gen[1]
+\end{sagesilent}
+
+\begin{problem}Compute the derivative of $f(x)=\sage{p1f2}$. $f'(x)=\answer{\sage{p1ans}}$\end{problem}

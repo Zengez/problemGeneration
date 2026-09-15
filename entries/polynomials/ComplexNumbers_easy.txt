@@ -1,0 +1,81 @@
+TITLE: Complex Numbers (easy)
+TAGS: Polynomials, Complex Numbers, Functions, easy
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def complexNumbersEasy():
+    c1 = NonZeroInt(-10,10)
+    c2 = NonZeroInt(-10,10)
+    c3 = NonZeroInt(-10,10)
+    c4 = NonZeroInt(-10,10)
+
+    f1 = c1 + c2*i
+    f2 = c3 + c4*i
+
+    ans = f1 + f2
+    ansR=ans.real()
+    ansI=ans.imag()
+    return [f1, f2, ansR, ansI]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def complexNumbersEasy():
+    c1 = NonZeroInt(-10,10)
+    c2 = NonZeroInt(-10,10)
+    c3 = NonZeroInt(-10,10)
+    c4 = NonZeroInt(-10,10)
+
+    f1 = c1 + c2*i
+    f2 = c3 + c4*i
+
+    ans = f1 + f2
+    ansR=ans.real()
+    ansI=ans.imag()
+    return [f1, f2, ansR, ansI]
+
+##### Problem p1
+p1gen = complexNumbersEasy()
+p1f1 = p1gen[0]
+p1f2 = p1gen[1]
+p1ansR = p1gen[2]
+p1ansI = p1gen[3]
+\end{sagesilent}
+
+\begin{problem}
+            \begin{hint}
+                When adding or subtracting complex numbers, you can just add (or subtract) the individual parts independently.
+            \end{hint}
+            Simplify the following into $A + B\cdot i$ form: $\sage{p1f1} + \sage{p1f2} = \answer{\sage{p1ansR}} + \answer{\sage{p1ansI}}\cdot i$
+        \end{problem}

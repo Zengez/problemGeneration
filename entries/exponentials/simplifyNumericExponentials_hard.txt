@@ -1,0 +1,71 @@
+TITLE: Simplifying Numeric Exponentials (hard)
+TAGS: Exponential Functions, Simplifying, Arithmetic, hard
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def simplifyNumericExponentialsHard():
+    ans1=99999/5
+    while ((numerator(ans1)>2000) or (denominator(ans1)>2000) or GCD(b1T,b1B)>1): b1T=RandInt(1,8);b1B=RandInt(2,6);b1=(-1)^(RandInt(0,1))*(b1T/b1B);pwr1=NonZeroInt(-6,6,[0,1]);ans1=(b1)^pwr1
+    ans2=99999/5
+    while ((numerator(ans2)>2000) or (denominator(ans2)>2000) or GCD(b2T,b2B)>1): b2T=RandInt(1,8);b2B=RandInt(2,6);b2=(-1)^(RandInt(0,1))*(b2T/b2B);pwr2=-sign(pwr1)*RandInt(2,6);ans2=(b2)^pwr2
+    ans3=99999/5
+    while ((numerator(ans3)>2000) or (denominator(ans3)>2000) or GCD(b3T,b3B)>1): b3T=RandInt(2,7);b3B=RandInt(2,6);b3=(-1)^(RandInt(0,1))*(b3T/b3B);pwr3=NonZeroInt(-6,6,[-1,0,1]);ans3=(b3)^pwr3
+    return [b1, pwr1, b2, pwr2, b3, pwr3, ans1, ans2, ans3]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def simplifyNumericExponentialsHard():
+    ans1=99999/5
+    while ((numerator(ans1)>2000) or (denominator(ans1)>2000) or GCD(b1T,b1B)>1): b1T=RandInt(1,8);b1B=RandInt(2,6);b1=(-1)^(RandInt(0,1))*(b1T/b1B);pwr1=NonZeroInt(-6,6,[0,1]);ans1=(b1)^pwr1
+    ans2=99999/5
+    while ((numerator(ans2)>2000) or (denominator(ans2)>2000) or GCD(b2T,b2B)>1): b2T=RandInt(1,8);b2B=RandInt(2,6);b2=(-1)^(RandInt(0,1))*(b2T/b2B);pwr2=-sign(pwr1)*RandInt(2,6);ans2=(b2)^pwr2
+    ans3=99999/5
+    while ((numerator(ans3)>2000) or (denominator(ans3)>2000) or GCD(b3T,b3B)>1): b3T=RandInt(2,7);b3B=RandInt(2,6);b3=(-1)^(RandInt(0,1))*(b3T/b3B);pwr3=NonZeroInt(-6,6,[-1,0,1]);ans3=(b3)^pwr3
+    return [b1, pwr1, b2, pwr2, b3, pwr3, ans1, ans2, ans3]
+
+##### Problem p3
+p3gen = simplifyNumericExponentialsHard()
+p3b1 = p3gen[0]
+p3pwr1 = p3gen[1]
+p3b2 = p3gen[2]
+p3pwr2 = p3gen[3]
+p3b3 = p3gen[4]
+p3pwr3 = p3gen[5]
+p3ans1 = p3gen[6]
+p3ans2 = p3gen[7]
+p3ans3 = p3gen[8]
+\end{sagesilent}
+
+\begin{problem}Compute $\sage{p3b1}^{\sage{p3pwr1}},\sage{p3b2}^{\sage{p3pwr2}},\sage{p3b3}^{\sage{p3pwr3}}$: $\answer{\sage{p3ans1}},\answer{\sage{p3ans2}},\answer{\sage{p3ans3}}$.\end{problem}

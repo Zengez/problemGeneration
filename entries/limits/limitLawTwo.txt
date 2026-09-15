@@ -1,0 +1,62 @@
+TITLE: Applying Limit Laws
+TAGS: Limits, Limit Laws
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def limitLawTwo():
+    var('x,y,z,X,Y,Z')
+    c1 = RandInt(-5,5); c2 = RandInt(-5,5); c3 = NonZeroInt(-8,8,[-1,0,1]); c4 = NonZeroInt(-8,8,[-1,0,1]); target = RandInt(-5,5); ans = c3*c1 + c4*c2
+    funcvec = [x, x^2, x^3, e^x, 2^x, log(abs(x)), sqrt(abs(x)), abs(x)]
+    return [target, c1, c2, c3, c4, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def limitLawTwo():
+    var('x,y,z,X,Y,Z')
+    c1 = RandInt(-5,5); c2 = RandInt(-5,5); c3 = NonZeroInt(-8,8,[-1,0,1]); c4 = NonZeroInt(-8,8,[-1,0,1]); target = RandInt(-5,5); ans = c3*c1 + c4*c2
+    funcvec = [x, x^2, x^3, e^x, 2^x, log(abs(x)), sqrt(abs(x)), abs(x)]
+    return [target, c1, c2, c3, c4, ans]
+
+##### Problem p1
+p1gen = limitLawTwo()
+p1target = p1gen[0]
+p1c1 = p1gen[1]
+p1c2 = p1gen[2]
+p1c3 = p1gen[3]
+p1c4 = p1gen[4]
+p1ans = p1gen[5]
+\end{sagesilent}
+
+\begin{problem}If $\lim_{x\to\sage{p1target}}f(x)=\sage{p1c1}$ and $\lim_{x\to\sage{p1target}}g(x)=\sage{p1c2}$, evaluate $\lim_{x\to\sage{p1target}}(\sage{p1c3}f(x)+\sage{p1c4}g(x))=\answer{\sage{p1ans}}$.\end{problem}

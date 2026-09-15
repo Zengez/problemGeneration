@@ -1,0 +1,57 @@
+TITLE: Evaluating Limits with Limit Laws
+TAGS: Limits, Limit Laws
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def limitLawOne2():
+    var('x,y,z,X,Y,Z')
+    c1=RandInt(1,10); c2=RandInt(1,10); target=NonZeroInt(1,10,[c2,c2^2,c2^3]); n1=RandInt(1,3); n2=RandInt(1,3); f1=(x^n1-c1)/(x^n2-c2); ans=f1(x=target)
+    return [target, f1, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def limitLawOne2():
+    var('x,y,z,X,Y,Z')
+    c1=RandInt(1,10); c2=RandInt(1,10); target=NonZeroInt(1,10,[c2,c2^2,c2^3]); n1=RandInt(1,3); n2=RandInt(1,3); f1=(x^n1-c1)/(x^n2-c2); ans=f1(x=target)
+    return [target, f1, ans]
+
+##### Problem p2
+p2gen = limitLawOne2()
+p2target = p2gen[0]
+p2f1 = p2gen[1]
+p2ans = p2gen[2]
+\end{sagesilent}
+
+\begin{problem}Calculate $\lim_{x\to\sage{p2target}}\sage{p2f1}=\answer{\sage{p2ans}}$.\end{problem}

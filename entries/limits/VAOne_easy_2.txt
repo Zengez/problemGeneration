@@ -1,0 +1,83 @@
+TITLE: Vertical Asymptotes (easy)
+TAGS: Limits, Asymptotes, Vertical Asymptotes, easy
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def vAOneEasy():
+    var('x,y,z,X,Y,Z')
+    funcvec = [e^x-1,x,x^2,abs(x),sqrt(abs(x))]
+    target = RandInt(-10,10)
+    c1 = NonZeroInt(1,10,[0,target])
+    c2 = NonZeroInt(1,10,[0,c1,target])
+    c3 = NonZeroInt(1,10,[0,c1,c2,target])
+    c4 = NonZeroInt(1,10,[0,c1,c2,c3,target])
+    c5 = NonZeroInt(1,10,[0,c1,c2,c3,c4,target])
+    c6 = NonZeroInt(1,10,[0,c1,c2,c3,c4,c5,target])
+    c7 = NonZeroInt(-30,30); c8 = NonZeroInt(-30,30)
+    f1pick = RandInt(0,4); f2pick = RandInt(0,4); f3pick = RandInt(0,4); f4pick = RandInt(0,4); f5pick = RandInt(0,4); f6pick = RandInt(0,4)
+    f1 = funcvec[f1pick](x=(x - c1)); f2 = funcvec[f2pick](x=(x - c2)); f3 = funcvec[f3pick](x=(x - c3)); f4 = funcvec[f4pick](x=(x - c4)); f5 = funcvec[f5pick](x=(x - c5)); f6 = funcvec[f6pick](x=(x - c6))
+    ftop = f1*f2*f3
+    fbot = f4*f5*f6
+    ans = c4+c5+c6
+    return [ftop, fbot, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def vAOneEasy():
+    var('x,y,z,X,Y,Z')
+    funcvec = [e^x-1,x,x^2,abs(x),sqrt(abs(x))]
+    target = RandInt(-10,10)
+    c1 = NonZeroInt(1,10,[0,target])
+    c2 = NonZeroInt(1,10,[0,c1,target])
+    c3 = NonZeroInt(1,10,[0,c1,c2,target])
+    c4 = NonZeroInt(1,10,[0,c1,c2,c3,target])
+    c5 = NonZeroInt(1,10,[0,c1,c2,c3,c4,target])
+    c6 = NonZeroInt(1,10,[0,c1,c2,c3,c4,c5,target])
+    c7 = NonZeroInt(-30,30); c8 = NonZeroInt(-30,30)
+    f1pick = RandInt(0,4); f2pick = RandInt(0,4); f3pick = RandInt(0,4); f4pick = RandInt(0,4); f5pick = RandInt(0,4); f6pick = RandInt(0,4)
+    f1 = funcvec[f1pick](x=(x - c1)); f2 = funcvec[f2pick](x=(x - c2)); f3 = funcvec[f3pick](x=(x - c3)); f4 = funcvec[f4pick](x=(x - c4)); f5 = funcvec[f5pick](x=(x - c5)); f6 = funcvec[f6pick](x=(x - c6))
+    ftop = f1*f2*f3
+    fbot = f4*f5*f6
+    ans = c4+c5+c6
+    return [ftop, fbot, ans]
+
+##### Problem p2
+p2gen = vAOneEasy()
+p2ftop = p2gen[0]
+p2fbot = p2gen[1]
+p2ans = p2gen[2]
+\end{sagesilent}
+
+\begin{problem}Determine vertical asymptotes for $g(x)=\frac{\sage{p2ftop}}{\sage{p2fbot}}$. Sum of $x$ values: $\answer{\sage{p2ans}}$.\end{problem}

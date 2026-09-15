@@ -1,0 +1,117 @@
+TITLE: Properties of Logarithms (easy)
+TAGS: Logarithmic Functions, Expanding Logarithms, Condensing Logarithms, easy
+
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x,y')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def propertiesOfLogsEasy():
+    Ac1 = RandInt(-10,10)
+    Ac2 = NonZeroInt(-10,10,[Ac1])
+    Apwr1 = RandInt(1,6)
+    Apwr2 = RandInt(1,6)
+    Af1 = (x-Ac1)^Apwr1
+    Af2 = (y-Ac2)^Apwr2
+    Aint = (Af1*Af2)
+    Aans1x = Apwr1
+    Aans1y = Apwr2
+    Bbase = RandInt(2,10)
+    Bc1 = RandInt(-10,10)
+    Bc2 = NonZeroInt(-10,10,[Bc1])
+    Bpwr1 = NonZeroInt(-6,6)
+    Bpwr2 = NonZeroInt(-6,6)
+    Bf1 = (x-Bc1)
+    Bf2 = (y-Bc2)
+    Bans = Bf1^Bpwr1*Bf2^Bpwr2
+    return [Ac1,Ac2,Apwr1,Apwr2,Af1,Af2,Aint,Aans1x,Aans1y,Bbase,Bc1,Bc2,Bpwr1,Bpwr2,Bf1,Bf2,Bans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x,y')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def propertiesOfLogsEasy():
+    Ac1 = RandInt(-10,10)
+    Ac2 = NonZeroInt(-10,10,[Ac1])
+    Apwr1 = RandInt(1,6)
+    Apwr2 = RandInt(1,6)
+    Af1 = (x-Ac1)^Apwr1
+    Af2 = (y-Ac2)^Apwr2
+    Aint = (Af1*Af2)
+    Aans1x = Apwr1
+    Aans1y = Apwr2
+    Bbase = RandInt(2,10)
+    Bc1 = RandInt(-10,10)
+    Bc2 = NonZeroInt(-10,10,[Bc1])
+    Bpwr1 = NonZeroInt(-6,6)
+    Bpwr2 = NonZeroInt(-6,6)
+    Bf1 = (x-Bc1)
+    Bf2 = (y-Bc2)
+    Bans = Bf1^Bpwr1*Bf2^Bpwr2
+    return [Ac1,Ac2,Apwr1,Apwr2,Af1,Af2,Aint,Aans1x,Aans1y,Bbase,Bc1,Bc2,Bpwr1,Bpwr2,Bf1,Bf2,Bans]
+
+p1gen = propertiesOfLogsEasy()
+p1Ac1,p1Ac2,p1Apwr1,p1Apwr2,p1Af1,p1Af2,p1Aint,p1Aans1x,p1Aans1y,p1Bbase,p1Bc1,p1Bc2,p1Bpwr1,p1Bpwr2,p1Bf1,p1Bf2,p1Bans = p1gen
+\end{sagesilent}
+
+\begin{problem}
+    \begin{hint}
+        Use the properties that let you separate logarithms to split each factor into its own logarithm.
+    \end{hint}
+    \begin{hint}
+        Use the property $\Log(A^B) = B\Log(A)$ to pull down any powers of factors and make them into coefficients.
+    \end{hint}
+    Expand the following logarithmic expression.\\
+    \[
+        \Log\left( \sage{p1Aint} \right) =
+        \answer{\sage{p1Aans1x}}\Log\left(\sage{x - p1Ac1}\right) +
+        \answer{\sage{p1Aans1y}}\Log\left(\sage{y - p1Ac2}\right)
+    \]
+\end{problem}
+
+\begin{problem}
+    \begin{hint}
+        Use the property $\Log(A^B) = B\Log(A)$ to transform any coefficients of logs into a power of the argument.
+    \end{hint}
+    \begin{hint}
+        Use the property $\Log(A) + \Log(B) = \Log(AB)$ and/or $\Log(A) - \Log(B) = \Log\left(\frac{A}{B}\right)$ to merge separate logarithms into one logarithm.
+    \end{hint}
+    Condense the following logarithmic expression down to one log term.
+    \[
+        (\sage{p1Bpwr1})\Log_{\sage{p1Bbase}}\left(\sage{p1Bf1}\right) +
+        (\sage{p1Bpwr2})\Log_{\sage{p1Bbase}}\left(\sage{p1Bf2}\right)
+        = \Log_{\sage{p1Bbase}}\left(\answer{\sage{p1Bans}}\right)
+    \]
+\end{problem}

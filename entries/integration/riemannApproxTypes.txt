@@ -1,0 +1,94 @@
+TITLE: Types of Riemann Sum Approximations
+TAGS: Integration, Riemann Sums
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def riemannApproxTypes():
+    var('k,x,y,z,X,Y,Z')
+    funcvec = [x,x^2,x^3,e^x]
+    ansREP = 111111/9999998
+    ansLEP = 0
+    ansWP = 0
+    while abs(numerator(ansREP))>1000 or abs(denominator(ansREP))>1000 or abs(numerator(ansLEP))>1000 or abs(denominator(ansLEP))>1000 or abs(numerator(ansWP))>1000 or abs(denominator(ansWP))> 1000:
+        sel = RandInt(0,3)
+        RecNum = RandInt(3,6)
+        start = RandInt(-5,5)
+        width = RandInt(1,3)/2
+        end = start+width*RecNum
+        f1 = NonZeroInt(-5,5)* funcvec[sel](x=(x - (start+width+RandInt(-3,3)/2)) ) + RandInt(-5,5)
+        ansREP = sum(width*f1(x=(start+k*width)),k,1,RecNum)
+        ansLEP = sum(width*f1(x=(start+k*width)),k,0,RecNum-1)
+        ansMP = sum(width*f1(x=(start+(k-1/2)*width)),k,1,RecNum)
+    return [RecNum, f1, start, end, ansREP, ansLEP, ansMP]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def riemannApproxTypes():
+    var('k,x,y,z,X,Y,Z')
+    funcvec = [x,x^2,x^3,e^x]
+    ansREP = 111111/9999998
+    ansLEP = 0
+    ansWP = 0
+    while abs(numerator(ansREP))>1000 or abs(denominator(ansREP))>1000 or abs(numerator(ansLEP))>1000 or abs(denominator(ansLEP))>1000 or abs(numerator(ansWP))>1000 or abs(denominator(ansWP))> 1000:
+        sel = RandInt(0,3)
+        RecNum = RandInt(3,6)
+        start = RandInt(-5,5)
+        width = RandInt(1,3)/2
+        end = start+width*RecNum
+        f1 = NonZeroInt(-5,5)* funcvec[sel](x=(x - (start+width+RandInt(-3,3)/2)) ) + RandInt(-5,5)
+        ansREP = sum(width*f1(x=(start+k*width)),k,1,RecNum)
+        ansLEP = sum(width*f1(x=(start+k*width)),k,0,RecNum-1)
+        ansMP = sum(width*f1(x=(start+(k-1/2)*width)),k,1,RecNum)
+    return [RecNum, f1, start, end, ansREP, ansLEP, ansMP]
+
+##### Problem p1
+p1gen = riemannApproxTypes()
+p1RecNum = p1gen[0]
+p1f1 = p1gen[1]
+p1start = p1gen[2]
+p1end = p1gen[3]
+p1ansREP = p1gen[4]
+p1ansLEP = p1gen[5]
+p1ansMP = p1gen[6]
+\end{sagesilent}
+
+\begin{problem}
+Use $\sage{p1RecNum}$ rectangles to approximate the area under the curve of the function $f(x) = \sage{p1f1}$ from $x=\sage{p1start}$ to $x=\sage{p1end}$ using...
+\begin{itemize}
+\item Right Endpoint Approximation Method: $\answer{\sage{p1ansREP}}$
+\item Left Endpoint Approximation Method: $\answer{\sage{p1ansLEP}}$
+\item Midpoint Approximation Method: $\answer{\sage{p1ansMP}}$
+\end{itemize}
+\end{problem}

@@ -1,0 +1,119 @@
+TITLE: Condensing Exponentials (hard)
+TAGS: Exponential Functions, Properties of Exponents, Condensing, hard
+
+EXAMPLE:
+
+CODE-SAGE:
+var('x,y,z')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def condenseExponentialsHard():
+    b1 = NonZeroInt(2,11,[4,8,9])
+    b2 = RandInt(2,5)
+    while b1^b2>500:
+        b2 = RandInt(2,5)
+    b3 = NonZeroInt(-5,5,[-b2,-1,0,1,b2])
+    while b1^b3>500:
+        b3 = NonZeroInt(-5,5,[-b2,-1,0,1,b2])
+    b4 = NonZeroInt(-5,5,[-b2,-b3,-1,0,1,b2,b3])
+    while b1^b3>500:
+        b3 = NonZeroInt(-5,5,[-b2,-b3,-1,0,1,b2,b3])
+    denom = RandInt(2,10)
+    r1 = NonZeroInt(-5,5)/RandInt(1,10)
+    r2 = RandInt(-5,5)/denom
+    r3 = NonZeroInt(-5,5)/RandInt(1,10)
+    r4 = RandInt(-5,5)/denom
+    r5 = NonZeroInt(-5,5)/RandInt(1,10)
+    r6 = RandInt(-5,5)/denom
+    r7 = NonZeroInt(2,10)/RandInt(1,10)
+    r8 = RandInt(-5,5)/denom
+    r9 = NonZeroInt(-5,5)/RandInt(1,10)
+    r10 = RandInt(-5,5)/denom
+    r11 = NonZeroInt(-5,5)/RandInt(1,10)
+    r12 = RandInt(-5,5)/denom
+    a1 = b2*(r1*x+r2)+b3*(r3*y+r4)+b4*(r5*z+r6)-(b4*(r7*x+r8)+b2*(r9*y+r10)+b3*(r11*z+r12))
+    q1 = ((b1^(b2))^(r1*x + r2)*(b1^(b3))^(r3*y + r4)*(b1^(b4))^(r5*z + r6))/((b1^(b4))^(r7*x + r8)*(b1^(b2))^(r9*y + r10)*(b1^(b3))^(r11*z + r12))
+    return [b1,b2,b3,b4,q1,a1]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x,y,z')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def condenseExponentialsHard():
+    b1 = NonZeroInt(2,11,[4,8,9])
+    b2 = RandInt(2,5)
+    while b1^b2>500:
+        b2 = RandInt(2,5)
+    b3 = NonZeroInt(-5,5,[-b2,-1,0,1,b2])
+    while b1^b3>500:
+        b3 = NonZeroInt(-5,5,[-b2,-1,0,1,b2])
+    b4 = NonZeroInt(-5,5,[-b2,-b3,-1,0,1,b2,b3])
+    while b1^b3>500:
+        b3 = NonZeroInt(-5,5,[-b2,-b3,-1,0,1,b2,b3])
+    denom = RandInt(2,10)
+    r1 = NonZeroInt(-5,5)/RandInt(1,10)
+    r2 = RandInt(-5,5)/denom
+    r3 = NonZeroInt(-5,5)/RandInt(1,10)
+    r4 = RandInt(-5,5)/denom
+    r5 = NonZeroInt(-5,5)/RandInt(1,10)
+    r6 = RandInt(-5,5)/denom
+    r7 = NonZeroInt(2,10)/RandInt(1,10)
+    r8 = RandInt(-5,5)/denom
+    r9 = NonZeroInt(-5,5)/RandInt(1,10)
+    r10 = RandInt(-5,5)/denom
+    r11 = NonZeroInt(-5,5)/RandInt(1,10)
+    r12 = RandInt(-5,5)/denom
+    a1 = b2*(r1*x+r2)+b3*(r3*y+r4)+b4*(r5*z+r6)-(b4*(r7*x+r8)+b2*(r9*y+r10)+b3*(r11*z+r12))
+    q1 = ((b1^(b2))^(r1*x + r2)*(b1^(b3))^(r3*y + r4)*(b1^(b4))^(r5*z + r6))/((b1^(b4))^(r7*x + r8)*(b1^(b2))^(r9*y + r10)*(b1^(b3))^(r11*z + r12))
+    return [b1,b2,b3,b4,q1,a1]
+
+p1gen = condenseExponentialsHard()
+p1b1 = p1gen[0]
+p1b2 = p1gen[1]
+p1b3 = p1gen[2]
+p1b4 = p1gen[3]
+p1q1 = p1gen[4]
+p1a1 = p1gen[5]
+\end{sagesilent}
+
+\begin{problem}
+    \begin{hint}
+        Don't get intimidated! This is just like the similar problem in the previous section - just harder! Start by getting all the bases to be the same value.
+    \end{hint}
+    Condense the following expression into a single exponential.\\
+    \[
+        \sage{p1q1} = {\sage{p1b1}}^{\answer{\sage{p1a1}}}
+    \]
+    (Hint: ${\sage{p1b1}}^{\sage{p1b2}} = \sage{p1b1^p1b2}$,
+        $\sage{p1b1}^{\sage{p1b3}} = \sage{p1b1^p1b3}$,
+        $\sage{p1b1}^{\sage{p1b4}} = \sage{p1b1^p1b4}$)
+\end{problem}

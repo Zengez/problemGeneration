@@ -1,0 +1,46 @@
+TITLE: Simplifying Numeric Radicals (hard)
+TAGS: Radical Functions, Simplifying, Arithmetic, hard
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def simplifyNumericRadicalsHard():
+    var('x')
+    numb=99999999;rootval=RandInt(2,4)
+    while numb>10000:
+        pwr1=RandInt(0,3)+rootval;pwr2=RandInt(0,6);pwr3=RandInt(0,6-pwr2);pwr4=RandInt(0,6-pwr3);numb=2^pwr1*3^pwr2*5^pwr3*7^pwr4
+    pwr1inner=pwr1%rootval;pwr2inner=pwr2%rootval;pwr3inner=pwr3%rootval;pwr4inner=pwr4%rootval;pwr1outer=floor(pwr1/rootval);pwr2outer=floor(pwr2/rootval);pwr3outer=floor(pwr3/rootval);pwr4outer=floor(pwr4/rootval);inner=2^pwr1inner*3^pwr2inner*5^pwr3inner*7^pwr4inner;outer=2^pwr1outer*3^pwr2outer*5^pwr3outer*7^pwr4outer;factored=factor(numb)
+    return [rootval, numb, outer, inner]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def simplifyNumericRadicalsHard():
+    var('x')
+    numb=99999999;rootval=RandInt(2,4)
+    while numb>10000:
+        pwr1=RandInt(0,3)+rootval;pwr2=RandInt(0,6);pwr3=RandInt(0,6-pwr2);pwr4=RandInt(0,6-pwr3);numb=2^pwr1*3^pwr2*5^pwr3*7^pwr4
+    pwr1inner=pwr1%rootval;pwr2inner=pwr2%rootval;pwr3inner=pwr3%rootval;pwr4inner=pwr4%rootval;pwr1outer=floor(pwr1/rootval);pwr2outer=floor(pwr2/rootval);pwr3outer=floor(pwr3/rootval);pwr4outer=floor(pwr4/rootval);inner=2^pwr1inner*3^pwr2inner*5^pwr3inner*7^pwr4inner;outer=2^pwr1outer*3^pwr2outer*5^pwr3outer*7^pwr4outer;factored=factor(numb)
+    return [rootval, numb, outer, inner]
+
+##### Problem p3
+p3gen = simplifyNumericRadicalsHard()
+p3rootval = p3gen[0]
+p3numb = p3gen[1]
+p3outer = p3gen[2]
+p3inner = p3gen[3]
+\end{sagesilent}
+
+\begin{problem}Simplify $\sqrt[\sage{p3rootval}]{\sage{p3numb}}=\answer{\sage{p3outer}}\sqrt[\sage{p3rootval}]{\answer{\sage{p3inner}}}$.\end{problem}

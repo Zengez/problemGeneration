@@ -1,0 +1,75 @@
+TITLE: Evaluating Piecewise Functions (hard)
+TAGS: Piecewise Functions, Evaluation, hard
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def piecewiseComputationHard():
+    ans=2000;l1=RandInt(-15,-1);r1=l1+RandInt(1,7);l2=r1+RandInt(1,7);r2=l2+RandInt(1,7);l3=r2+RandInt(1,7);r3=l3+RandInt(1,7);eval=RandInt(l1-1,r3+1);funcvec=[x,x^2,x^3,sqrt(abs(x)),ln(abs(x)+1),e^x];f1pick=RandInt(0,5);f2pick=RandInt(0,5);f3pick=RandInt(0,5);f1=NonZeroInt(-5,5)*funcvec[f1pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f2=NonZeroInt(-5,5)*funcvec[f2pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f3=NonZeroInt(-5,5)*funcvec[f3pick](x=(x-RandInt(-5,5)))+RandInt(-5,5)
+    if ((l1-1<eval) and (eval<r1+1)):ans=f1(x=eval)
+    elif ((l2<eval) and (eval<r2+1)):ans=f2(x=eval)
+    elif ((l3<eval) and (eval<r3+1)):ans=f3(x=eval)
+    while ((abs(ans)>400) and (((l1<=eval) and (eval<=r1)) or ((l2<eval) and (eval<=r2)) or ((l3<eval) and (eval<=r3)))):
+        eval=RandInt(l1-3,r3+3);funcvec=[x,x^2,x^3,sqrt(abs(x)),ln(abs(x)+1),e^x];f1pick=RandInt(0,5);f2pick=RandInt(0,5);f3pick=RandInt(0,5);f1=NonZeroInt(-5,5)*funcvec[f1pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f2=NonZeroInt(-5,5)*funcvec[f2pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f3=NonZeroInt(-5,5)*funcvec[f3pick](x=(x-RandInt(-5,5)))+RandInt(-5,5)
+        if ((l1-1<eval) and (eval<r1+1)):ans=f1(x=eval)
+        elif ((l2<eval) and (eval<r2+1)):ans=f2(x=eval)
+        elif ((l3<eval) and (eval<r3+1)):ans=f3(x=eval)
+    if ans>400:ans=LatexExpr(r'DNE')
+    return [eval, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def piecewiseComputationHard():
+    ans=2000;l1=RandInt(-15,-1);r1=l1+RandInt(1,7);l2=r1+RandInt(1,7);r2=l2+RandInt(1,7);l3=r2+RandInt(1,7);r3=l3+RandInt(1,7);eval=RandInt(l1-1,r3+1);funcvec=[x,x^2,x^3,sqrt(abs(x)),ln(abs(x)+1),e^x];f1pick=RandInt(0,5);f2pick=RandInt(0,5);f3pick=RandInt(0,5);f1=NonZeroInt(-5,5)*funcvec[f1pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f2=NonZeroInt(-5,5)*funcvec[f2pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f3=NonZeroInt(-5,5)*funcvec[f3pick](x=(x-RandInt(-5,5)))+RandInt(-5,5)
+    if ((l1-1<eval) and (eval<r1+1)):ans=f1(x=eval)
+    elif ((l2<eval) and (eval<r2+1)):ans=f2(x=eval)
+    elif ((l3<eval) and (eval<r3+1)):ans=f3(x=eval)
+    while ((abs(ans)>400) and (((l1<=eval) and (eval<=r1)) or ((l2<eval) and (eval<=r2)) or ((l3<eval) and (eval<=r3)))):
+        eval=RandInt(l1-3,r3+3);funcvec=[x,x^2,x^3,sqrt(abs(x)),ln(abs(x)+1),e^x];f1pick=RandInt(0,5);f2pick=RandInt(0,5);f3pick=RandInt(0,5);f1=NonZeroInt(-5,5)*funcvec[f1pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f2=NonZeroInt(-5,5)*funcvec[f2pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f3=NonZeroInt(-5,5)*funcvec[f3pick](x=(x-RandInt(-5,5)))+RandInt(-5,5)
+        if ((l1-1<eval) and (eval<r1+1)):ans=f1(x=eval)
+        elif ((l2<eval) and (eval<r2+1)):ans=f2(x=eval)
+        elif ((l3<eval) and (eval<r3+1)):ans=f3(x=eval)
+    if ans>400:ans=LatexExpr(r'DNE')
+    return [eval, ans]
+
+##### Problem p3
+p3gen = piecewiseComputationHard()
+p3eval = p3gen[0]
+p3ans = p3gen[1]
+\end{sagesilent}
+
+\begin{problem}Evaluate the piecewise function at $\sage{p3eval}$; $f(\sage{p3eval})=\answer{\sage{p3ans}}$.\end{problem}

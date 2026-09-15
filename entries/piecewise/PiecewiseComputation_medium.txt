@@ -1,0 +1,69 @@
+TITLE: Evaluating Piecewise Functions (medium)
+TAGS: Piecewise Functions, Evaluation, medium
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def piecewiseComputationMedium():
+    ans=2000
+    while abs(ans)>350:
+        funcvec=[x,x^2,x^3,sqrt(abs(x)),ln(abs(x)+1),e^x];f1pick=RandInt(0,5);f2pick=RandInt(0,5);f3pick=RandInt(0,5);f1=NonZeroInt(-5,5)*funcvec[f1pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f2=NonZeroInt(-5,5)*funcvec[f2pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f3=NonZeroInt(-5,5)*funcvec[f3pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);r1=RandInt(-15,15);r2=r1+RandInt(1,7);eval=RandInt(r1-10,r2+10)
+        if eval<r1+1:ans=f1(x=eval)
+        elif eval<r2+1:ans=f2(x=eval)
+        else:ans=f3(x=eval)
+    return [eval, ans, r1, r2]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def piecewiseComputationMedium():
+    ans=2000
+    while abs(ans)>350:
+        funcvec=[x,x^2,x^3,sqrt(abs(x)),ln(abs(x)+1),e^x];f1pick=RandInt(0,5);f2pick=RandInt(0,5);f3pick=RandInt(0,5);f1=NonZeroInt(-5,5)*funcvec[f1pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f2=NonZeroInt(-5,5)*funcvec[f2pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);f3=NonZeroInt(-5,5)*funcvec[f3pick](x=(x-RandInt(-5,5)))+RandInt(-5,5);r1=RandInt(-15,15);r2=r1+RandInt(1,7);eval=RandInt(r1-10,r2+10)
+        if eval<r1+1:ans=f1(x=eval)
+        elif eval<r2+1:ans=f2(x=eval)
+        else:ans=f3(x=eval)
+    return [eval, ans, r1, r2]
+
+##### Problem p2
+p2gen = piecewiseComputationMedium()
+p2eval = p2gen[0]
+p2ans = p2gen[1]
+p2r1 = p2gen[2]
+p2r2 = p2gen[3]
+\end{sagesilent}
+
+\begin{problem}Evaluate piecewise $f(\sage{p2eval})=\answer{\sage{p2ans}}$ for boundaries $\sage{p2r1},\sage{p2r2}$.\end{problem}

@@ -1,0 +1,72 @@
+TITLE: Computing Absolute Values (hard)
+TAGS: Functions, Absolute Value, hard
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def computeAbsValHard():
+    ans = 500
+    while numerator(abs(ans))>300 or denominator(abs(ans))>300:
+        f1 = RandInt(-10,10)*x^2 + NonZeroInt(-5,5)*abs(RandInt(-5,5)*x^2 + NonZeroInt(-5,5)*x + RandInt(-10,10)) + NonZeroInt(-5,5)*x + RandInt(-10,10)
+        f2 = RandInt(-10,10)*x^2 + NonZeroInt(-5,5)*abs(RandInt(-5,5)*x^2 + NonZeroInt(-5,5)*x + RandInt(-10,10)) + NonZeroInt(-5,5)*x + RandInt(-10,10)
+        target = RandInt(-5,5)
+        ans = (f1/f2)(x=target)
+    return [f1, f2, target, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def computeAbsValHard():
+    ans = 500
+    while numerator(abs(ans))>300 or denominator(abs(ans))>300:
+        f1 = RandInt(-10,10)*x^2 + NonZeroInt(-5,5)*abs(RandInt(-5,5)*x^2 + NonZeroInt(-5,5)*x + RandInt(-10,10)) + NonZeroInt(-5,5)*x + RandInt(-10,10)
+        f2 = RandInt(-10,10)*x^2 + NonZeroInt(-5,5)*abs(RandInt(-5,5)*x^2 + NonZeroInt(-5,5)*x + RandInt(-10,10)) + NonZeroInt(-5,5)*x + RandInt(-10,10)
+        target = RandInt(-5,5)
+        ans = (f1/f2)(x=target)
+    return [f1, f2, target, ans]
+
+##### Problem p3
+p3gen = computeAbsValHard()
+p3f1 = p3gen[0]
+p3f2 = p3gen[1]
+p3target = p3gen[2]
+p3ans = p3gen[3]
+\end{sagesilent}
+
+\begin{problem}
+\begin{hint}All we want is to compute a value, so it is ``simply'' (maybe not so simple in practice to actually compute it) a matter of plugging in the value and doing the arithmetic.\end{hint}
+Consider the function \[ f(x) = \frac{\sage{p3f1}}{\sage{p3f2}} \] Compute $f(\sage{p3target}) = \answer{\sage{p3ans}}$.
+\end{problem}

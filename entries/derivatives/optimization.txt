@@ -1,0 +1,60 @@
+TITLE: Optimization
+TAGS: Derivatives, Optimization, Word Problem
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def optimization():
+    boxmulti = RandInt(2,5)
+    costtop = boxmulti
+    costedge = RandInt(3,6)
+    cube = RandInt(1,6)
+    Width = cube/boxmulti
+    vol = cube^3/((1/2)*costedge*(boxmulti+1))
+    Length = Width*boxmulti
+    Height = vol/(boxmulti*Width^2)
+    return [boxmulti, costtop, costedge, vol, Width, Length, Height]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def optimization():
+    boxmulti = RandInt(2,5)
+    costtop = boxmulti
+    costedge = RandInt(3,6)
+    cube = RandInt(1,6)
+    Width = cube/boxmulti
+    vol = cube^3/((1/2)*costedge*(boxmulti+1))
+    Length = Width*boxmulti
+    Height = vol/(boxmulti*Width^2)
+    return [boxmulti, costtop, costedge, vol, Width, Length, Height]
+
+##### Problem p1
+p1gen = optimization()
+p1boxmulti = p1gen[0]
+p1costtop = p1gen[1]
+p1costedge = p1gen[2]
+p1vol = p1gen[3]
+p1Width = p1gen[4]
+p1Length = p1gen[5]
+p1Height = p1gen[6]
+\end{sagesilent}
+
+\begin{problem}
+    We want to construct a box whose base length is $\sage{p1boxmulti}$ times the base width. The material used to build the top and bottom cost \$ $\sage{p1costtop}$ per square feet and the material used to build the sides cost \$ $\sage{p1costedge}$ per square feet. If the box must have a volume of $\sage{p1vol}$ cubic feet determine the dimensions that will minimize the cost to build the box.
+    Width: $\answer{\sage{p1Width}}$ feet\\
+    Length: $\answer{\sage{p1Length}}$ feet\\
+    Height: $\answer{\sage{p1Height}}$ feet\\
+\end{problem}

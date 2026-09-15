@@ -1,0 +1,234 @@
+TITLE: Factoring from Sum and Product (easy)
+TAGS: Polynomials, Factoring, Functions, easy
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def factoringCoefficientsEasy():
+    c1 = RandInt(1,7)
+    c2 = RandInt(0,7)
+    f1 = x+c1
+    f2 = x+c2
+    f3 = (f1).mul(f2,hold=true)
+    f4 = expand(f3)
+    Mult = f4(x=0)
+    Add = f4.coefficient(x)
+    return [f4, f3]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def factoringCoefficientsEasy():
+    c1 = RandInt(1,7)
+    c2 = RandInt(0,7)
+    f1 = x+c1
+    f2 = x+c2
+    f3 = (f1).mul(f2,hold=true)
+    f4 = expand(f3)
+    Mult = f4(x=0)
+    Add = f4.coefficient(x)
+    return [f4, f3]
+
+##### Problem p1
+p1gen = factoringCoefficientsEasy()
+p1f4 = p1gen[0]
+p1f3 = p1gen[1]
+\end{sagesilent}
+
+\begin{javascript}
+var debugOn=false;
+
+function isNum(numb) {
+    if ((typeof numb === 'number')||(numb=='e')||(numb=='pi'))
+    {return true} else {return false}
+}
+
+function isPosInt(numb) {
+    if ((isNum(numb))&&((numb>=0)&&(numb%1==0)))
+    {return true} else {return false}
+}
+
+function degreeHunt(tree,position,curDeg) {
+    var curDeg=0;
+    if (tree[position][0]=='-') {
+        if (tree[position][1]=='x') {
+            curDeg = Math.max(curDeg,1);
+        } else if (Array.isArray(tree[position][1])) {
+            let tempVal = degreeHunt(tree[position],1)
+            if (tempVal<0) { return (-1)} else {
+                curDeg = Math.max(curDeg,tempVal);
+            }
+        }
+    } else if (tree[position][0]=='apply') {
+        var tempDeg = 0;
+        for (var j = 1; j < tree[position].length; ++j) {
+            if (tree[position][j]=='x') {
+                return (-1);
+            } else if (Array.isArray(tree[position][j])) {
+                let tempVal=degreeHunt(tree[position],j,0);
+                if (tempVal!==0) {
+                    return (-1)
+                }
+            }
+        }
+    } else if (tree[position][0]=='^') {
+        if ((tree[position][1]=='x')&&(isPosInt(tree[position][2]))) {
+            curDeg = Math.max(curDeg,tree[position][2]);
+        } else if (tree[position][1]=='x') {
+            return -1;
+        } else if ((isNum(tree[position][1]))&&(isNum(tree[position][2]))) {
+        } else if ((Array.isArray(tree[position][1]))&&(isPosInt(tree[position][2]))) {
+            let tempVal = tree[position][2]*degreeHunt(tree[position],1,curDeg);
+            if (tempVal<0) { return (-1)} else {
+                curDeg = Math.max(curDeg,tempVal);
+            }
+        } else {
+            return (-1);
+        }
+    } else if (tree[position][0]=='/') {
+        if (tree[position][2]=='x') {
+            return (-1);
+        } else if (Array.isArray(tree[position][2])) {
+            if (degreeHunt(tree[position],2,0)!==0) {
+                return (-1)
+            }
+        }
+        if (tree[position][1]=='x') {
+            var curDeg = Math.max(curDeg,1);
+        } else if (Array.isArray(tree[position][1])) {
+            var tempVal = degreeHunt(tree[position],1,0)
+            if (tempVal<0) { return (-1)} else {
+                 var curDeg = Math.max(curDeg,tempVal);
+            }
+        }
+    } else if (tree[position][0]=='*') {
+        var tempDeg = 0;
+        for (var j = 0; j < tree[position].length; ++j) {
+            if (tree[position][j]=='x') {
+                tempDeg = Math.max(tempDeg,1);
+            } else if (Array.isArray(tree[position][j])) {
+                if (degreeHunt(tree[position],j,0)<0) {
+                    return (-1)
+                } else if (degreeHunt(tree[position],j,0)==0){
+                } else {
+                    tempDeg = Math.max(tempDeg,degreeHunt(tree[position],j,0));
+                }
+            }
+        }
+        var curDeg = Math.max(curDeg,tempDeg);
+    } else {
+        for (var j = 0; j < tree[position].length; ++j) {
+            if (tree[position][j]=='x') {
+                curDeg = Math.max(curDeg,1);
+            } else if (Array.isArray(tree[position][j])) {
+                let tempVal=degreeHunt(tree[position],j,0);
+                if (tempVal<0) { return (-1)} else {
+                    curDeg = Math.max(curDeg,tempVal);
+                }
+            }
+        }
+    }
+    return curDeg
+}
+
+function JNFisFactored(factorTree) {
+    if ((factorTree[0]=='-')||(factorTree[0]=='*')||((factorTree[0]=='/')&&(isNum(JNFoperation[1])))
+    ) {return true} else {return false}
+}
+
+function debugText(text) {
+    if (debugOn) {
+    console.log('DEBUG INFO::' + text)
+    }
+}
+
+function factorCheck(f,g) {
+    if (JNFisFactored(g.tree)==false) {
+        return false
+    }
+    if (JNFisFactored(f.tree)==false) {
+        return false
+    }
+    var studentAns=f.tree
+    var instructorAns=g.tree
+    while (studentAns[0]=='-'){studentAns = studentAns[1];};
+    while (instructorAns[0]=='-'){instructorAns = instructorAns[1];};
+
+    for (var i = 0; i < studentAns.length; ++i) {
+        if ((studentAns[i][0] == '^')&&(isPosInt(studentAns[i][2]))) {
+            studentAns=studentAns.concat(Array(studentAns[i][2]).fill(studentAns[i][1]));
+            studentAns.splice(i,1);
+            i=i-1;
+        } else if (studentAns[i][0] == '^') {
+            return false;
+        }
+    }
+    for (var i = 0; i < instructorAns.length; ++i) {
+        if ((instructorAns[i][0] == '^')&&(isPosInt(instructorAns[i][2]))) {
+            instructorAns=instructorAns.concat(Array(instructorAns[i][2]).fill(instructorAns[i][1]));
+            instructorAns.splice(i,1);
+            i=i-1;
+        } else if (instructorAns[i][0] == '^') {
+            return false;
+        }
+    }
+
+    var studentDegList=[0]
+    for (var i = 0; i < studentAns.length; ++i) {
+        if (studentAns[i] == 'x') {
+            studentDegList.push(1);
+        } else if (Array.isArray(studentAns[i])) {
+            studentDegList.push(degreeHunt(studentAns,i,0));
+        }
+    }
+    studentDegList = studentDegList.filter(x => x!==0);
+    studentDegList.sort();
+    if (studentDegList.some(elem => elem<0)) {
+        return false
+    }
+
+    var instructorDegList=[0]
+    for (var i = 0; i < instructorAns.length; ++i) {
+        if (instructorAns[i] == 'x') {
+            instructorDegList.push(1);
+        } else if (Array.isArray(instructorAns[i])) {
+            instructorDegList.push(degreeHunt(instructorAns,i,0));
+        }
+    }
+    instructorDegList = instructorDegList.filter(x => x!==0);
+    instructorDegList.sort();
+    if (instructorDegList.some(elem => elem<0)) {
+        return false
+    }
+
+    if (studentDegList.length!=instructorDegList.length){
+        return false;
+    }
+    for (var i = 0; i < studentDegList.length; ++i) {
+        if (studentDegList[i] !== instructorDegList[i]) {
+        return false;
+        }
+    }
+    return (f.equals(g));
+}
+\end{javascript}
+
+\begin{problem}
+Factor the following quadratic by factoring it's coefficients. 
+\[p(x) = \sage{p1f4} = \answer[validator=factorCheck]{\sage{p1f3}}\]
+\end{problem}

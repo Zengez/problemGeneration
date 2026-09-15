@@ -1,0 +1,70 @@
+TITLE: Function Transformations
+TAGS: Transformations
+
+EXAMPLE:
+\\begin{problem}Consider $g(x)=(-8)f((-2)x)$. If $(8,2)$ lies on $f$, the corresponding point on $g$ is $(-4,-16)$.\\end{problem}
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def transformations():
+    var('x,y,z,X,Y,Z')
+    c1 = NonZeroInt(-10,10,[-1,0,1])
+    c2 = NonZeroInt(-10,10,[-1,0,1])
+    c3 = RandInt(-10,10)
+    c4 = RandInt(-10,10)
+    ans1 = c3/c2
+    ans2 = c1*c4
+    return [c1, c2, c3, c4, ans1, ans2]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def transformations():
+    var('x,y,z,X,Y,Z')
+    c1 = NonZeroInt(-10,10,[-1,0,1])
+    c2 = NonZeroInt(-10,10,[-1,0,1])
+    c3 = RandInt(-10,10)
+    c4 = RandInt(-10,10)
+    ans1 = c3/c2
+    ans2 = c1*c4
+    return [c1, c2, c3, c4, ans1, ans2]
+
+##### Problem p1
+p1gen = transformations()
+p1c1 = p1gen[0]
+p1c2 = p1gen[1]
+p1c3 = p1gen[2]
+p1c4 = p1gen[3]
+p1ans1 = p1gen[4]
+p1ans2 = p1gen[5]
+\end{sagesilent}
+
+\begin{problem}Consider the transformation of the function $f(x)$ given by \[g(x) = \sage{p1c1}f( \sage{p1c2}x ).\] If the point $(\sage{p1c3}, \sage{p1c4})$ is on the graph of $f(x)$, what point must be on the graph of $g(x)$? $(\answer{\sage{p1ans1}},\answer{\sage{p1ans2}})$.\end{problem}

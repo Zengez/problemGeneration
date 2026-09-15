@@ -1,0 +1,71 @@
+TITLE: Simplifying Numeric Exponentials (easy)
+TAGS: Exponential Functions, Simplifying, Arithmetic, easy
+
+EXAMPLE:
+\\begin{problem}Compute: $6^{2}=36$; $5^{3}=125$; $3^{5}=243$.\\end{problem}
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def simplifyNumericExponentialsEasy():
+    ans1=99999
+    while ans1>2000: b1=RandInt(2,6);pwr1=RandInt(1,6);ans1=b1^pwr1
+    ans2=99999
+    while ans2>2000: b2=RandInt(2,6);pwr2=NonZeroInt(1,5,[pwr1]);ans2=b2^pwr2
+    ans3=99999
+    while ans3>2000: b3=RandInt(2,6);pwr3=NonZeroInt(1,5,[pwr1,pwr2]);ans3=b3^pwr3
+    return [b1, pwr1, ans1, b2, pwr2, ans2, b3, pwr3, ans3]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def simplifyNumericExponentialsEasy():
+    ans1=99999
+    while ans1>2000: b1=RandInt(2,6);pwr1=RandInt(1,6);ans1=b1^pwr1
+    ans2=99999
+    while ans2>2000: b2=RandInt(2,6);pwr2=NonZeroInt(1,5,[pwr1]);ans2=b2^pwr2
+    ans3=99999
+    while ans3>2000: b3=RandInt(2,6);pwr3=NonZeroInt(1,5,[pwr1,pwr2]);ans3=b3^pwr3
+    return [b1, pwr1, ans1, b2, pwr2, ans2, b3, pwr3, ans3]
+
+##### Problem p1
+p1gen = simplifyNumericExponentialsEasy()
+p1b1 = p1gen[0]
+p1pwr1 = p1gen[1]
+p1ans1 = p1gen[2]
+p1b2 = p1gen[3]
+p1pwr2 = p1gen[4]
+p1ans2 = p1gen[5]
+p1b3 = p1gen[6]
+p1pwr3 = p1gen[7]
+p1ans3 = p1gen[8]
+\end{sagesilent}
+
+\begin{problem}$\sage{p1b1}^{\sage{p1pwr1}}=\answer{\sage{p1ans1}}$, $\sage{p1b2}^{\sage{p1pwr2}}=\answer{\sage{p1ans2}}$, $\sage{p1b3}^{\sage{p1pwr3}}=\answer{\sage{p1ans3}}$.\end{problem}

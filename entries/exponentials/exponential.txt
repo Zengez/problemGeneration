@@ -1,0 +1,66 @@
+TITLE: Derivatives of Exponential Functions
+TAGS: Derivatives, Exponential Functions
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def exponential():
+    var('x,y,z,X,Y,Z')
+    select1 = RandInt(0,3)
+    select2 = RandInt(0,3)
+    flip = RandInt(0,1)
+    base = flip*e^x + (1-flip)*RandInt(2,10)^x
+    f1 = NonZeroInt(-2,2)*base(x=(NonZeroInt(-2,2)*x - RandInt(-5,5))) + RandInt(-5,5)
+    ans = derivative(f1,x)
+    return [f1, ans]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def exponential():
+    var('x,y,z,X,Y,Z')
+    select1 = RandInt(0,3)
+    select2 = RandInt(0,3)
+    flip = RandInt(0,1)
+    base = flip*e^x + (1-flip)*RandInt(2,10)^x
+    f1 = NonZeroInt(-2,2)*base(x=(NonZeroInt(-2,2)*x - RandInt(-5,5))) + RandInt(-5,5)
+    ans = derivative(f1,x)
+    return [f1, ans]
+
+##### Problem p1
+p1gen = exponential()
+p1f1 = p1gen[0]
+p1ans = p1gen[1]
+\end{sagesilent}
+
+\begin{problem}Compute the derivative of $f(x)=\sage{p1f1}$. $f'(x)=\answer{\sage{p1ans}}$\end{problem}

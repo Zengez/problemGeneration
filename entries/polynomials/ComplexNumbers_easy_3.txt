@@ -1,0 +1,89 @@
+TITLE: Complex Numbers (easy)
+TAGS: Polynomials, Complex Numbers, Functions, easy
+
+EXAMPLE:
+
+
+CODE-SAGE:
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def complexNumbersEasy():
+    var('x')
+    c1 = NonZeroInt(-10,10)
+    c2 = RandInt(-10,10)
+    c3 = NonZeroInt(-10,10)
+    c4 = RandInt(-10,10)
+
+    c5 = c3^2 + c4^2
+
+    f1 = c1 + c2*i
+    f2 = c3 + c4*i
+
+    ans1 = f1 + f2
+    return [f1, f2, ans1]
+
+CODE-XIMERA:
+\begin{sagesilent}
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`. 
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+def complexNumbersEasy():
+    var('x')
+    c1 = NonZeroInt(-10,10)
+    c2 = RandInt(-10,10)
+    c3 = NonZeroInt(-10,10)
+    c4 = RandInt(-10,10)
+
+    c5 = c3^2 + c4^2
+
+    f1 = c1 + c2*i
+    f2 = c3 + c4*i
+
+    ans1 = f1 + f2
+    return [f1, f2, ans1]
+
+##### Problem p1
+p1gen = complexNumbersEasy()
+p1f1 = p1gen[0]
+p1f2 = p1gen[1]
+p1ans1 = p1gen[2]
+\end{sagesilent}
+
+\begin{problem}
+            \begin{hint}
+                Recall that adding complex numbers is just like adding normal numbers. You add the real components and the imaginary components separately.
+            \end{hint}
+            \begin{hint}
+                Specifically, adding $(A + Bi) + (C + Di) = (A + C) + (B + D)i$.
+            \end{hint}
+            Simplify the following complex number:
+            \[
+                \sage{p1f1} + \sage{p1f2} = \answer{\sage{p1ans1}}
+            \]
+            
+        \end{problem}

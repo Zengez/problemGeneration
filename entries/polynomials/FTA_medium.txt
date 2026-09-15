@@ -1,0 +1,136 @@
+TITLE: Fundamental Theorem of Algebra (medium)
+TAGS: Polynomials, Functions, medium
+
+EXAMPLE:
+
+
+CODE-SAGE:
+var('x')
+
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def fTAMedium():
+    c1 = RandInt(1,10)
+    c2 = RandInt(1,10)
+    c3 = RandInt(1,10)
+    c4 = RandInt(1,10)
+
+    pwr1 = RandInt(1,10)
+    pwr2 = RandInt(1,10)
+    pwr3 = RandInt(1,10)
+    pwr4 = RandInt(1,10)
+
+    f1 = c1*x^pwr1
+    f2 = c2*x^pwr2
+    f3 = c3*x^pwr3
+    f4 = c4*x^pwr4
+
+    ans1 = max(pwr1,pwr2,pwr3,pwr4)
+
+    # Followup for p2
+    ans2 = 0
+    ans3 = 0
+    if pwr1 == ans1:
+        ans2 = ans2 + f1
+        ans3 = ans3 + c1
+    if pwr2 == ans1:
+        ans2 = ans2 + f2
+        ans3 = ans3 + c2
+    if pwr3 == ans1:
+        ans2 = ans2 + f3
+        ans3 = ans3 + c3
+    if pwr4 == ans1:
+        ans2 = ans2 + f4
+        ans3 = ans3 + c4
+    return [f1, f2, f3, f4, ans2, ans3, ans1]
+
+CODE-XIMERA:
+\begin{sagesilent}
+var('x')
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def fTAMedium():
+    c1 = RandInt(1,10)
+    c2 = RandInt(1,10)
+    c3 = RandInt(1,10)
+    c4 = RandInt(1,10)
+
+    pwr1 = RandInt(1,10)
+    pwr2 = RandInt(1,10)
+    pwr3 = RandInt(1,10)
+    pwr4 = RandInt(1,10)
+
+    f1 = c1*x^pwr1
+    f2 = c2*x^pwr2
+    f3 = c3*x^pwr3
+    f4 = c4*x^pwr4
+
+    ans1 = max(pwr1,pwr2,pwr3,pwr4)
+
+    # Followup for p2
+    ans2 = 0
+    ans3 = 0
+    if pwr1 == ans1:
+        ans2 = ans2 + f1
+        ans3 = ans3 + c1
+    if pwr2 == ans1:
+        ans2 = ans2 + f2
+        ans3 = ans3 + c2
+    if pwr3 == ans1:
+        ans2 = ans2 + f3
+        ans3 = ans3 + c3
+    if pwr4 == ans1:
+        ans2 = ans2 + f4
+        ans3 = ans3 + c4
+    return [f1, f2, f3, f4, ans2, ans3, ans1]
+
+##### Problem p2
+p2gen = fTAMedium()
+p2f1 = p2gen[0]
+p2f2 = p2gen[1]
+p2f3 = p2gen[2]
+p2f4 = p2gen[3]
+p2ans2 = p2gen[4]
+p2ans3 = p2gen[5]
+p2ans1 = p2gen[6]
+\end{sagesilent}
+
+\begin{problem}
+            Consider the function $f(x) = \sage{p2f1} + \sage{p2f2} + \sage{p2f3} + \sage{p2f4}$. 
+            \begin{hint}
+                Remember that the leading term is the \textit{entire} term that has the highest degree in the polynomial.
+            \end{hint}
+            \begin{hint}
+                You may have to simplify (combine like terms) the polynomial before you have the entire term.
+            \end{hint}
+            
+            
+            What is the leading term in this polynomial? $\answer{\sage{p2ans2}}$       
+            
+            \begin{hint}
+                Remember that the leading coefficient is the constant that is multiplying the \textit{entire} leading term.
+            \end{hint}
+            \begin{hint}
+                You may have to simplify (combine like terms) the polynomial before you have the entire term.
+            \end{hint}
+            What is the leading coefficient in this polynomial? $\answer{\sage{p2ans3}}$
+
+            \begin{problem}
+                \begin{hint}
+                    You should use the Fundamental Theorem of Algebra (FTA) to get this.
+                \end{hint}
+                \begin{hint}
+                    By FTA, the number of solutions (including the possibly complex zeros and multiplicity) is equal to the degree of the polynomial.
+                \end{hint}
+                How many (possibly complex-valued) zeros are there (counting multiplicity) for $f(x)$? $\answer{\sage{p2ans1}}$
+                    
+            \end{problem}
+        \end{problem}
